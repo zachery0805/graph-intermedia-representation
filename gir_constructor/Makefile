@@ -3,7 +3,7 @@ CXX = g++
 CXXFLAGS = -std=c++17 -O3 -fopenmp -I./includes -I./includes/scc_cpu
 
 # Source files
-SRCS = gir.cpp graph.cpp graph_undirected.cpp \
+SRCS = main.cpp gir.cpp graph.cpp graph_undirected.cpp \
        includes/scc_cpu/scc_core.cpp \
        includes/scc_cpu/load_print.cpp
 
