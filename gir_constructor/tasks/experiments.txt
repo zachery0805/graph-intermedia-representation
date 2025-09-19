@@ -1,0 +1,6 @@
+1. throughput
+2. concurrent BFS
+3. concurrent SSSP
+4. concurrent BC
+5. batch update
+6. singel update
