@@ -13,6 +13,7 @@
 #include <unordered_map>
 #include <vector>
 #include <chrono>
+#include <omp.h>
 
 // -------------------- 构造/析构 --------------------
 GIR::GIR(const std::string& path_directed,
@@ -78,9 +79,9 @@ void GIR::buildBCT() {
     bc_tree->build(bicc_components, ap, g_undirected);
 }
 
-// -------------------- SCC + DAG --------------------
+// -------------------- SCC + DAG（全并行版） --------------------
 void GIR::buildSCC_DAG() {
-    std::cout << "=== Build SCC + DAG ===" << std::endl;
+    std::cout << "=== Build SCC + DAG (Parallel) ===" << std::endl;
 
     if (!g_directed) {
         std::string fw_bg_file = base_path_directed + "fw_begin.bin";
@@ -92,28 +93,44 @@ void GIR::buildSCC_DAG() {
     }
 
     double avg_time[15] = {0};
-    int alpha=1, beta=1, gamma=1;
-    double theta=0.5;
-    index_t thread_count=1;
+    int alpha = 1, beta = 1, gamma = 1;
+    double theta = 0.5;
+    index_t thread_count = omp_get_max_threads(); // 使用所有可用线程
+
     auto t0 = std::chrono::high_resolution_clock::now();
     scc_detection(g_directed, alpha, beta, gamma, theta, thread_count, avg_time, sccs, nodeToScc);
     auto t1 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> total_time1 = t1 - t0;
     std::cout << "Time to find SCC: " << total_time1.count() << " seconds\n";
 
-    // 转邻接表
+    // -------------------- 转邻接表（并行） --------------------
     std::unordered_map<int,std::vector<int>> adj_list;
-    for (index_t u=0; u<g_directed->vert_count; ++u)
-        for (index_t i=g_directed->fw_beg_pos[u]; i<g_directed->fw_beg_pos[u+1]; ++i)
-            adj_list[u].push_back(g_directed->fw_csr[i]);
+    #pragma omp parallel
+    {
+        std::unordered_map<int,std::vector<int>> local_adj;
+        #pragma omp for nowait
+        for (index_t u = 0; u < g_directed->vert_count; ++u) {
+            for (index_t i = g_directed->fw_beg_pos[u]; i < g_directed->fw_beg_pos[u+1]; ++i) {
+                local_adj[u].push_back(g_directed->fw_csr[i]);
+            }
+        }
+        // 合并线程本地数据
+        #pragma omp critical
+        for (auto& pair : local_adj) {
+            adj_list[pair.first] = std::move(pair.second);
+        }
+    }
 
-    generate_and_save_dag(nodeToScc, adj_list, "dag.bin");
-    buildDagAdjList(nodeToScc, adj_list);
+    // -------------------- 并行生成 DAG --------------------
+    generate_and_save_dag_parallel(nodeToScc, adj_list, "dag.bin");
+
+    // -------------------- 构建 DAG 邻接表（并行） --------------------
+    buildDagAdjList_parallel(nodeToScc, adj_list);
 }
 
-// -------------------- 构建 DAG 邻接表 --------------------
-void GIR::buildDagAdjList(const std::map<int,int>& nodeToScc,
-                          const std::unordered_map<int,std::vector<int>>& adj_list) {
+// -------------------- 并行构建 DAG 邻接表 --------------------
+void GIR::buildDagAdjList_parallel(const std::map<int,int>& nodeToScc,
+                                   const std::unordered_map<int,std::vector<int>>& adj_list) {
     scc_id_map.clear();
     int current_scc_id = 0;
     for (const auto& pair : nodeToScc)
@@ -123,24 +140,35 @@ void GIR::buildDagAdjList(const std::map<int,int>& nodeToScc,
     int scc_count = current_scc_id;
     std::vector<std::set<int>> dag_adj_set(scc_count);
 
-    for (auto& [u, neighbors] : adj_list) {
+    #pragma omp parallel for
+    for (int idx = 0; idx < (int)adj_list.size(); ++idx) {
+        auto it = std::next(adj_list.begin(), idx);
+        int u = it->first;
+        const auto& neighbors = it->second;
+
         if (!nodeToScc.count(u)) continue;
-        int u_super = scc_id_map[nodeToScc.at(u)];
+        int u_super = scc_id_map.at(nodeToScc.at(u));
+
         for (int v : neighbors) {
             if (!nodeToScc.count(v)) continue;
-            int v_super = scc_id_map[nodeToScc.at(v)];
-            if (u_super != v_super) dag_adj_set[u_super].insert(v_super);
+            int v_super = scc_id_map.at(nodeToScc.at(v));
+            if (u_super != v_super) {
+                #pragma omp critical
+                dag_adj_set[u_super].insert(v_super);
+            }
         }
     }
 
     dag_adj_list.assign(scc_count, {});
-    for (int i=0; i<scc_count; ++i)
+    #pragma omp parallel for
+    for (int i = 0; i < scc_count; ++i)
         dag_adj_list[i].assign(dag_adj_set[i].begin(), dag_adj_set[i].end());
 }
 
-void GIR::generate_and_save_dag(const std::map<int,int>& nodeToScc,
-                                const std::unordered_map<int,std::vector<int>>& adj_list,
-                                const std::string& output_filename) {
+// -------------------- 并行生成并保存 DAG --------------------
+void GIR::generate_and_save_dag_parallel(const std::map<int,int>& nodeToScc,
+                                         const std::unordered_map<int,std::vector<int>>& adj_list,
+                                         const std::string& output_filename) {
     std::map<int,int> scc_id_map_local;
     int current_scc_id = 0;
     for (const auto& pair : nodeToScc)
@@ -151,20 +179,29 @@ void GIR::generate_and_save_dag(const std::map<int,int>& nodeToScc,
     if (scc_count == 0) return;
 
     std::vector<std::set<int>> dag_adj_set(scc_count);
-    for (const auto& pair : adj_list) {
-        int u = pair.first;
-        if (!nodeToScc.count(u)) continue;
-        int u_super = scc_id_map_local[nodeToScc.at(u)];
 
-        for (int v : pair.second) {
+    #pragma omp parallel for
+    for (int idx = 0; idx < (int)adj_list.size(); ++idx) {
+        auto it = std::next(adj_list.begin(), idx);
+        int u = it->first;
+        const auto& neighbors = it->second;
+
+        if (!nodeToScc.count(u)) continue;
+        int u_super = scc_id_map_local.at(nodeToScc.at(u));
+
+        for (int v : neighbors) {
             if (!nodeToScc.count(v)) continue;
-            int v_super = scc_id_map_local[nodeToScc.at(v)];
-            if (u_super != v_super) dag_adj_set[u_super].insert(v_super);
+            int v_super = scc_id_map_local.at(nodeToScc.at(v));
+            if (u_super != v_super) {
+                #pragma omp critical
+                dag_adj_set[u_super].insert(v_super);
+            }
         }
     }
 
     std::vector<std::vector<int>> dag_adj_list_local(scc_count);
-    for (int i=0; i<scc_count; ++i)
+    #pragma omp parallel for
+    for (int i = 0; i < scc_count; ++i)
         dag_adj_list_local[i].assign(dag_adj_set[i].begin(), dag_adj_set[i].end());
 
     std::ofstream outfile(output_filename, std::ios::out | std::ios::binary);
@@ -174,7 +211,7 @@ void GIR::generate_and_save_dag(const std::map<int,int>& nodeToScc,
     }
 
     outfile.write(reinterpret_cast<const char*>(&scc_count), sizeof(int));
-    for (int i=0; i<scc_count; ++i) {
+    for (int i = 0; i < scc_count; ++i) {
         int neighbor_count = dag_adj_list_local[i].size();
         outfile.write(reinterpret_cast<const char*>(&neighbor_count), sizeof(int));
         if (neighbor_count > 0)
@@ -183,7 +220,6 @@ void GIR::generate_and_save_dag(const std::map<int,int>& nodeToScc,
     outfile.close();
     std::cout << "DAG saved to " << output_filename << std::endl;
 }
-
 // -------------------- 动态更新接口 --------------------
 void GIR::updateEdgeDirected(int u, int v, bool insert) {
     if (insert) {
