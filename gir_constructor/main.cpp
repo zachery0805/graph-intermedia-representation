@@ -1,44 +1,42 @@
 #include "gir.h"
 #include <iostream>
+#include <chrono>
 #include "block_cut_tree.h"
 
 int main() {
-    std::string path_undirected = "/home/cxl6029/projects/GIR/gir_constructor/";
-    std::string path_directed   = "/home/cxl6029/projects/GIR/data/example_graph/";
+    std::string path_undirected = "/home/cxl6029/data/livejournal/";
+    std::string path_directed   = "/home/cxl6029/data/livejournal/";
 
     GIR gir(path_directed, path_undirected);
 
+    auto total_start = std::chrono::high_resolution_clock::now();
+
     // 构建 WCC
+    auto t1 = std::chrono::high_resolution_clock::now();
     gir.buildWCC();
+    auto t2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> wcc_time = t2 - t1;
 
     // 构建 BCT
+    auto t3 = std::chrono::high_resolution_clock::now();
     gir.buildBCT();
+    auto t4 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> bct_time = t4 - t3;
+
     // 构建 SCC + DAG
+    auto t5 = std::chrono::high_resolution_clock::now();
     gir.buildSCC_DAG();
+    auto t6 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> scc_dag_time = t6 - t5;
 
-    // --- 打印 WCC 映射 ---
-    std::cout << "--- Node to WCC Mapping ---" << std::endl;
-    for (auto& [node, wcc_id] : gir.getNodeToWcc())
-        std::cout << "Node " << node << " -> WCC " << wcc_id << std::endl;
-    std::cout << "---------------------------" << std::endl;
+    auto total_end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> total_time = total_end - total_start;
 
-    // --- 打印 SCC-DAG ---
-    std::cout << "--- SCC-DAG ---" << std::endl;
-    const auto& dag = gir.getDAG();
-    for (size_t i=0; i<dag.size(); ++i) {
-        std::cout << "Supernode " << i << " -> ";
-        for (int v : dag[i]) std::cout << v << " ";
-        std::cout << std::endl;
-    }
-    std::cout << "----------------" << std::endl;
-
-    // --- 打印 BCT ---
-    std::cout << "--- Block-Cut Tree ---" << std::endl;
-    if (auto bc_tree = gir.getBCT())
-        bc_tree->printTree();
-    else
-        std::cout << "BCT not built." << std::endl;
-    std::cout << "--------------------" << std::endl;
+    // 输出时间统计
+    std::cout << "Time for WCC:     " << wcc_time.count() << " seconds\n";
+    std::cout << "Time for BCT:     " << bct_time.count() << " seconds\n";
+    std::cout << "Time for SCC+DAG: " << scc_dag_time.count() << " seconds\n";
+    std::cout << "Total time:       " << total_time.count() << " seconds\n";
 
     return 0;
 }

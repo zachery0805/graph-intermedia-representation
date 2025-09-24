@@ -29,6 +29,8 @@ public:
     const std::vector<std::vector<int>>& getDAG() const;
     const std::vector<std::vector<int>>& getWCCs() const;
     BlockCutTree* getBCT() const;
+    void updateEdgeDirected(int u, int v, bool insert);
+    void updateEdgeUndirected(int u, int v, bool insert);
 
 private:
     std::string base_path_directed;
@@ -60,6 +62,21 @@ private:
     const std::map<int, int>& nodeToScc,
     const std::unordered_map<int, std::vector<int>>& adj_list,
     const std::string& output_filename);
+
+        // WCC
+    void updateWCCInsert(int u, int v);
+    void updateWCCDelete(int u, int v);
+
+    // SCC
+    void updateSCCInsert(int u, int v);
+    void updateSCCDelete(int u, int v);
+    bool isNewCycleFormed(int u, int v);
+
+    // BCC
+    void updateBCCInsertInternal(int u, int v);
+    void updateBCCDeleteInternal(int u, int v);
+    void updateBCCInsertCross(int u, int v);
+    void updateBCCDeleteCross(int u, int v);
 };
 
 #endif // GIR_H

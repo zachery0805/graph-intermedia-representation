@@ -18,6 +18,7 @@
 #include "fw_bw.h"
 #include "openmp_wcc.hpp"
 #define INF -1
+#define DEBUG 0
 
 // 0 trim, 1 largest SCC, 2 small SCC, 3 total time
 // 4 trim_size_1, 5 trim_size_2, 6 pivot_selection, 7 fw_bfs, 8 bw_bfs,

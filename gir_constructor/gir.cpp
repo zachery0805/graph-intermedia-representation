@@ -3,20 +3,16 @@
 #include "scc_common.h"
 #include "graph.h"
 #include "graph_undirected.h"
+#include "wcc_cpu/wcc_common.h"
 #include "bicc_bfs.h"
-#include "block_cut_tree.h" // 假设你有这个文件
+#include "block_cut_tree.h"
 #include <iostream>
 #include <fstream>
-#include <set>
-#include <stack>
 #include <set>
 #include <map>
 #include <unordered_map>
 #include <vector>
-#include <iostream>
-#include <fstream>
-
-
+#include <chrono>
 
 // -------------------- 构造/析构 --------------------
 GIR::GIR(const std::string& path_directed,
@@ -44,40 +40,22 @@ void GIR::buildWCC() {
                                bw_bg_file.c_str(), bw_aj_file.c_str());
     }
 
-    // 转邻接表
-    std::unordered_map<int,std::vector<int>> adj_list;
-    for (index_t u=0; u<g_directed->vert_count; ++u) {
-        for (index_t i=g_directed->fw_beg_pos[u]; i<g_directed->fw_beg_pos[u+1]; ++i)
-            adj_list[u].push_back(g_directed->fw_csr[i]);
-    }
+    vertex_t* wcc_id = new vertex_t[g_directed->vert_count];
+    const index_t thread_count = 1;
+    wcc_detection(g_directed, thread_count, wcc_id);
 
-    // 计算 WCC
-    std::unordered_set<int> visited;
+    std::map<int, std::vector<int>> tempWccs;
     wccs.clear();
     nodeToWcc.clear();
 
-    for (auto& [node,_] : adj_list) {
-        if (visited.count(node)) continue;
-        std::vector<int> comp;
-        std::stack<int> stk;
-        stk.push(node);
-        visited.insert(node);
-
-        while (!stk.empty()) {
-            int curr = stk.top(); stk.pop();
-            comp.push_back(curr);
-            for (int nei : adj_list[curr]) {
-                if (!visited.count(nei)) {
-                    visited.insert(nei);
-                    stk.push(nei);
-                }
-            }
-        }
-
-        int wcc_id = wccs.size();
-        for (int v : comp) nodeToWcc[v] = wcc_id;
-        wccs.push_back(comp);
+    for (vertex_t i = 0; i < g_directed->vert_count; ++i) {
+        nodeToWcc[i] = wcc_id[i];
+        tempWccs[wcc_id[i]].push_back(i);
     }
+    for (const auto& pair : tempWccs) {
+        wccs.push_back(pair.second);
+    }
+    delete[] wcc_id;
 
     std::cout << "Found " << wccs.size() << " WCCs." << std::endl;
 }
@@ -98,7 +76,6 @@ void GIR::buildBCT() {
 
     bc_tree = new BlockCutTree();
     bc_tree->build(bicc_components, ap, g_undirected);
-    bc_tree->printTree();
 }
 
 // -------------------- SCC + DAG --------------------
@@ -118,8 +95,11 @@ void GIR::buildSCC_DAG() {
     int alpha=1, beta=1, gamma=1;
     double theta=0.5;
     index_t thread_count=1;
-
+    auto t0 = std::chrono::high_resolution_clock::now();
     scc_detection(g_directed, alpha, beta, gamma, theta, thread_count, avg_time, sccs, nodeToScc);
+    auto t1 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> total_time1 = t1 - t0;
+    std::cout << "Time to find SCC: " << total_time1.count() << " seconds\n";
 
     // 转邻接表
     std::unordered_map<int,std::vector<int>> adj_list;
@@ -127,7 +107,6 @@ void GIR::buildSCC_DAG() {
         for (index_t i=g_directed->fw_beg_pos[u]; i<g_directed->fw_beg_pos[u+1]; ++i)
             adj_list[u].push_back(g_directed->fw_csr[i]);
 
-    // DAG
     generate_and_save_dag(nodeToScc, adj_list, "dag.bin");
     buildDagAdjList(nodeToScc, adj_list);
 }
@@ -162,13 +141,12 @@ void GIR::buildDagAdjList(const std::map<int,int>& nodeToScc,
 void GIR::generate_and_save_dag(const std::map<int,int>& nodeToScc,
                                 const std::unordered_map<int,std::vector<int>>& adj_list,
                                 const std::string& output_filename) {
-    // Map original SCC IDs to a contiguous range
     std::map<int,int> scc_id_map_local;
     int current_scc_id = 0;
-    for (const auto& pair : nodeToScc) {
+    for (const auto& pair : nodeToScc)
         if (scc_id_map_local.find(pair.second) == scc_id_map_local.end())
             scc_id_map_local[pair.second] = current_scc_id++;
-    }
+
     int scc_count = current_scc_id;
     if (scc_count == 0) return;
 
@@ -185,12 +163,10 @@ void GIR::generate_and_save_dag(const std::map<int,int>& nodeToScc,
         }
     }
 
-    // 转 vector
     std::vector<std::vector<int>> dag_adj_list_local(scc_count);
     for (int i=0; i<scc_count; ++i)
         dag_adj_list_local[i].assign(dag_adj_set[i].begin(), dag_adj_set[i].end());
 
-    // 保存到二进制文件
     std::ofstream outfile(output_filename, std::ios::out | std::ios::binary);
     if (!outfile) {
         std::cerr << "Error: cannot open file " << output_filename << std::endl;
@@ -205,8 +181,209 @@ void GIR::generate_and_save_dag(const std::map<int,int>& nodeToScc,
             outfile.write(reinterpret_cast<const char*>(dag_adj_list_local[i].data()), neighbor_count*sizeof(int));
     }
     outfile.close();
-
     std::cout << "DAG saved to " << output_filename << std::endl;
+}
+
+// -------------------- 动态更新接口 --------------------
+void GIR::updateEdgeDirected(int u, int v, bool insert) {
+    if (insert) {
+        updateSCCInsert(u, v);
+        updateWCCInsert(u, v);
+    } else {
+        updateSCCDelete(u, v);
+        updateWCCDelete(u, v);
+    }
+}
+
+void GIR::updateEdgeUndirected(int u, int v, bool insert) {
+    if (insert) {
+        updateBCCInsertInternal(u, v);
+        updateWCCInsert(u, v);
+    } else {
+        updateBCCDeleteInternal(u, v);
+        updateWCCDelete(u, v);
+    }
+}
+
+// -------------------- WCC 删除更新 --------------------
+void GIR::updateWCCDelete(int u, int v) {
+    int wcc_id = nodeToWcc[u];
+    if (wcc_id != nodeToWcc[v]) return;
+
+    std::unordered_set<int> visited;
+    std::stack<int> st;
+    st.push(u);
+    visited.insert(u);
+
+    for (size_t idx=0; idx < wccs[wcc_id].size(); ++idx) {
+        int curr = wccs[wcc_id][idx];
+        if (!visited.count(curr)) visited.insert(curr);
+    }
+
+    // 拆分 WCC
+    std::vector<int> new_component;
+    std::vector<int> old_component;
+
+    for (int node : wccs[wcc_id]) {
+        if (visited.count(node)) old_component.push_back(node);
+        else {
+            new_component.push_back(node);
+            nodeToWcc[node] = wccs.size();
+        }
+    }
+
+    if (!new_component.empty()) wccs.push_back(new_component);
+    wccs[wcc_id] = old_component;
+}
+
+// -------------------- SCC 删除更新 --------------------
+void GIR::updateSCCDelete(int u, int v) {
+    if (nodeToScc[u] != nodeToScc[v]) return;
+
+    int scc_id = nodeToScc[u];
+    std::vector<int> to_remove;
+
+    for (int node : sccs[scc_id]) {
+        // 仅根据 GIR 内部结构判定，不依赖 graph
+        if (sccs[scc_id].size() <= 1) to_remove.push_back(node);
+    }
+
+    for (int node : to_remove) {
+        sccs[scc_id].erase(std::remove(sccs[scc_id].begin(), sccs[scc_id].end(), node), sccs[scc_id].end());
+        nodeToScc.erase(node);
+    }
+}
+
+// -------------------- SCC 新增检测环 --------------------
+bool GIR::isNewCycleFormed(int u, int v) {
+    std::unordered_set<int> visited;
+    std::stack<int> st;
+    st.push(v);
+    visited.insert(v);
+
+    while (!st.empty()) {
+        int curr = st.top(); st.pop();
+        for (int nei : sccs[nodeToScc[curr]]) {
+            if (nei == u) return true;
+            if (!visited.count(nei)) {
+                visited.insert(nei);
+                st.push(nei);
+            }
+        }
+    }
+    return false;
+}
+
+// -------------------- BCC 删除内部更新 --------------------
+void GIR::updateBCCDeleteInternal(int u, int v) {
+    std::vector<int> queue = {u, v};
+    std::unordered_set<int> visited;
+
+    while (!queue.empty()) {
+        int curr = queue.back(); queue.pop_back();
+        if (visited.count(curr)) continue;
+        visited.insert(curr);
+
+        // 删除度 <= 1 的节点
+        for (auto& bicc : bicc_components) {
+            bicc.erase(std::remove(bicc.begin(), bicc.end(), curr), bicc.end());
+        }
+
+        for (auto& bicc : bicc_components) {
+            for (int nei : bicc) {
+                if (!visited.count(nei)) queue.push_back(nei);
+            }
+        }
+    }
+}
+
+// -------------------- WCC 新增更新 --------------------
+void GIR::updateWCCInsert(int u, int v) {
+    int wcc_u = nodeToWcc.count(u) ? nodeToWcc[u] : -1;
+    int wcc_v = nodeToWcc.count(v) ? nodeToWcc[v] : -1;
+
+    if (wcc_u == -1 && wcc_v == -1) {
+        // 两个节点都不在任何 WCC 中，新建一个
+        std::vector<int> new_component = {u, v};
+        wccs.push_back(new_component);
+        int new_id = wccs.size() - 1;
+        nodeToWcc[u] = nodeToWcc[v] = new_id;
+    } else if (wcc_u != -1 && wcc_v == -1) {
+        // v 加入 u 的 WCC
+        wccs[wcc_u].push_back(v);
+        nodeToWcc[v] = wcc_u;
+    } else if (wcc_u == -1 && wcc_v != -1) {
+        // u 加入 v 的 WCC
+        wccs[wcc_v].push_back(u);
+        nodeToWcc[u] = wcc_v;
+    } else if (wcc_u != wcc_v) {
+        // 合并两个 WCC
+        auto& comp_u = wccs[wcc_u];
+        auto& comp_v = wccs[wcc_v];
+
+        comp_u.insert(comp_u.end(), comp_v.begin(), comp_v.end());
+        for (int node : comp_v) nodeToWcc[node] = wcc_u;
+
+        // 标记 comp_v 为已合并（可清空）
+        comp_v.clear();
+    }
+}
+
+// -------------------- SCC 新增更新 --------------------
+void GIR::updateSCCInsert(int u, int v) {
+    int scc_u = nodeToScc.count(u) ? nodeToScc[u] : -1;
+    int scc_v = nodeToScc.count(v) ? nodeToScc[v] : -1;
+
+    if (scc_u == -1 && scc_v == -1) {
+        // 两个节点都不在任何 SCC 中，新建 SCC
+        std::vector<int> new_scc = {u, v};
+        sccs.push_back(new_scc);
+        int new_id = sccs.size() - 1;
+        nodeToScc[u] = nodeToScc[v] = new_id;
+    } else if (scc_u != -1 && scc_v == -1) {
+        sccs[scc_u].push_back(v);
+        nodeToScc[v] = scc_u;
+    } else if (scc_u == -1 && scc_v != -1) {
+        sccs[scc_v].push_back(u);
+        nodeToScc[u] = scc_v;
+    } else if (scc_u != scc_v) {
+        // 判断是否会形成环
+        bool cycle = isNewCycleFormed(u, v);
+        if (cycle) {
+            // 合并两个 SCC
+            auto& comp_u = sccs[scc_u];
+            auto& comp_v = sccs[scc_v];
+
+            comp_u.insert(comp_u.end(), comp_v.begin(), comp_v.end());
+            for (int node : comp_v) nodeToScc[node] = scc_u;
+
+            // 标记 comp_v 为已合并
+            comp_v.clear();
+        }
+    }
+}
+
+// -------------------- BCC 内部新增更新 --------------------
+void GIR::updateBCCInsertInternal(int u, int v) {
+    std::vector<int> touched_nodes = {u, v};
+    std::unordered_set<int> visited;
+
+    for (int node : touched_nodes) {
+        if (visited.count(node)) continue;
+        visited.insert(node);
+
+        bool added = false;
+        for (auto& bicc : bicc_components) {
+            if (std::find(bicc.begin(), bicc.end(), node) != bicc.end()) {
+                added = true;
+                break;
+            }
+        }
+
+        if (!added) {
+            bicc_components.push_back({node});
+        }
+    }
 }
 
 // -------------------- Getter --------------------

@@ -1,0 +1,90 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+COLOR_PROPAGATION_H	color_propagation.h	2;"	d
+DEBUG	util.h	27;"	d
+INF	wcc_core.cpp	24;"	d	file:
+INFTY	util.h	23;"	d
+LOCK	util.h	8;"	d
+NEGATIVE	util.h	24;"	d
+ORPHAN	util.h	25;"	d
+OUTPUT_TIME	util.h	29;"	d
+TRIM_1_GFQ_H	trim_1_gfq.h	2;"	d
+TRIM_2_3_H	trim_2_3.h	2;"	d
+TRIM_TIMES	util.h	34;"	d
+UNLOCK	util.h	9;"	d
+UNVIS	util.h	26;"	d
+VERBOSE	util.h	28;"	d
+WCC_COMMON_H	wcc_common.h	2;"	d
+__GRAPH_H__	graph.h	2;"	d
+__H_TIME__	wtime.h	2;"	d
+__UTIL_H__	util.h	2;"	d
+beg_pos	graph.h	/^		index_t *beg_pos;$/;"	m	class:graph
+bfs_sequential	wcc_core.cpp	/^void bfs_sequential(graph *g, vertex_t root, vertex_t *wcc_id)$/;"	f
+bw_gfq_from_fw	trim_1_gfq.h	/^inline static void bw_gfq_from_fw($/;"	f
+cc	Makefile	/^cc = "$(shell which g++)" $/;"	m
+cmd	avg.py	/^    cmd = "ls " + sys.argv[1] +  "result_*.csv > " + file_all;$/;"	v
+color_identify	color_propagation.h	/^inline static void color_identify($/;"	f
+color_init	color_propagation.h	/^inline static void color_init($/;"	f
+color_propagation	color_propagation.h	/^inline static void color_propagation($/;"	f
+color_statistic	color_propagation.h	/^inline static void color_statistic(index_t *scc_id,$/;"	f
+color_t	util.h	/^typedef int color_t;$/;"	t
+coloring_wcc	color_propagation.h	/^inline static void coloring_wcc($/;"	f
+csr	graph.h	/^		vertex_t *csr;$/;"	m	class:graph
+csv	avg.py	/^import csv$/;"	i
+deal	batch_test.sh	/^deal () {$/;"	f
+deal	batch_test_all_thread.sh	/^deal () {$/;"	f
+deal	batch_test_hong.sh	/^deal () {$/;"	f
+deal	batch_test_mini.sh	/^deal () {$/;"	f
+deal	batch_test_thread.sh	/^deal () {$/;"	f
+deal_all	avg.py	/^def deal_all(file_name, out_file):$/;"	f
+deal_graph	avg.py	/^def deal_graph(file_name, out_file):$/;"	f
+degree_rank	color_propagation.h	/^inline static void degree_rank($/;"	f
+deps	Makefile	/^deps = $(wildcard ..\/..\/lib\/*.h) \\$/;"	m
+depth_t	util.h	/^typedef int depth_t;$/;"	t
+edge_count	graph.h	/^		index_t edge_count;$/;"	m	class:graph
+exe	Makefile	/^exe = wcc_cpu$/;"	m
+file_all	avg.py	/^file_all = "file_name.txt"$/;"	v
+flags	Makefile	/^flags = -I. -fopenmp$/;"	m
+fsize	util.h	/^inline off_t fsize(const char *filename) {$/;"	f
+generate_frontier_queue	trim_1_gfq.h	/^inline static void generate_frontier_queue($/;"	f
+get_queue	trim_1_gfq.h	/^inline static void get_queue($/;"	f
+get_wcc_result	wcc_core.cpp	/^void get_wcc_result(vertex_t *wcc_id, vertex_t vert_count, char *result_file_wcc)$/;"	f
+gfq_from_queue	trim_1_gfq.h	/^inline static void gfq_from_queue($/;"	f
+gfq_fw_bw_from_queue	trim_1_gfq.h	/^inline static void gfq_fw_bw_from_queue($/;"	f
+graph	graph.cpp	/^graph::graph($/;"	f	class:graph
+graph	graph.h	/^		graph(){};$/;"	f	class:graph
+graph	graph.h	/^class graph$/;"	c
+graph_color	color_propagation.h	/^inline static void graph_color($/;"	f
+index_t	util.h	/^typedef int index_t;$/;"	t
+main	wcc_main.cpp	/^int main(int args, char **argv)$/;"	f
+objs	Makefile	/^objs = $(patsubst %.cpp,%.o,$(wildcard ..\/..\/lib\/*.cpp))\\$/;"	m
+openmp_wcc	openmp_wcc.hpp	/^openmp_wcc($/;"	f
+os	avg.py	/^import os$/;"	i
+os	avg.py	/^import os.path$/;"	i
+path	avg.py	/^import os.path$/;"	i
+path_t	util.h	/^typedef double path_t;$/;"	t
+print_head	avg.py	/^def print_head(out_file):$/;"	f
+sys	avg.py	/^import sys$/;"	i
+trim_1_first	trim_1_gfq.h	/^inline void trim_1_first($/;"	f
+trim_1_first_gfq	trim_1_gfq.h	/^inline void trim_1_first_gfq($/;"	f
+trim_1_from_fq	trim_1_gfq.h	/^inline void trim_1_from_fq($/;"	f
+trim_1_from_fq_gfq	trim_1_gfq.h	/^inline void trim_1_from_fq_gfq($/;"	f
+trim_1_normal	trim_1_gfq.h	/^inline void trim_1_normal($/;"	f
+trim_1_normal_gfq	trim_1_gfq.h	/^inline void trim_1_normal_gfq($/;"	f
+trim_1_normal_only_size	trim_1_gfq.h	/^inline void trim_1_normal_only_size($/;"	f
+trim_2_from_fq	trim_2_3.h	/^inline void trim_2_from_fq($/;"	f
+trim_2_from_graph	trim_2_3.h	/^inline void trim_2_from_graph($/;"	f
+trim_3_1_from_fq	trim_2_3.h	/^inline void trim_3_1_from_fq($/;"	f
+trim_3_1_from_graph	trim_2_3.h	/^inline void trim_3_1_from_graph($/;"	f
+trim_3_2_from_fq	trim_2_3.h	/^inline void trim_3_2_from_fq($/;"	f
+trim_3_2_from_graph	trim_2_3.h	/^inline void trim_3_2_from_graph($/;"	f
+vert_count	graph.h	/^		vertex_t vert_count;$/;"	m	class:graph
+vertex_t	util.h	/^typedef int vertex_t;$/;"	t
+wcc_bfs_sequential	wcc_core.cpp	/^void wcc_bfs_sequential(graph *g, vertex_t vert_count, vertex_t *wcc_id)$/;"	f
+wcc_detection	wcc_core.cpp	/^void wcc_detection($/;"	f
+wtime	wtime.h	/^inline double wtime()$/;"	f
+~graph	graph.h	/^		~graph(){};$/;"	f	class:graph

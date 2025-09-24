@@ -1,19 +1,34 @@
 #!/bin/bash
 
-# 编译
+# 默认不开启日志
+DEBUG=0
+OUTPUT_TIME=0
+
+# 支持命令行参数开启日志
+# 使用方法: ./build_and_run.sh --debug --time
+for arg in "$@"; do
+    case $arg in
+        --debug)
+            DEBUG=1
+            shift
+            ;;
+        --time)
+            OUTPUT_TIME=1
+            shift
+            ;;
+        *)
+            ;;
+    esac
+done
+
 echo "Compiling GIR project..."
 make clean
-make all
+make all DEBUG=$DEBUG OUTPUT_TIME=$OUTPUT_TIME
 
-# 检查是否编译成功
 if [ $? -ne 0 ]; then
     echo "Compilation failed!"
     exit 1
 fi
 
-# 运行
 echo "Running GIR..."
 ./gir
-
-# 如果需要，可以添加运行后清理
-# make clean

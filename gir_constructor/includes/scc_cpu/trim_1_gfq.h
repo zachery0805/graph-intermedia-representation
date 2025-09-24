@@ -8,11 +8,11 @@
 #include <atomic> // Include the atomic header for thread-safe operations
 
 // Macro for debug logging
-#define DEBUG_LOG 1
+#define DEBUG_LOG 0
 
 inline void log_assign_scc(const char* caller, index_t scc_id, vertex_t vert_id, const char* reason)
 {
-#ifdef DEBUG_LOG
+#if DEBUG_LOG
     printf("[%s] Assigned scc_id %zu to vertex %zu (%s)\n", caller, scc_id, vert_id, reason);
 #endif
 }
