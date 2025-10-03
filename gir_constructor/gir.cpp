@@ -17,10 +17,19 @@
 
 
 // -------------------- 构造/析构 --------------------
+
 GIR::GIR(const std::string& path_directed,
          const std::string& path_undirected)
     : base_path_directed(path_directed),
-      base_path_undirected(path_undirected) {}
+      base_path_undirected(path_undirected) {
+    // 预加载有向图
+    std::string fw_bg_file = base_path_directed + "fw_begin.bin";
+    std::string fw_aj_file = base_path_directed + "fw_adjacent.bin";
+    std::string bw_bg_file = base_path_directed + "bw_begin.bin";
+    std::string bw_aj_file = base_path_directed + "bw_adjacent.bin";
+    g_directed = new graph(fw_bg_file.c_str(), fw_aj_file.c_str(),
+                           bw_bg_file.c_str(), bw_aj_file.c_str());
+}
 
 GIR::~GIR() {
     if (g_directed) delete g_directed;
@@ -43,7 +52,7 @@ void GIR::buildWCC() {
     }
 
     vertex_t* wcc_id = new vertex_t[g_directed->vert_count];
-    const index_t thread_count = 1;
+    const index_t thread_count = 6;
     wcc_detection(g_directed, thread_count, wcc_id);
 
     std::map<int, std::vector<int>> tempWccs;
@@ -74,10 +83,31 @@ void GIR::buildBCT() {
     vertex_t V = g_undirected->vert_count;
     ap = new bool[V];
 
+    // --- 阶段 1: 发现 BCC 和 关节点 (AP) ---
+    auto t0 = std::chrono::high_resolution_clock::now();
+    std::cout << "Starting Phase 1: Finding BCCs and APs..." << std::endl;
+    
+    // 核心调用：查找 BCC 和 AP
     find_bicc_bfs(g_undirected, ap, bicc_components);
 
+    auto t1 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> phase1_time = t1 - t0;
+    std::cout << "Phase 1 finished. Time taken: " << phase1_time.count() << " seconds\n";
+
+    // --- 阶段 2: 构造 Block-Cut Tree 结构 ---
+    t0 = std::chrono::high_resolution_clock::now();
+    std::cout << "Starting Phase 2: Building BCT structure..." << std::endl;
+
     bc_tree = new BlockCutTree();
+    // 核心调用：构建 BCT 结构
     bc_tree->build(bicc_components, ap, g_undirected);
+
+    t1 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> phase2_time = t1 - t0;
+    std::cout << "Phase 2 finished. Time taken: " << phase2_time.count() << " seconds\n";
+    
+    std::chrono::duration<double> total_time = phase1_time + phase2_time;
+    std::cout << "Total BCT build time: " << total_time.count() << " seconds\n";
 }
 
 // -------------------- SCC + DAG --------------------
@@ -96,7 +126,7 @@ void GIR::buildSCC_DAG() {
     double avg_time[15] = {0};
     int alpha=1, beta=1, gamma=1;
     double theta=0.5;
-    index_t thread_count=1;
+    index_t thread_count=16;
     auto t0 = std::chrono::high_resolution_clock::now();
     scc_detection(g_directed, alpha, beta, gamma, theta, thread_count, avg_time, sccs, nodeToScc);
     auto t1 = std::chrono::high_resolution_clock::now();
@@ -444,3 +474,7 @@ const std::vector<std::vector<int>>& GIR::getSCCs() const { return sccs; }
 const std::vector<std::vector<int>>& GIR::getDAG() const { return dag_adj_list; }
 const std::vector<std::vector<int>>& GIR::getWCCs() const { return wccs; }
 BlockCutTree* GIR::getBCT() const { return bc_tree; }
+
+// 修复: 添加缺失的 getter 函数实现
+graph* GIR::getDirectedGraph() const { return g_directed; }
+graph_undirected* GIR::getUndirectedGraph() const { return g_undirected; }

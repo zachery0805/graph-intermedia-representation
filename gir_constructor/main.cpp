@@ -2,12 +2,15 @@
 #include <iostream>
 #include <chrono>
 #include "block_cut_tree.h"
+#include "graph_tests.h"
+#include "gir_test.cpp"
+
 
 int main() {
-    std::string path_undirected = "/home/cxl6029/data/livejournal/";
-    std::string path_directed   = "/home/cxl6029/data/livejournal/";
-
+    std::string path_undirected = "/home/cxl6029/projects/GIR/data/web-Google_sym/";
+    std::string path_directed   = "/home/cxl6029/projects/GIR/data/web-Google_sym/";
     GIR gir(path_directed, path_undirected);
+
 
     auto total_start = std::chrono::high_resolution_clock::now();
 
@@ -38,5 +41,10 @@ int main() {
     std::cout << "Time for SCC+DAG: " << scc_dag_time.count() << " seconds\n";
     std::cout << "Total time:       " << total_time.count() << " seconds\n";
 
+
+
+    std::cout << "\n=== Running Parallel BFS Tests ===" << std::endl;
+    ParallelBFS::testParallelBFS(gir, 0, true);  // 有向图测试
+    ParallelBFS::testParallelBFS(gir, 0, false); // 无向图测试
     return 0;
 }

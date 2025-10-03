@@ -28,6 +28,8 @@ public:
     const std::vector<std::vector<int>>& getSCCs() const;
     const std::vector<std::vector<int>>& getDAG() const;
     const std::vector<std::vector<int>>& getWCCs() const;
+    graph* getDirectedGraph() const;
+    graph_undirected* getUndirectedGraph() const;
     BlockCutTree* getBCT() const;
     void updateEdgeDirected(int u, int v, bool insert);
     void updateEdgeUndirected(int u, int v, bool insert);
@@ -58,6 +60,8 @@ private:
 private:
     void buildDagAdjList(const std::map<int,int>& nodeToScc,
                          const std::unordered_map<int,std::vector<int>>& adj_list);
+    //void generate_and_save_dag_optimized(const std::unordered_map<int,int>& nodeToScc,
+    //                                     const std::string& output_filename);
     void generate_and_save_dag(
     const std::map<int, int>& nodeToScc,
     const std::unordered_map<int, std::vector<int>>& adj_list,
