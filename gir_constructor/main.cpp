@@ -7,8 +7,8 @@
 
 
 int main() {
-    std::string path_undirected = "/home/cxl6029/projects/GIR/data/web-Google_sym/";
-    std::string path_directed   = "/home/cxl6029/projects/GIR/data/web-Google_sym/";
+    std::string path_undirected = "/home/cxl6029/projects/GIR/data/RoadUSA_sym/";
+    std::string path_directed   = "/home/cxl6029/projects/GIR/data/RoadUSA_sym/";
     GIR gir(path_directed, path_undirected);
 
 
