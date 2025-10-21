@@ -31,6 +31,7 @@ public:
     graph* getDirectedGraph() const;
     graph_undirected* getUndirectedGraph() const;
     BlockCutTree* getBCT() const;
+    const std::vector<std::vector<int>>& getBCTComponents() const;
     void updateEdgeDirected(int u, int v, bool insert);
     void updateEdgeUndirected(int u, int v, bool insert);
 

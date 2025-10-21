@@ -238,6 +238,7 @@ vertex_t get_bicc(graph_undirected *g,
                     find_ap = true;
                     visited[p] = false;
                     ++num_bicc;
+                    // printf("Found BiCC #%u with size %u\n", num_bicc, index_track);
 
                     std::vector<vertex_t> this_bicc(track, track + index_track);
                     bicc_components.push_back(this_bicc);
@@ -267,6 +268,7 @@ vertex_t get_bicc(graph_undirected *g,
                          index_track);
                 ++num_bicc;
                 add_size(index_track, size_map);
+                // printf("Found BiCC #%u with size %u (root component)\n", num_bicc, index_track);
                 visited[root] = false;
 
                 std::vector<vertex_t> this_bicc(track, track + index_track);
@@ -364,19 +366,23 @@ vertex_t bfs_bicc(graph_undirected *g,
 
 void get_size_result(vertex_t num_bicc, map<vertex_t, vertex_t, std::greater<vertex_t> > &size_map, char *result_file)
 {
+    if (!result_file) return;
+
     FILE *fp = fopen(result_file, "w");
-    if (fp) {
-        fprintf(fp, "bicc_number,%u\n", num_bicc);
-        map<vertex_t, vertex_t>::iterator it;
-        for(it = size_map.begin(); it != size_map.end(); it++)
-        {
-            fprintf(fp, "%u,%u\n", it->first, it->second);
-        }
-        fclose(fp);
+    if (!fp) {
+        perror("fopen");
+        return;
     }
-    
-    // 只在标准输出打印最终数量
-    printf("%u\n", num_bicc);
+
+    fprintf(fp, "bicc_number,%u\n", num_bicc);
+
+    if (!size_map.empty())
+    {
+        auto it = size_map.begin();
+        fprintf(fp, "%u,%u\n", it->first, it->second);
+    }
+
+    fclose(fp);
 }
 
 void find_bicc_bfs(graph_undirected *g, bool *ap, std::vector<std::vector<vertex_t>>& bicc_components)
@@ -443,8 +449,7 @@ void find_bicc_bfs(graph_undirected *g, bool *ap, std::vector<std::vector<vertex
 
     const char *output_file = "result.log";
     get_size_result(num_bicc, size_map, const_cast<char*>(output_file));
-    
-    // 释放动态分配的内存
+
     delete[] visited;
     delete[] level;
     delete[] track;

@@ -474,6 +474,7 @@ const std::vector<std::vector<int>>& GIR::getSCCs() const { return sccs; }
 const std::vector<std::vector<int>>& GIR::getDAG() const { return dag_adj_list; }
 const std::vector<std::vector<int>>& GIR::getWCCs() const { return wccs; }
 BlockCutTree* GIR::getBCT() const { return bc_tree; }
+const std::vector<std::vector<int>>& GIR::getBCTComponents() const { return bicc_components; }
 
 // 修复: 添加缺失的 getter 函数实现
 graph* GIR::getDirectedGraph() const { return g_directed; }
