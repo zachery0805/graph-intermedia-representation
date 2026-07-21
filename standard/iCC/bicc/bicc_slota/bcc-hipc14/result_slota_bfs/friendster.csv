@@ -1,0 +1,24 @@
+Starting BCC decomposition...
+Reading in file /home/yuedeji/data/data/friendster_large_cc/edge_list.txt
+n 67492106, m 3622565232
+	Done: 422.489248
+Creating graph format
+max degree vert: 3112268, max degree: 5214, avg degree 53.673910
+	Done: 13.699870
+Doing BCC-BFS init
+Init time,  0.024363
+Doing BCC-BFS BFS stage
+First BFS time,  1.115522
+Doing BCC-BFS find articulation point stage
+bccs found: 15002530
+Find AP time,  7.330588
+Doing BCC-BFS final BFS stage
+Final BFS time,  0.574862
+Doing BCC-BFS labeling stage
+67492106,3622565232
+Label time, 12.941454
+Total time, 21.986957
+
+Number of BCCs found: 0
+Number of articulation vertices found: 0
+root is art

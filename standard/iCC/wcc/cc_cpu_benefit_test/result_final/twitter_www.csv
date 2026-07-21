@@ -1,0 +1,21 @@
+Graph load (success): 41652230 verts, 2405026390 edges 7.63357 second(s)
+vert_count = 41652230, edge_count = 2405026390, avg_degree = 57.741
+start
+Time trim kernel (ms), 5.720
+num_trim, 0
+root, 1037947, vert_count, 41652230, thread_count, 24, step, 1735510
+Level-0 2997487 26.822ms
+Switch to bottom-up
+Level-1 36762927 84.3692ms 36762927 2122714908 282311481 3321311 
+Level-2 1875458 14.9601ms 38638385 108290143 174021337 2047309 
+Level-3 16025 2.89297ms 38654410 925293 173096043 2036424 
+--->Switch to top down queue, 2.28906
+Level-4 0 0.0958443ms 38654410 0 173096043 2036424 
+BFS kernel time (ms), 131.711
+Queue kernel time (ms), 3.895
+Pviot time (ms), 0.000
+BFS time (ms), 131.718
+Queue time (ms), 3.902
+Color time (ms), 0.000
+wcc computation time, 176.03 (ms)
+wcc_number, 1, largest wcc size, 41652230

@@ -1,0 +1,101 @@
+Graph load (success): 4000000 verts, 511991840 edges 1.48832 second(s)
+Test #0
+vert_count = 4000000, edge_count = 511991840, avg_degree = 127.998
+start
+Pviot time (ms), 0.000
+BFS time (ms), 44.686
+Queue time (ms), 0.946
+Color time (ms), 0.000
+wcc computation time, 45.66 (ms)
+wcc_number, 1, largest wcc size, 4000000
+
+Test #1
+vert_count = 4000000, edge_count = 511991840, avg_degree = 127.998
+start
+Pviot time (ms), 0.000
+BFS time (ms), 39.587
+Queue time (ms), 0.740
+Color time (ms), 0.000
+wcc computation time, 40.33 (ms)
+wcc_number, 1, largest wcc size, 4000000
+
+Test #2
+vert_count = 4000000, edge_count = 511991840, avg_degree = 127.998
+start
+Pviot time (ms), 0.000
+BFS time (ms), 35.950
+Queue time (ms), 0.645
+Color time (ms), 0.000
+wcc computation time, 36.60 (ms)
+wcc_number, 1, largest wcc size, 4000000
+
+Test #3
+vert_count = 4000000, edge_count = 511991840, avg_degree = 127.998
+start
+Pviot time (ms), 0.000
+BFS time (ms), 34.169
+Queue time (ms), 0.567
+Color time (ms), 0.000
+wcc computation time, 34.74 (ms)
+wcc_number, 1, largest wcc size, 4000000
+
+Test #4
+vert_count = 4000000, edge_count = 511991840, avg_degree = 127.998
+start
+Pviot time (ms), 0.000
+BFS time (ms), 32.393
+Queue time (ms), 0.444
+Color time (ms), 0.000
+wcc computation time, 32.85 (ms)
+wcc_number, 1, largest wcc size, 4000000
+
+Test #5
+vert_count = 4000000, edge_count = 511991840, avg_degree = 127.998
+start
+Pviot time (ms), 0.000
+BFS time (ms), 32.027
+Queue time (ms), 0.454
+Color time (ms), 0.000
+wcc computation time, 32.49 (ms)
+wcc_number, 1, largest wcc size, 4000000
+
+Test #6
+vert_count = 4000000, edge_count = 511991840, avg_degree = 127.998
+start
+Pviot time (ms), 0.000
+BFS time (ms), 31.563
+Queue time (ms), 0.459
+Color time (ms), 0.000
+wcc computation time, 32.03 (ms)
+wcc_number, 1, largest wcc size, 4000000
+
+Test #7
+vert_count = 4000000, edge_count = 511991840, avg_degree = 127.998
+start
+Pviot time (ms), 0.000
+BFS time (ms), 31.843
+Queue time (ms), 0.434
+Color time (ms), 0.000
+wcc computation time, 32.28 (ms)
+wcc_number, 1, largest wcc size, 4000000
+
+Test #8
+vert_count = 4000000, edge_count = 511991840, avg_degree = 127.998
+start
+Pviot time (ms), 0.000
+BFS time (ms), 32.199
+Queue time (ms), 0.432
+Color time (ms), 0.000
+wcc computation time, 32.64 (ms)
+wcc_number, 1, largest wcc size, 4000000
+
+Test #9
+vert_count = 4000000, edge_count = 511991840, avg_degree = 127.998
+start
+Pviot time (ms), 0.000
+BFS time (ms), 32.502
+Queue time (ms), 0.433
+Color time (ms), 0.000
+wcc computation time, 32.94 (ms)
+wcc_number, 1, largest wcc size, 4000000
+

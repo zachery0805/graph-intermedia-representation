@@ -1,0 +1,21 @@
+Starting BCC decomposition...
+Reading in file /home/yuedeji/data/data/facebook_large_cc/edge_list.txt
+n 96079677, m 1241005762
+	Done: 140.741226
+Creating graph format
+max degree vert: 174901, max degree: 4986, avg degree 12.916423
+	Done:  4.606290
+Doing BCC-Color init
+Init time,  0.036567
+Doing BCC-Color BFS stage
+First BFS time,  0.551054
+Doing BCC-Color find mutual parents stage
+Color init time, 22.719227
+Doing BCC-Color coloring stage
+Color time, 27.344847
+Doing BCC-Color labeling stage
+Label time, 17.708370
+Total time, 68.360283
+
+Number of BCCs found: 0
+Number of articulation vertices found: 0

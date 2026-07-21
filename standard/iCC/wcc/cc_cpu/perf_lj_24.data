@@ -1,0 +1,46 @@
+rm -rf cc_cpu  wcc_core.o graph.o main.o 
+"/usr/bin/g++"  -c wcc_core.cpp -o wcc_core.o -I. -fopenmp -O3
+"/usr/bin/g++"  -c graph.cpp -o graph.o -I. -fopenmp -O3
+"/usr/bin/g++"  -c main.cpp -o main.o -I. -fopenmp -O3
+"/usr/bin/g++"   wcc_core.o graph.o main.o -o cc_cpu -I. -fopenmp -O3
+Graph load (success): 4847571 verts, 85702474 edges 0.316954 second(s)
+vert_count = 4847571, edge_count = 85702474, avg_degree = 17.679
+start
+Time trim kernel (ms), 1.316
+num_trim, 962
+root, 327608, vert_count, 4847571, thread_count, 24, step, 201983
+Level-0 20333 0.120ms
+Level-1 217867 4.77409ms 217867 3851772 81850701 962949 
+--->Switch to bottom up
+Level-2 3490324 8.93593ms 3708191 61707069 20143631 236983 
+Level-3 1102354 4.89783ms 4810545 19489031 654599 7701 
+Level-4 13086 0.703096ms 4823631 231353 423246 4979 
+--->Switch to top down queue, 0.175953
+Level-5 0 0.0629425ms 4823631 0 423246 4979 
+BFS kernel time (ms), 21.414
+Queue kernel time (ms), 0.853
+Color kernel time (ms), 0.032
+Pviot time (ms), 0.000
+BFS time (ms), 21.421
+Queue time (ms), 0.857
+Color time (ms), 0.033
+wcc computation time, 28.08 (ms)
+wcc_number, 1876, largest wcc size, 4843953
+
+ Performance counter stats for './bash_one.sh':
+
+       2194.908268      task-clock:u (msec)       #    1.970 CPUs utilized          
+                 0      context-switches:u        #    0.000 K/sec                  
+                 0      cpu-migrations:u          #    0.000 K/sec                  
+            43,289      page-faults:u             #    0.020 M/sec                  
+     4,427,668,747      cycles:u                  #    2.017 GHz                      (49.69%)
+     4,181,939,015      instructions:u            #    0.94  insn per cycle           (62.07%)
+     1,003,965,103      branches:u                #  457.406 M/sec                    (62.29%)
+        20,525,955      branch-misses:u           #    2.04% of all branches          (62.41%)
+     1,233,201,632      L1-dcache-loads:u         #  561.847 M/sec                    (62.51%)
+        58,606,310      L1-dcache-load-misses:u   #    4.75% of all L1-dcache hits    (62.88%)
+         9,938,963      LLC-loads:u               #    4.528 M/sec                    (50.23%)
+         3,155,824      LLC-load-misses:u         #   31.75% of all LL-cache hits     (49.98%)
+
+       1.114142455 seconds time elapsed
+

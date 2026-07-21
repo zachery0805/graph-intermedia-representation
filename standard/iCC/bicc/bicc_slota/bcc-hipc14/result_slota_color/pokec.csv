@@ -1,0 +1,21 @@
+Starting BCC decomposition...
+Reading in file /home/yuedeji/data/data/pokec_large_cc/edge_list.txt
+n 1632803, m 44603928
+	Done:  4.723909
+Creating graph format
+max degree vert: 2854, max degree: 14854, avg degree 27.317397
+	Done:  0.163628
+Doing BCC-Color init
+Init time,  0.002342
+Doing BCC-Color BFS stage
+First BFS time,  0.008402
+Doing BCC-Color find mutual parents stage
+Color init time,  0.055287
+Doing BCC-Color coloring stage
+Color time,  0.094994
+Doing BCC-Color labeling stage
+Label time,  0.031686
+Total time,  0.192842
+
+Number of BCCs found: 0
+Number of articulation vertices found: 0

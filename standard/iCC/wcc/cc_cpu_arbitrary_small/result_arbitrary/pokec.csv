@@ -1,0 +1,22 @@
+Graph load (success): 1632803 verts, 44603928 edges 0.146313 second(s)
+Test #0
+vert_count = 1632803, edge_count = 44603928, avg_degree = 27.317
+start
+num_trim, 0
+root, 420790, vert_count, 1632803, thread_count, 24, step, 68034
+Level-0 76 0.002ms
+Pviot time (ms), 0.007
+BFS time (ms), 7.487
+Queue time (ms), 0.000
+Color time (ms), 0.000
+wcc computation time, 8.54 (ms)
+wcc_number, 1, largest wcc size, 1632803
+
+Test #1
+vert_count = 1632803, edge_count = 44603928, avg_degree = 27.317
+start
+num_trim, 0
+root, 420790, vert_count, 1632803, thread_count, 24, step, 68034
+Level-0 76 0.002ms
+./bash_one.sh: line 18:  7976 Segmentation fault      (core dumped) ./cc_cpu ~/data/data/${graph}/undirected_begin.bin ~/data/data/${graph}/undirected_adjacent.bin $thread_num 10 test.log
+

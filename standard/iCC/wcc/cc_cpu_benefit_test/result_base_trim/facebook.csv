@@ -1,0 +1,9 @@
+Graph load (success): 96079681 verts, 1241005762 edges 4.03553 second(s)
+vert_count = 96079681, edge_count = 1241005762, avg_degree = 12.916
+start
+Pviot time (ms), 0.000
+BFS time (ms), 370.206
+Queue time (ms), 0.000
+Color time (ms), 0.000
+wcc computation time, 382.25 (ms)
+wcc_number, 5, largest wcc size, 96079677

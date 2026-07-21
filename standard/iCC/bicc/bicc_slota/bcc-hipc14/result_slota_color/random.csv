@@ -1,0 +1,14 @@
+Starting BCC decomposition...
+Reading in file /home/yuedeji/data/data/random_large_cc/edge_list.txt
+n 4000000, m 511991840
+	Done: 56.891415
+Creating graph format
+max degree vert: 2036517, max degree: 187, avg degree 127.997960
+	Done:  1.865292
+Doing BCC-Color init
+Init time,  0.003264
+Doing BCC-Color BFS stage
+First BFS time,  0.020423
+Doing BCC-Color find mutual parents stage
+Color init time,  0.503859
+Doing BCC-Color coloring stage

@@ -1,0 +1,8 @@
+Graph load (success): 3999983 verts, 506192270 edges 1.4368 second(s)
+vert_count = 3999983, edge_count = 506192270, avg_degree = 126.549
+start
+Level-0 272209 2.948ms
+Switch to bottom-up
+Found largest CC, 1
+wcc computation time, 33.28 (ms)
+wcc_number, 1915723, largest wcc size, 2084261

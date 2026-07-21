@@ -1,0 +1,276 @@
+For an overview of the SIMPLE libraries, please see
+http://www.cc.gatech.edu/~bader/papers/3798.html
+
+SIMPLE is a portable framework for designing parallel algorithms that
+combines shared memory programming within nodes with message-passing
+communication between the nodes. Most of the implementations you find
+on our lab website (spanning tree, MST etc.) use only the SMP-node
+library, which is based on POSIX threads. The SMP-node library
+contains a number of algorithms for barrier synchronization,
+broadcasting the location of a shared buffer, replication of a data
+buffer, reduction, memory management for shared-buffer allocation and
+release. The Simple communication library, built on the SMP Node
+library, includes barrier, scan, reduce, broadcast, allreduce,
+alltoall, alltoallv, gather, and scatter primitives. In addition to
+these, there are control mechanisms for contextualization (executing a
+statement on only a subset of processors), and a parallel do that
+schedules n independent work statements implicitly to p processors as
+evenly as possible.
+
+Some modules (ex. SSCA2 graph theory bechmark) use the SPRNG2.0a
+[Mascagni, Srinivasan] along with SIMPLE for parallel pseudo-random
+number generation.
+
+1. You can get the latest version of SIMPLE from
+   http://www.cc.gatech.edu/~bader/code/
+   under "SIMPLE" for the file simple-4.4J.tar.gz
+   and SPRNG from http://sprng.cs.fsu.edu/Version2.0/quick-start.html
+
+2. The README files have instructions for building the libraries and
+   the builds can be tested by running the testprog, testsmp,
+   testsprng and prefix sums codes in the simple-4.4J dir.
+
+Here are some instructions for quickly building and testing the SIMPLE library:
+
+1. Unpack the gzipped-tar file:
+   % gzcat simple-4.4J.tar.gz | tar xvf -
+
+2. Change directory into the simple directory:
+   % cd simple-4.4J
+
+3. [OPTIONAL] Install the SPRNG 2.0 library (for parallel thread-safe random number generation)
+   Read the included README for detailed instructions
+   In "make.CHOICES", set the proper "PLAT". Set correct variables and flags in SRC/make.PLAT 
+   Comment out PMLCGDEF and GMPLIB.
+
+   There are some issues with pmlcg on most architectures. Comment out
+   all occurences of pmlcg in the Makefiles.
+
+4. Edit the file "Makefile.common"
+  A.) Uncomment your platform (TARGET_ARCH). Use LINUX64_SMP to build just the SMP-node library
+  B.) Set the thread-safe pseudo-random number generator to
+      _RAND = SPRNG   (or to NONE)
+
+5. Edit the file "src/Makefile.var"
+  A.) Locate the section for the (TARGET_ARCH) selected above.
+  B.) Set the following variables properly:
+      CC: C compiler
+      CXX: C++ compiler
+      CFLAGS: C compiler flags
+      MPI: MPI implementation (not required for SMP-node library)
+      MPI_DIR: MPI top level directory
+      MPI_INC: MPI Include directory
+      MPI_LIB: MPI library directory
+  C.) [OPTIONAL] Set the proper paths for SPRNG
+
+6. Build the SIMPLE library:
+   % gmake
+
+7. [OPTIONAL] Test a sample SMP-only program:
+   % gmake testsmp
+
+8. [OPTIONAL] Test a sample program with SPRNG:
+   % gmake testsprng 
+
+To compile any specific SIMPLE module, make sure that the particular
+directory has a Makefile that includes Makefile.smp or Makefile.smp.mk
+(for example, something like Makefile.orig in simple-4.4J/testsmp
+directory). Set the path to the SIMPLE directory in this file. Then
+just execute "gmake -f Makefile.orig", which would build the
+executable and also create a makefile with dependencies for future
+runs.
+
+3. The syntax for running the executables is "progname -t X -- a1 a2"
+   where X is the number of threads (~ processors) to spawn in the
+   shared-memory execution and a1, a2, ... are arguments.
+
+4. The source code for most of the primitives can be found in src/simple.c.
+
+5. The dirs prefixTree_SMP, prefixBlock_SMP, symbreak_SMP, isort_SMP
+   etc. contain SIMPLE example code for prefic computations, graph
+   coloring, parallel radix sort and so on.
+
+6. Please read http://www.cc.gatech.edu/~bader/papers/3798.pdf
+   Most of what follows next is extracted from this paper.
+
+7. Programming model:
+
+   a. The local context parameters available to each thread:
+   NODES = p : Total number of nodes in the cluster.
+   MYNODE : My node rank, from 0 to NODES
+   THREADS = r : Total number of threads on my node.
+   MYTHREAD : The rank of my thread on this node, from 0 to THREADS
+   TID : Total number of threads in the cluster.
+   ID : My thread rank, with respect to the cluster, from 0 to TID
+
+  b.  The user writes an algorithm for an arbitrary cluster size p and
+  SMP size r (where each node can assign possibly different values to r
+  at runtime), using the parameters given above. SIMPLE expects a
+  standard main function (called SIMPLE main() ) that, to the user's
+  view, is immediately up and running on each thread. Thus, the user
+  does not need to make any special calls to initialize the libraries or
+  communication channels.
+
+  SIMPLE makes available the rank of each thread on its node or across
+  the cluster, and algorithms can use these ranks in a straightforward
+  fashion to break symmetries and partition work. The only argument of
+  SIMPLE main() is "THREADED", a macro pointing to a private data
+  structure which holds local thread information. If the user's main
+  function needs to call subroutines which make use of the SIMPLE
+  library, this information is easily passed via another macro "TH" in
+  the calling arguments. After all threads exit from the main function,
+  the SIMPLE code performs a shut down process.
+
+  /* main func. */
+  void *SIMPLE_main(THREADED)
+
+  /* Calling threaded functions */
+  r = someFunc(arg1, arg2, TH);
+
+  /* Declaring the function prototype */
+  void *someFunc(arg1, arg2, THREADED);
+
+  /* Exiting the program */
+  SIMPLE_done(TH);
+
+  c. Basic SMP-node primitives - reduce, barrier, and broadcast
+
+  REDUCTION
+
+  If the number of threads is small, each thread entering a reduce
+  primitive first acquires a lock, stores the reduction of its element
+  with the shared element, and increases the counter of waiting
+  threads. If it is not the last to enter, the thread releases the lock
+  and blocks waiting for a condition. If in fact the thread is the last
+  to enter, it resets the operation and uses a condition broadcast to
+  wake up the other threads. Finally, all threads return the result. For
+  a larger number of threads, the reduce primitive can be implemented
+  with an efficient parallel k-ary tree for a suitable value of k.
+
+  The reduce variants:
+  double node_Reduce_d(double myval, reduce_t op, THREADED);
+  int node_Reduce_i(int myval, reduce_t op, THREADED);
+  long node_Reduce_l(long myval, reduce_t op, THREADED);
+
+  And the operations: MAX, MIN, SUM, PROD, LAND, BAND, LOR, BOR, LXOR, BXOR
+
+  BARRIER
+
+  The pthreads standard requires primitives for synchronization with
+  condition variables and mutual exclusion locks, but does not include a
+  primitive for barrier synchronization. The barrier primitive can be
+  implemented similarly to reduce, since all threads must enter before
+  each thread can continue. Since a side effect of the pthreads locking
+  mechanism is an SMP memory coherence barrier, the thread with data to
+  broadcast writes this information in a shared memory location, and
+  then all threads enter a barrier. Afterwards, each thread reads this
+  shared memory location which is guaranteed to be consistent.  calling
+  it:
+
+  node_Barrier();
+
+  BROADCAST
+
+  AlltoAll primitive detailed in page 11 of the SIMPLE paper.
+  int* node_bcast_i(int, THREADED);
+  example:  t = node_bcast_i(localVal, TH);
+
+  d. Computation Primitives
+
+  i) "parallel do"
+
+  The Simple methodology contains several basic ``pardo'' directives for
+  executing loops concurrently on one or more SMP nodes, provided that
+  no dependencies exist in the loop. Typically, this is useful when an
+  independent operation is to be applied to every location in an array,
+  for example, in the element-wise addition of two arrays. Pardo
+  implicitly partitions the loop to the threads without the need for
+  coordinating overheads such as synchronization or communication
+  between processors. By default, pardo uses block partitioning of the
+  loop assignment values to the threads, which typically results in
+  better cache utilization due to the array locations on the left-hand
+  side of the assignment being owned by local caches more often than
+  not. However, Simple explicitly provides both block and cyclic
+  partitioning interfaces for the pardo directive.
+
+  example: pardo (var, startVal, endVal, incr) {
+  }
+
+  ii) Control Primitives
+
+  on_one_thread : only one thread per node
+  on_one_node : all threads on a single node
+  on_one : only one thread on a single node
+  on thread(i) : one thread (i) per node
+
+  iii) Memory management
+
+  Two directives are used:
+
+   1. void* node_malloc(size, THREADED) for dynamically allocating a shared structure, and
+   2. node_free(var, THREADED) for releasing this memory back to the heap.
+
+The node malloc primitive is called by all threads on a given node,
+and takes as a parameter the number of bytes to be allocated
+dynamically from the heap. The primitive returns to each thread a
+valid pointer to the shared memory location.  In addition, a thread
+may allow others to access local data by broadcasting the
+corresponding memory address. When this shared memory is no longer
+required, the node free primitive releases it back to the heap.
+
+-------
+
+EXAMPLE CODE:
+
+The paper discusses some examples - radix sort, 2D FFT, permutations
+etc. - and you get most of the code in the examples directory.
+
+-------
+
+List Ranking
+
+The following papers detail the algorithm -
+
+* Prefix Computations on Symmetric Multiprocessors, D. Helman and J. JaJa,
+Journal of Parallel and Distributed Computing, 61(2), 265-278, 2001
+http://www.umiacs.umd.edu/users/joseph/3915.ps
+
+* Designing practical efficient algorithms for symmetric multiprocessors, D. R.
+Helman and J. JaJa, In Algorithm Engineering and Experimentation (ALENEX’99),
+volume 1619 of Lecture Notes in Computer Science, pages 37–56, Baltimore, MD,
+January 1999. Springer-Verlag.
+http://portal.acm.org/citation.cfm?id=646678.702169
+
+The main steps in the list ranking algorithm are as follows:
+1. Finding the head h of the list given by h = (n(n-1)/2-Z) where Z is the sum of successor indices of all the nodes in the list.
+2. Partitioning the input list into s sublists by randomly choosing one splitter from each memory block of n/(s-1) nodes, where s is O(plogn), where p is the number of processors.
+3. Traversing each sublist computing the prefix sum of each node within the sublists. Each node records its sublist index. The input value of a node in the Sublists array is the sublist prefix sum of the last node in the previous Sublists.
+4. The prefix sums of the records in the Sublists array are then calculated. 
+5. Each node adds its current prefix sum value (value of a node within a sublist) and the prefix sum of its corresponding Sublists record to get its final prefix sums value. This prefix sum value is the required label of the leaves.
+
+The code is a straight-forward implementation of the above algorithm and should be easy to follow once you are convinced that the above algorithm works.
+
+----------
+
+Minimum Spanning Trees
+Ref. paper - http://www.cc.gatech.edu/~bader/papers/MinSpanningTree.html
+Code - http://www.cc.gatech.edu/~bader/code/mst-1.0.tar.gz
+
+Four parallel MST algorithms (three variations of the Borouvka algorithm plus a new approach) for arbitrary sparse graphs are detailed in the paper.
+
+Boruvka’s minimum spanning tree algorithm is easy to parallelize, whereas the common MST algorithms like Prim’s and Kruskal’s are inherently sequential.
+Three steps comprise each iteration of parallel Boruvka’s algorithm:
+1. find-min: for each vertex v label the incident edge with the smallest weight to be in the MST.
+2. connect-components: identify connected components of the induced graph with edges found in Step 1.
+3. compact-graph: compact each connected component into a single supervertex, remove self-loops and multiple edges; and re-label the vertices for consistency.
+
+Three different graph representations have been experimented on -
+i) Bor-EL: Edge List Representation
+ii) Bor-AL: Adjacency List Representation
+ii) Bor-FAL: Flexible Adjacency List Rep.
+
+The new approach discussed in the paper combines ideas from the inherently sequential Prim’s algorithm to the easy-to-parallelize Boruvka approach.
+
+The tar file has all the four implementations. MST.c has the main function, and Boruvka*.c programs have the functions to identify connected components and compact the graph.
+
+------------

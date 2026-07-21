@@ -1,0 +1,131 @@
+Graph load (success): 41652230 verts, 2405026390 edges 7.3688 second(s)
+Test #0
+vert_count = 41652230, edge_count = 2405026390, avg_degree = 57.741
+start
+num_trim, 0
+root, 33376618, vert_count, 41652230, thread_count, 24, step, 1735510
+Level-0 3 0.005ms
+Pviot time (ms), 0.008
+BFS time (ms), 316.986
+Queue time (ms), 0.000
+Color time (ms), 0.000
+wcc computation time, 346.10 (ms)
+wcc_number, 1, largest wcc size, 41652230
+
+Test #1
+vert_count = 41652230, edge_count = 2405026390, avg_degree = 57.741
+start
+num_trim, 0
+root, 711690, vert_count, 41652230, thread_count, 24, step, 1735510
+Level-0 348 0.019ms
+Pviot time (ms), 0.002
+BFS time (ms), 214.874
+Queue time (ms), 0.000
+Color time (ms), 0.000
+wcc computation time, 244.06 (ms)
+wcc_number, 1, largest wcc size, 41652230
+
+Test #2
+vert_count = 41652230, edge_count = 2405026390, avg_degree = 57.741
+start
+num_trim, 0
+root, 711690, vert_count, 41652230, thread_count, 24, step, 1735510
+Level-0 348 0.022ms
+Pviot time (ms), 0.002
+BFS time (ms), 211.766
+Queue time (ms), 0.000
+Color time (ms), 0.000
+wcc computation time, 240.70 (ms)
+wcc_number, 1, largest wcc size, 41652230
+
+Test #3
+vert_count = 41652230, edge_count = 2405026390, avg_degree = 57.741
+start
+num_trim, 0
+root, 711690, vert_count, 41652230, thread_count, 24, step, 1735510
+Level-0 348 0.024ms
+Pviot time (ms), 0.001
+BFS time (ms), 244.518
+Queue time (ms), 0.000
+Color time (ms), 0.000
+wcc computation time, 273.55 (ms)
+wcc_number, 1, largest wcc size, 41652230
+
+Test #4
+vert_count = 41652230, edge_count = 2405026390, avg_degree = 57.741
+start
+num_trim, 0
+root, 13322778, vert_count, 41652230, thread_count, 24, step, 1735510
+Level-0 35 0.003ms
+Pviot time (ms), 0.002
+BFS time (ms), 133.352
+Queue time (ms), 0.000
+Color time (ms), 0.000
+wcc computation time, 162.33 (ms)
+wcc_number, 1, largest wcc size, 41652230
+
+Test #5
+vert_count = 41652230, edge_count = 2405026390, avg_degree = 57.741
+start
+num_trim, 0
+root, 13322778, vert_count, 41652230, thread_count, 24, step, 1735510
+Level-0 35 0.001ms
+Pviot time (ms), 0.002
+BFS time (ms), 130.633
+Queue time (ms), 0.000
+Color time (ms), 0.000
+wcc computation time, 159.57 (ms)
+wcc_number, 1, largest wcc size, 41652230
+
+Test #6
+vert_count = 41652230, edge_count = 2405026390, avg_degree = 57.741
+start
+num_trim, 0
+root, 33481078, vert_count, 41652230, thread_count, 24, step, 1735510
+Level-0 4 0.001ms
+Pviot time (ms), 0.002
+BFS time (ms), 307.959
+Queue time (ms), 0.000
+Color time (ms), 0.000
+wcc computation time, 337.26 (ms)
+wcc_number, 1, largest wcc size, 41652230
+
+Test #7
+vert_count = 41652230, edge_count = 2405026390, avg_degree = 57.741
+start
+num_trim, 0
+root, 33481078, vert_count, 41652230, thread_count, 24, step, 1735510
+Level-0 4 0.001ms
+Pviot time (ms), 0.002
+BFS time (ms), 277.831
+Queue time (ms), 0.000
+Color time (ms), 0.000
+wcc computation time, 309.56 (ms)
+wcc_number, 1, largest wcc size, 41652230
+
+Test #8
+vert_count = 41652230, edge_count = 2405026390, avg_degree = 57.741
+start
+num_trim, 0
+root, 27452787, vert_count, 41652230, thread_count, 24, step, 1735510
+Level-0 9 0.000ms
+Pviot time (ms), 0.002
+BFS time (ms), 250.743
+Queue time (ms), 0.000
+Color time (ms), 0.000
+wcc computation time, 282.61 (ms)
+wcc_number, 1, largest wcc size, 41652230
+
+Test #9
+vert_count = 41652230, edge_count = 2405026390, avg_degree = 57.741
+start
+num_trim, 0
+root, 10588085, vert_count, 41652230, thread_count, 24, step, 1735510
+Level-0 23 0.001ms
+Pviot time (ms), 0.001
+BFS time (ms), 104.004
+Queue time (ms), 0.000
+Color time (ms), 0.000
+wcc computation time, 133.13 (ms)
+wcc_number, 1, largest wcc size, 41652230
+
