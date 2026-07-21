@@ -5,6 +5,7 @@
 #include "util.h"
 #include "graph.h"
 #include <set>
+#include "scc_common.h" 
 #include <iostream>
 
 inline void fw_bfs(
