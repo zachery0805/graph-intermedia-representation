@@ -1,0 +1,39 @@
+# Build artifacts
+*.o
+*.obj
+*.out
+*.exe
+CMakeFiles/
+
+# Known compiled binaries (regenerate via each directory's Makefile)
+**/gir
+**/scc_cpu
+**/wcc_cpu
+**/scc_gpu
+**/wcc_gpu
+**/wcc_multi_gpu
+**/ap_cpu
+**/bicc_cpu
+**/bicc_gpu
+**/bridge_cpu
+**/brcc_cpu
+**/extract_cc
+**/cc_boost
+**/scc_boost
+**/txt_to_bin_bw
+**/txt_to_bin_fw
+**/txt_to_bin_undirected
+**/txt_to_bin_bw_int
+**/txt_to_bin_fw_int
+**/tuple_text_to_bin
+**/bin_parser
+**/bin_to_bin_bw_int
+**/bin_to_bin_fw_int
+**/bin_to_bin_undirected
+**/graph_clean
+**/graph-convert-standalone
+**/tags
+
+# Graph datasets: kept on disk, not versioned (see docs/datasets.md)
+/data/*
+!/data/example_graph/
