@@ -1,0 +1,3927 @@
+args = 9
+Thread = 56, run_times = 20
+Graph load (success): 2452715 verts, 18854882 edges 0.290164 second(s)
+
+Runtime: 1
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.008
+
+large, 0, middle, 11, small, 0
+top_down time, 1.961
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.978
+bottom_up time, 4.234
+level, 1, fq_size, 10, time, 4.238
+bottom_up time, 2.334
+level, 2, fq_size, 10, time, 2.337
+level, 3, fq_size, 49306
+scan time, 0.455
+bottom_up time, 2.167
+level, 3, fq_size, 49306, time, 2.627
+level, 4, fq_size, 29698
+scan time, 1.988
+bottom_up time, 2.111
+level, 4, fq_size, 29698, time, 4.105
+level, 5, fq_size, 26567
+scan time, 1.978
+bottom_up time, 1.890
+level, 5, fq_size, 26567, time, 3.871
+level, 6, fq_size, 25560
+scan time, 1.965
+bottom_up time, 1.808
+level, 6, fq_size, 25560, time, 3.777
+level, 7, fq_size, 25060
+scan time, 1.968
+bottom_up time, 1.780
+level, 7, fq_size, 25060, time, 3.751
+level, 8, fq_size, 24806
+scan time, 1.955
+bottom_up time, 1.795
+level, 8, fq_size, 24806, time, 3.754
+level, 9, fq_size, 24627
+scan time, 1.957
+bottom_up time, 1.781
+level, 9, fq_size, 24627, time, 3.742
+level, 10, fq_size, 24511
+scan time, 1.948
+bottom_up time, 1.776
+level, 10, fq_size, 24511, time, 3.728
+level, 11, fq_size, 24415
+scan time, 1.954
+bottom_up time, 1.770
+level, 11, fq_size, 24415, time, 3.727
+level, 12, fq_size, 24339
+scan time, 1.953
+bottom_up time, 1.769
+level, 12, fq_size, 24339, time, 3.725
+level, 13, fq_size, 24282
+scan time, 1.944
+bottom_up time, 1.759
+level, 13, fq_size, 24282, time, 3.707
+level, 14, fq_size, 24235
+scan time, 1.951
+bottom_up time, 1.768
+level, 14, fq_size, 24235, time, 3.722
+level, 15, fq_size, 24195
+scan time, 1.956
+bottom_up time, 1.758
+level, 15, fq_size, 24195, time, 3.717
+level, 16, fq_size, 24159
+scan time, 1.949
+bottom_up time, 1.768
+level, 16, fq_size, 24159, time, 3.721
+level, 17, fq_size, 24137
+scan time, 1.960
+bottom_up time, 1.773
+level, 17, fq_size, 24137, time, 3.736
+level, 18, fq_size, 24113
+scan time, 1.943
+bottom_up time, 1.735
+level, 18, fq_size, 24113, time, 3.683
+level, 19, fq_size, 24095
+scan time, 1.950
+bottom_up time, 1.774
+level, 19, fq_size, 24095, time, 3.728
+level, 20, fq_size, 24078
+scan time, 1.951
+bottom_up time, 1.767
+level, 20, fq_size, 24078, time, 3.722
+level, 21, fq_size, 24066
+scan time, 1.949
+bottom_up time, 1.749
+level, 21, fq_size, 24066, time, 3.702
+level, 22, fq_size, 24055
+scan time, 1.956
+bottom_up time, 1.764
+level, 22, fq_size, 24055, time, 3.724
+level, 23, fq_size, 24043
+scan time, 1.960
+bottom_up time, 1.749
+level, 23, fq_size, 24043, time, 3.713
+level, 24, fq_size, 24031
+scan time, 1.951
+bottom_up time, 1.742
+level, 24, fq_size, 24031, time, 3.695
+level, 25, fq_size, 24018
+scan time, 1.944
+bottom_up time, 1.763
+level, 25, fq_size, 24018, time, 3.709
+level, 26, fq_size, 24009
+scan time, 1.946
+bottom_up time, 1.756
+level, 26, fq_size, 24009, time, 3.706
+level, 27, fq_size, 24000
+scan time, 1.941
+bottom_up time, 1.760
+level, 27, fq_size, 24000, time, 3.705
+level, 28, fq_size, 23991
+scan time, 1.956
+bottom_up time, 1.760
+level, 28, fq_size, 23991, time, 3.719
+level, 29, fq_size, 23982
+scan time, 1.958
+bottom_up time, 1.742
+level, 29, fq_size, 23982, time, 3.704
+level, 30, fq_size, 23976
+scan time, 1.956
+bottom_up time, 1.752
+level, 30, fq_size, 23976, time, 3.712
+level, 31, fq_size, 23972
+scan time, 1.943
+bottom_up time, 1.760
+level, 31, fq_size, 23972, time, 3.706
+level, 32, fq_size, 23968
+scan time, 1.945
+bottom_up time, 1.757
+level, 32, fq_size, 23968, time, 3.706
+level, 33, fq_size, 23964
+scan time, 1.949
+bottom_up time, 1.745
+level, 33, fq_size, 23964, time, 3.698
+level, 34, fq_size, 23959
+scan time, 1.950
+bottom_up time, 1.754
+level, 34, fq_size, 23959, time, 3.708
+level, 35, fq_size, 23956
+scan time, 1.936
+bottom_up time, 1.731
+level, 35, fq_size, 23956, time, 3.670
+level, 36, fq_size, 23953
+scan time, 1.946
+bottom_up time, 1.767
+level, 36, fq_size, 23953, time, 3.717
+level, 37, fq_size, 23947
+scan time, 1.953
+bottom_up time, 1.739
+level, 37, fq_size, 23947, time, 3.694
+level, 38, fq_size, 23944
+scan time, 1.934
+bottom_up time, 1.748
+level, 38, fq_size, 23944, time, 3.722
+level, 39, fq_size, 23942
+scan time, 1.936
+bottom_up time, 1.745
+level, 39, fq_size, 23942, time, 3.683
+level, 40, fq_size, 23939
+scan time, 1.931
+bottom_up time, 1.745
+level, 40, fq_size, 23939, time, 3.678
+level, 41, fq_size, 23937
+scan time, 1.944
+bottom_up time, 1.747
+level, 41, fq_size, 23937, time, 3.693
+level, 42, fq_size, 23936
+scan time, 1.933
+bottom_up time, 1.743
+level, 42, fq_size, 23936, time, 3.677
+level, 43, fq_size, 23935
+scan time, 1.935
+bottom_up time, 1.747
+level, 43, fq_size, 23935, time, 3.685
+level, 44, fq_size, 23934
+scan time, 1.931
+bottom_up time, 1.754
+level, 44, fq_size, 23934, time, 3.687
+level, 45, fq_size, 23932
+scan time, 1.938
+bottom_up time, 1.743
+level, 45, fq_size, 23932, time, 3.683
+level, 46, fq_size, 23931
+scan time, 1.939
+bottom_up time, 1.746
+level, 46, fq_size, 23931, time, 3.687
+level, 47, fq_size, 23930
+scan time, 1.938
+bottom_up time, 1.749
+level, 47, fq_size, 23930, time, 3.688
+level, 48, fq_size, 23929
+scan time, 1.945
+bottom_up time, 1.744
+Queue time (ms), 0.405
+fq_size, 23929
+Depth BFS, 48
+Trim time (ms), 0.318
+BFS time (ms), 178.717
+Queue time (ms), 0.405
+Color time (ms), 3.437
+WCC time (ms), 182.559
+wcc computation time, 652.96 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 2
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.002
+
+large, 0, middle, 11, small, 0
+top_down time, 1.951
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.958
+bottom_up time, 4.166
+level, 1, fq_size, 10, time, 4.167
+bottom_up time, 2.259
+level, 2, fq_size, 10, time, 2.262
+level, 3, fq_size, 49332
+scan time, 0.422
+bottom_up time, 2.155
+level, 3, fq_size, 49332, time, 2.582
+level, 4, fq_size, 29675
+scan time, 1.980
+bottom_up time, 2.058
+level, 4, fq_size, 29675, time, 4.040
+level, 5, fq_size, 26577
+scan time, 1.991
+bottom_up time, 1.884
+level, 5, fq_size, 26577, time, 3.877
+level, 6, fq_size, 25559
+scan time, 1.977
+bottom_up time, 1.855
+level, 6, fq_size, 25559, time, 3.833
+level, 7, fq_size, 25081
+scan time, 1.975
+bottom_up time, 1.812
+level, 7, fq_size, 25081, time, 3.790
+level, 8, fq_size, 24817
+scan time, 1.967
+bottom_up time, 1.801
+level, 8, fq_size, 24817, time, 3.770
+level, 9, fq_size, 24632
+scan time, 1.970
+bottom_up time, 1.809
+level, 9, fq_size, 24632, time, 3.785
+level, 10, fq_size, 24504
+scan time, 1.991
+bottom_up time, 1.792
+level, 10, fq_size, 24504, time, 3.788
+level, 11, fq_size, 24398
+scan time, 1.982
+bottom_up time, 1.794
+level, 11, fq_size, 24398, time, 3.777
+level, 12, fq_size, 24325
+scan time, 1.977
+bottom_up time, 1.805
+level, 12, fq_size, 24325, time, 3.784
+level, 13, fq_size, 24280
+scan time, 1.977
+bottom_up time, 1.778
+level, 13, fq_size, 24280, time, 3.757
+level, 14, fq_size, 24233
+scan time, 1.975
+bottom_up time, 1.791
+level, 14, fq_size, 24233, time, 3.769
+level, 15, fq_size, 24194
+scan time, 1.973
+bottom_up time, 1.771
+level, 15, fq_size, 24194, time, 3.750
+level, 16, fq_size, 24159
+scan time, 1.965
+bottom_up time, 1.780
+level, 16, fq_size, 24159, time, 3.747
+level, 17, fq_size, 24132
+scan time, 1.968
+bottom_up time, 1.763
+level, 17, fq_size, 24132, time, 3.733
+level, 18, fq_size, 24110
+scan time, 1.974
+bottom_up time, 1.776
+level, 18, fq_size, 24110, time, 3.751
+level, 19, fq_size, 24095
+scan time, 1.980
+bottom_up time, 1.786
+level, 19, fq_size, 24095, time, 3.768
+level, 20, fq_size, 24080
+scan time, 1.957
+bottom_up time, 1.771
+level, 20, fq_size, 24080, time, 3.733
+level, 21, fq_size, 24063
+scan time, 1.977
+bottom_up time, 1.766
+level, 21, fq_size, 24063, time, 3.744
+level, 22, fq_size, 24053
+scan time, 1.973
+bottom_up time, 1.780
+level, 22, fq_size, 24053, time, 3.755
+level, 23, fq_size, 24042
+scan time, 1.965
+bottom_up time, 1.759
+level, 23, fq_size, 24042, time, 3.726
+level, 24, fq_size, 24029
+scan time, 1.972
+bottom_up time, 1.761
+level, 24, fq_size, 24029, time, 3.735
+level, 25, fq_size, 24018
+scan time, 1.976
+bottom_up time, 1.756
+level, 25, fq_size, 24018, time, 3.738
+level, 26, fq_size, 24008
+scan time, 1.970
+bottom_up time, 1.761
+level, 26, fq_size, 24008, time, 3.770
+level, 27, fq_size, 23998
+scan time, 1.981
+bottom_up time, 1.761
+level, 27, fq_size, 23998, time, 3.744
+level, 28, fq_size, 23989
+scan time, 1.978
+bottom_up time, 1.759
+level, 28, fq_size, 23989, time, 3.739
+level, 29, fq_size, 23981
+scan time, 1.969
+bottom_up time, 1.766
+level, 29, fq_size, 23981, time, 3.738
+level, 30, fq_size, 23976
+scan time, 1.975
+bottom_up time, 1.746
+level, 30, fq_size, 23976, time, 3.723
+level, 31, fq_size, 23970
+scan time, 1.956
+bottom_up time, 1.771
+level, 31, fq_size, 23970, time, 3.729
+level, 32, fq_size, 23964
+scan time, 1.960
+bottom_up time, 1.754
+level, 32, fq_size, 23964, time, 3.716
+level, 33, fq_size, 23959
+scan time, 1.963
+bottom_up time, 1.758
+level, 33, fq_size, 23959, time, 3.722
+level, 34, fq_size, 23955
+scan time, 1.970
+bottom_up time, 1.763
+level, 34, fq_size, 23955, time, 3.735
+level, 35, fq_size, 23953
+scan time, 1.976
+bottom_up time, 1.758
+level, 35, fq_size, 23953, time, 3.736
+level, 36, fq_size, 23951
+scan time, 1.970
+bottom_up time, 1.757
+level, 36, fq_size, 23951, time, 3.729
+level, 37, fq_size, 23949
+scan time, 1.967
+bottom_up time, 1.759
+level, 37, fq_size, 23949, time, 3.728
+level, 38, fq_size, 23945
+scan time, 1.970
+bottom_up time, 1.771
+level, 38, fq_size, 23945, time, 3.743
+level, 39, fq_size, 23943
+scan time, 1.980
+bottom_up time, 1.758
+level, 39, fq_size, 23943, time, 3.740
+level, 40, fq_size, 23939
+scan time, 1.966
+bottom_up time, 1.775
+level, 40, fq_size, 23939, time, 3.743
+level, 41, fq_size, 23937
+scan time, 1.961
+bottom_up time, 1.779
+level, 41, fq_size, 23937, time, 3.742
+level, 42, fq_size, 23936
+scan time, 1.968
+bottom_up time, 1.764
+level, 42, fq_size, 23936, time, 3.734
+level, 43, fq_size, 23935
+scan time, 1.974
+bottom_up time, 1.771
+level, 43, fq_size, 23935, time, 3.746
+level, 44, fq_size, 23934
+scan time, 1.963
+bottom_up time, 1.784
+level, 44, fq_size, 23934, time, 3.748
+level, 45, fq_size, 23932
+scan time, 1.965
+bottom_up time, 1.764
+level, 45, fq_size, 23932, time, 3.731
+level, 46, fq_size, 23931
+scan time, 1.964
+bottom_up time, 1.776
+level, 46, fq_size, 23931, time, 3.742
+level, 47, fq_size, 23930
+scan time, 1.963
+bottom_up time, 1.780
+level, 47, fq_size, 23930, time, 3.745
+level, 48, fq_size, 23929
+scan time, 1.966
+bottom_up time, 1.766
+Queue time (ms), 0.414
+fq_size, 23929
+Depth BFS, 48
+Trim time (ms), 0.290
+BFS time (ms), 180.118
+Queue time (ms), 0.414
+Color time (ms), 3.504
+WCC time (ms), 184.036
+wcc computation time, 325.27 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 3
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.001
+
+large, 0, middle, 11, small, 0
+top_down time, 1.912
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.921
+bottom_up time, 4.195
+level, 1, fq_size, 10, time, 4.196
+bottom_up time, 2.247
+level, 2, fq_size, 10, time, 2.248
+level, 3, fq_size, 49201
+scan time, 0.412
+bottom_up time, 2.021
+level, 3, fq_size, 49201, time, 2.440
+level, 4, fq_size, 29616
+scan time, 1.976
+bottom_up time, 1.846
+level, 4, fq_size, 29616, time, 3.824
+level, 5, fq_size, 26520
+scan time, 1.968
+bottom_up time, 1.726
+level, 5, fq_size, 26520, time, 3.696
+level, 6, fq_size, 25542
+scan time, 3.586
+bottom_up time, 1.748
+level, 6, fq_size, 25542, time, 5.338
+level, 7, fq_size, 25081
+scan time, 2.000
+bottom_up time, 1.731
+level, 7, fq_size, 25081, time, 3.733
+level, 8, fq_size, 24807
+scan time, 1.962
+bottom_up time, 1.731
+level, 8, fq_size, 24807, time, 3.694
+level, 9, fq_size, 24626
+scan time, 1.967
+bottom_up time, 1.732
+level, 9, fq_size, 24626, time, 3.701
+level, 10, fq_size, 24508
+scan time, 2.047
+bottom_up time, 1.731
+level, 10, fq_size, 24508, time, 3.781
+level, 11, fq_size, 24409
+scan time, 1.965
+bottom_up time, 1.733
+level, 11, fq_size, 24409, time, 3.700
+level, 12, fq_size, 24334
+scan time, 1.967
+bottom_up time, 1.733
+level, 12, fq_size, 24334, time, 3.703
+level, 13, fq_size, 24281
+scan time, 1.966
+bottom_up time, 1.733
+level, 13, fq_size, 24281, time, 3.701
+level, 14, fq_size, 24233
+scan time, 1.965
+bottom_up time, 1.734
+level, 14, fq_size, 24233, time, 3.701
+level, 15, fq_size, 24188
+scan time, 1.976
+bottom_up time, 1.732
+level, 15, fq_size, 24188, time, 3.710
+level, 16, fq_size, 24155
+scan time, 1.975
+bottom_up time, 1.731
+level, 16, fq_size, 24155, time, 3.707
+level, 17, fq_size, 24131
+scan time, 1.975
+bottom_up time, 1.734
+level, 17, fq_size, 24131, time, 3.710
+level, 18, fq_size, 24108
+scan time, 1.963
+bottom_up time, 1.736
+level, 18, fq_size, 24108, time, 3.701
+level, 19, fq_size, 24084
+scan time, 1.975
+bottom_up time, 1.733
+level, 19, fq_size, 24084, time, 3.711
+level, 20, fq_size, 24064
+scan time, 1.967
+bottom_up time, 1.731
+level, 20, fq_size, 24064, time, 3.700
+level, 21, fq_size, 24051
+scan time, 1.946
+bottom_up time, 1.731
+level, 21, fq_size, 24051, time, 3.678
+level, 22, fq_size, 24038
+scan time, 1.964
+bottom_up time, 1.732
+level, 22, fq_size, 24038, time, 3.698
+level, 23, fq_size, 24027
+scan time, 1.957
+bottom_up time, 1.731
+level, 23, fq_size, 24027, time, 3.690
+level, 24, fq_size, 24013
+scan time, 1.960
+bottom_up time, 1.732
+level, 24, fq_size, 24013, time, 3.694
+level, 25, fq_size, 24001
+scan time, 1.965
+bottom_up time, 1.734
+level, 25, fq_size, 24001, time, 3.700
+level, 26, fq_size, 23992
+scan time, 1.966
+bottom_up time, 1.731
+level, 26, fq_size, 23992, time, 3.699
+level, 27, fq_size, 23982
+scan time, 1.965
+bottom_up time, 1.730
+level, 27, fq_size, 23982, time, 3.696
+level, 28, fq_size, 23973
+scan time, 1.966
+bottom_up time, 1.735
+level, 28, fq_size, 23973, time, 3.703
+level, 29, fq_size, 23966
+scan time, 1.964
+bottom_up time, 1.733
+level, 29, fq_size, 23966, time, 3.699
+level, 30, fq_size, 23961
+scan time, 1.980
+bottom_up time, 1.731
+level, 30, fq_size, 23961, time, 3.713
+level, 31, fq_size, 23958
+scan time, 1.971
+bottom_up time, 1.731
+level, 31, fq_size, 23958, time, 3.704
+level, 32, fq_size, 23955
+scan time, 1.957
+bottom_up time, 1.732
+level, 32, fq_size, 23955, time, 3.691
+level, 33, fq_size, 23953
+scan time, 1.963
+bottom_up time, 1.732
+level, 33, fq_size, 23953, time, 3.697
+level, 34, fq_size, 23951
+scan time, 1.980
+bottom_up time, 1.733
+level, 34, fq_size, 23951, time, 3.715
+level, 35, fq_size, 23949
+scan time, 1.967
+bottom_up time, 1.730
+level, 35, fq_size, 23949, time, 3.698
+level, 36, fq_size, 23946
+scan time, 1.958
+bottom_up time, 1.730
+level, 36, fq_size, 23946, time, 3.689
+level, 37, fq_size, 23944
+scan time, 1.952
+bottom_up time, 1.730
+level, 37, fq_size, 23944, time, 3.684
+level, 38, fq_size, 23941
+scan time, 1.953
+bottom_up time, 1.732
+level, 38, fq_size, 23941, time, 3.687
+level, 39, fq_size, 23938
+scan time, 1.970
+bottom_up time, 1.736
+level, 39, fq_size, 23938, time, 3.707
+level, 40, fq_size, 23937
+scan time, 1.962
+bottom_up time, 1.735
+level, 40, fq_size, 23937, time, 3.698
+level, 41, fq_size, 23936
+scan time, 1.956
+bottom_up time, 1.734
+level, 41, fq_size, 23936, time, 3.692
+level, 42, fq_size, 23935
+scan time, 1.960
+bottom_up time, 1.735
+level, 42, fq_size, 23935, time, 3.696
+level, 43, fq_size, 23932
+scan time, 1.968
+bottom_up time, 1.733
+level, 43, fq_size, 23932, time, 3.703
+level, 44, fq_size, 23931
+scan time, 1.953
+bottom_up time, 1.734
+level, 44, fq_size, 23931, time, 3.689
+level, 45, fq_size, 23929
+scan time, 1.975
+bottom_up time, 1.734
+Queue time (ms), 0.425
+fq_size, 23929
+Depth BFS, 45
+Trim time (ms), 0.286
+BFS time (ms), 168.114
+Queue time (ms), 0.425
+Color time (ms), 3.499
+WCC time (ms), 172.038
+wcc computation time, 307.57 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 4
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.002
+
+large, 0, middle, 11, small, 0
+top_down time, 1.935
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.950
+bottom_up time, 4.245
+level, 1, fq_size, 10, time, 4.247
+bottom_up time, 2.304
+level, 2, fq_size, 10, time, 2.305
+level, 3, fq_size, 49247
+scan time, 0.418
+bottom_up time, 2.196
+level, 3, fq_size, 49247, time, 2.621
+level, 4, fq_size, 29631
+scan time, 2.009
+bottom_up time, 2.086
+level, 4, fq_size, 29631, time, 4.101
+level, 5, fq_size, 26497
+scan time, 2.003
+bottom_up time, 1.938
+level, 5, fq_size, 26497, time, 3.943
+level, 6, fq_size, 25516
+scan time, 2.004
+bottom_up time, 1.881
+level, 6, fq_size, 25516, time, 3.887
+level, 7, fq_size, 25050
+scan time, 1.996
+bottom_up time, 1.855
+level, 7, fq_size, 25050, time, 3.853
+level, 8, fq_size, 24800
+scan time, 2.001
+bottom_up time, 1.849
+level, 8, fq_size, 24800, time, 3.852
+level, 9, fq_size, 24632
+scan time, 2.016
+bottom_up time, 1.858
+level, 9, fq_size, 24632, time, 3.876
+level, 10, fq_size, 24509
+scan time, 2.005
+bottom_up time, 1.836
+level, 10, fq_size, 24509, time, 3.843
+level, 11, fq_size, 24416
+scan time, 2.003
+bottom_up time, 1.840
+level, 11, fq_size, 24416, time, 3.844
+level, 12, fq_size, 24343
+scan time, 2.006
+bottom_up time, 1.827
+level, 12, fq_size, 24343, time, 3.833
+level, 13, fq_size, 24288
+scan time, 1.998
+bottom_up time, 1.835
+level, 13, fq_size, 24288, time, 3.835
+level, 14, fq_size, 24240
+scan time, 2.010
+bottom_up time, 1.821
+level, 14, fq_size, 24240, time, 3.833
+level, 15, fq_size, 24203
+scan time, 2.020
+bottom_up time, 1.818
+level, 15, fq_size, 24203, time, 3.839
+level, 16, fq_size, 24171
+scan time, 1.996
+bottom_up time, 1.830
+level, 16, fq_size, 24171, time, 3.828
+level, 17, fq_size, 24143
+scan time, 2.016
+bottom_up time, 1.839
+level, 17, fq_size, 24143, time, 3.856
+level, 18, fq_size, 24121
+scan time, 2.010
+bottom_up time, 1.814
+level, 18, fq_size, 24121, time, 3.824
+level, 19, fq_size, 24098
+scan time, 1.993
+bottom_up time, 1.823
+level, 19, fq_size, 24098, time, 3.818
+level, 20, fq_size, 24080
+scan time, 1.987
+bottom_up time, 1.818
+level, 20, fq_size, 24080, time, 3.807
+level, 21, fq_size, 24070
+scan time, 2.007
+bottom_up time, 1.817
+level, 21, fq_size, 24070, time, 3.825
+level, 22, fq_size, 24060
+scan time, 2.012
+bottom_up time, 1.816
+level, 22, fq_size, 24060, time, 3.830
+level, 23, fq_size, 24049
+scan time, 2.008
+bottom_up time, 1.812
+level, 23, fq_size, 24049, time, 3.821
+level, 24, fq_size, 24036
+scan time, 2.006
+bottom_up time, 1.814
+level, 24, fq_size, 24036, time, 3.822
+level, 25, fq_size, 24027
+scan time, 2.007
+bottom_up time, 1.810
+level, 25, fq_size, 24027, time, 3.818
+level, 26, fq_size, 24015
+scan time, 2.007
+bottom_up time, 1.806
+level, 26, fq_size, 24015, time, 3.815
+level, 27, fq_size, 24004
+scan time, 2.002
+bottom_up time, 1.804
+level, 27, fq_size, 24004, time, 3.807
+level, 28, fq_size, 23996
+scan time, 1.994
+bottom_up time, 1.806
+level, 28, fq_size, 23996, time, 3.801
+level, 29, fq_size, 23986
+scan time, 2.003
+bottom_up time, 1.806
+level, 29, fq_size, 23986, time, 3.810
+level, 30, fq_size, 23977
+scan time, 2.002
+bottom_up time, 1.823
+level, 30, fq_size, 23977, time, 3.827
+level, 31, fq_size, 23973
+scan time, 2.014
+bottom_up time, 1.803
+level, 31, fq_size, 23973, time, 3.819
+level, 32, fq_size, 23968
+scan time, 2.010
+bottom_up time, 1.809
+level, 32, fq_size, 23968, time, 3.821
+level, 33, fq_size, 23963
+scan time, 1.998
+bottom_up time, 1.813
+level, 33, fq_size, 23963, time, 3.812
+level, 34, fq_size, 23958
+scan time, 2.006
+bottom_up time, 1.810
+level, 34, fq_size, 23958, time, 3.817
+level, 35, fq_size, 23955
+scan time, 2.019
+bottom_up time, 1.807
+level, 35, fq_size, 23955, time, 3.827
+level, 36, fq_size, 23952
+scan time, 2.003
+bottom_up time, 1.804
+level, 36, fq_size, 23952, time, 3.809
+level, 37, fq_size, 23949
+scan time, 2.005
+bottom_up time, 1.822
+level, 37, fq_size, 23949, time, 3.828
+level, 38, fq_size, 23946
+scan time, 2.016
+bottom_up time, 1.806
+level, 38, fq_size, 23946, time, 3.824
+level, 39, fq_size, 23944
+scan time, 2.002
+bottom_up time, 1.812
+level, 39, fq_size, 23944, time, 3.816
+level, 40, fq_size, 23941
+scan time, 1.997
+bottom_up time, 1.809
+level, 40, fq_size, 23941, time, 3.808
+level, 41, fq_size, 23938
+scan time, 2.018
+bottom_up time, 1.820
+level, 41, fq_size, 23938, time, 3.839
+level, 42, fq_size, 23937
+scan time, 2.010
+bottom_up time, 1.808
+level, 42, fq_size, 23937, time, 3.820
+level, 43, fq_size, 23936
+scan time, 3.517
+bottom_up time, 1.816
+level, 43, fq_size, 23936, time, 5.335
+level, 44, fq_size, 23935
+scan time, 2.008
+bottom_up time, 1.806
+level, 44, fq_size, 23935, time, 3.815
+level, 45, fq_size, 23934
+scan time, 2.006
+bottom_up time, 1.823
+level, 45, fq_size, 23934, time, 3.848
+level, 46, fq_size, 23932
+scan time, 1.999
+bottom_up time, 1.831
+level, 46, fq_size, 23932, time, 3.832
+level, 47, fq_size, 23931
+scan time, 2.004
+bottom_up time, 1.797
+level, 47, fq_size, 23931, time, 3.802
+level, 48, fq_size, 23930
+scan time, 2.020
+bottom_up time, 1.808
+level, 48, fq_size, 23930, time, 3.830
+level, 49, fq_size, 23929
+scan time, 1.997
+bottom_up time, 1.796
+Queue time (ms), 0.393
+fq_size, 23929
+Depth BFS, 49
+Trim time (ms), 0.310
+BFS time (ms), 189.138
+Queue time (ms), 0.393
+Color time (ms), 3.561
+WCC time (ms), 193.092
+wcc computation time, 331.24 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 5
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.002
+
+large, 0, middle, 11, small, 0
+top_down time, 1.912
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.919
+bottom_up time, 4.230
+level, 1, fq_size, 10, time, 4.232
+bottom_up time, 2.254
+level, 2, fq_size, 10, time, 2.256
+level, 3, fq_size, 49310
+scan time, 0.441
+bottom_up time, 2.230
+level, 3, fq_size, 49310, time, 2.673
+level, 4, fq_size, 29674
+scan time, 2.005
+bottom_up time, 2.068
+level, 4, fq_size, 29674, time, 4.074
+level, 5, fq_size, 26561
+scan time, 2.020
+bottom_up time, 1.891
+level, 5, fq_size, 26561, time, 3.916
+level, 6, fq_size, 25564
+scan time, 1.993
+bottom_up time, 1.861
+level, 6, fq_size, 25564, time, 3.860
+level, 7, fq_size, 25067
+scan time, 2.003
+bottom_up time, 1.830
+level, 7, fq_size, 25067, time, 3.835
+level, 8, fq_size, 24807
+scan time, 1.999
+bottom_up time, 1.799
+level, 8, fq_size, 24807, time, 3.800
+level, 9, fq_size, 24630
+scan time, 2.006
+bottom_up time, 1.811
+level, 9, fq_size, 24630, time, 3.819
+level, 10, fq_size, 24505
+scan time, 1.999
+bottom_up time, 1.806
+level, 10, fq_size, 24505, time, 3.811
+level, 11, fq_size, 24406
+scan time, 1.998
+bottom_up time, 1.805
+level, 11, fq_size, 24406, time, 3.809
+level, 12, fq_size, 24332
+scan time, 2.015
+bottom_up time, 1.802
+level, 12, fq_size, 24332, time, 3.818
+level, 13, fq_size, 24278
+scan time, 1.990
+bottom_up time, 1.788
+level, 13, fq_size, 24278, time, 3.780
+level, 14, fq_size, 24234
+scan time, 2.000
+bottom_up time, 1.851
+level, 14, fq_size, 24234, time, 3.853
+level, 15, fq_size, 24192
+scan time, 2.013
+bottom_up time, 1.786
+level, 15, fq_size, 24192, time, 3.801
+level, 16, fq_size, 24153
+scan time, 1.982
+bottom_up time, 1.786
+level, 16, fq_size, 24153, time, 3.770
+level, 17, fq_size, 24128
+scan time, 2.023
+bottom_up time, 1.826
+level, 17, fq_size, 24128, time, 3.851
+level, 18, fq_size, 24108
+scan time, 1.984
+bottom_up time, 1.796
+level, 18, fq_size, 24108, time, 3.781
+level, 19, fq_size, 24087
+scan time, 1.990
+bottom_up time, 1.797
+level, 19, fq_size, 24087, time, 3.789
+level, 20, fq_size, 24072
+scan time, 1.979
+bottom_up time, 1.774
+level, 20, fq_size, 24072, time, 3.755
+level, 21, fq_size, 24058
+scan time, 1.993
+bottom_up time, 1.770
+level, 21, fq_size, 24058, time, 3.765
+level, 22, fq_size, 24046
+scan time, 2.000
+bottom_up time, 1.766
+level, 22, fq_size, 24046, time, 3.768
+level, 23, fq_size, 24034
+scan time, 2.000
+bottom_up time, 1.779
+level, 23, fq_size, 24034, time, 3.781
+level, 24, fq_size, 24019
+scan time, 1.982
+bottom_up time, 1.759
+level, 24, fq_size, 24019, time, 3.742
+level, 25, fq_size, 24009
+scan time, 1.988
+bottom_up time, 1.762
+level, 25, fq_size, 24009, time, 3.750
+level, 26, fq_size, 23997
+scan time, 1.999
+bottom_up time, 1.779
+level, 26, fq_size, 23997, time, 3.780
+level, 27, fq_size, 23989
+scan time, 1.985
+bottom_up time, 1.779
+level, 27, fq_size, 23989, time, 3.766
+level, 28, fq_size, 23982
+scan time, 1.991
+bottom_up time, 1.769
+level, 28, fq_size, 23982, time, 3.762
+level, 29, fq_size, 23973
+scan time, 1.978
+bottom_up time, 1.775
+level, 29, fq_size, 23973, time, 3.754
+level, 30, fq_size, 23967
+scan time, 1.983
+bottom_up time, 1.780
+level, 30, fq_size, 23967, time, 3.764
+level, 31, fq_size, 23962
+scan time, 1.991
+bottom_up time, 1.777
+level, 31, fq_size, 23962, time, 3.768
+level, 32, fq_size, 23958
+scan time, 1.996
+bottom_up time, 1.767
+level, 32, fq_size, 23958, time, 3.791
+level, 33, fq_size, 23954
+scan time, 1.983
+bottom_up time, 1.758
+level, 33, fq_size, 23954, time, 3.743
+level, 34, fq_size, 23950
+scan time, 1.988
+bottom_up time, 1.769
+level, 34, fq_size, 23950, time, 3.758
+level, 35, fq_size, 23948
+scan time, 1.994
+bottom_up time, 1.804
+level, 35, fq_size, 23948, time, 3.799
+level, 36, fq_size, 23946
+scan time, 1.989
+bottom_up time, 1.773
+level, 36, fq_size, 23946, time, 3.763
+level, 37, fq_size, 23943
+scan time, 1.993
+bottom_up time, 1.771
+level, 37, fq_size, 23943, time, 3.765
+level, 38, fq_size, 23941
+scan time, 1.997
+bottom_up time, 1.804
+level, 38, fq_size, 23941, time, 3.803
+level, 39, fq_size, 23939
+scan time, 2.003
+bottom_up time, 1.793
+level, 39, fq_size, 23939, time, 3.796
+level, 40, fq_size, 23936
+scan time, 2.026
+bottom_up time, 1.787
+level, 40, fq_size, 23936, time, 3.814
+level, 41, fq_size, 23932
+scan time, 1.984
+bottom_up time, 1.791
+level, 41, fq_size, 23932, time, 3.776
+level, 42, fq_size, 23931
+scan time, 2.008
+bottom_up time, 1.774
+level, 42, fq_size, 23931, time, 3.783
+level, 43, fq_size, 23930
+scan time, 1.989
+bottom_up time, 1.768
+level, 43, fq_size, 23930, time, 3.759
+level, 44, fq_size, 23929
+scan time, 2.017
+bottom_up time, 1.811
+Queue time (ms), 0.395
+fq_size, 23929
+Depth BFS, 44
+Trim time (ms), 0.287
+BFS time (ms), 166.804
+Queue time (ms), 0.395
+Color time (ms), 3.533
+WCC time (ms), 170.732
+wcc computation time, 344.72 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 6
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.012
+
+large, 0, middle, 11, small, 0
+top_down time, 1.910
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.917
+bottom_up time, 4.197
+level, 1, fq_size, 10, time, 4.198
+bottom_up time, 2.275
+level, 2, fq_size, 10, time, 2.277
+level, 3, fq_size, 49150
+scan time, 0.423
+bottom_up time, 2.159
+level, 3, fq_size, 49150, time, 2.585
+level, 4, fq_size, 29555
+scan time, 1.977
+bottom_up time, 2.046
+level, 4, fq_size, 29555, time, 4.025
+level, 5, fq_size, 26476
+scan time, 1.987
+bottom_up time, 1.891
+level, 5, fq_size, 26476, time, 3.880
+level, 6, fq_size, 25505
+scan time, 1.980
+bottom_up time, 1.842
+level, 6, fq_size, 25505, time, 3.824
+level, 7, fq_size, 25058
+scan time, 1.961
+bottom_up time, 1.809
+level, 7, fq_size, 25058, time, 3.772
+level, 8, fq_size, 24800
+scan time, 1.974
+bottom_up time, 1.803
+level, 8, fq_size, 24800, time, 3.778
+level, 9, fq_size, 24624
+scan time, 1.964
+bottom_up time, 1.783
+level, 9, fq_size, 24624, time, 3.748
+level, 10, fq_size, 24508
+scan time, 1.957
+bottom_up time, 1.789
+level, 10, fq_size, 24508, time, 3.747
+level, 11, fq_size, 24411
+scan time, 1.980
+bottom_up time, 1.772
+level, 11, fq_size, 24411, time, 3.753
+level, 12, fq_size, 24334
+scan time, 1.972
+bottom_up time, 1.783
+level, 12, fq_size, 24334, time, 3.757
+level, 13, fq_size, 24272
+scan time, 1.963
+bottom_up time, 1.787
+level, 13, fq_size, 24272, time, 3.752
+level, 14, fq_size, 24229
+scan time, 1.965
+bottom_up time, 1.788
+level, 14, fq_size, 24229, time, 3.754
+level, 15, fq_size, 24191
+scan time, 1.981
+bottom_up time, 1.783
+level, 15, fq_size, 24191, time, 3.765
+level, 16, fq_size, 24159
+scan time, 1.983
+bottom_up time, 1.775
+level, 16, fq_size, 24159, time, 3.758
+level, 17, fq_size, 24133
+scan time, 2.001
+bottom_up time, 1.784
+level, 17, fq_size, 24133, time, 3.786
+level, 18, fq_size, 24115
+scan time, 1.950
+bottom_up time, 1.767
+level, 18, fq_size, 24115, time, 3.719
+level, 19, fq_size, 24095
+scan time, 1.983
+bottom_up time, 1.779
+level, 19, fq_size, 24095, time, 3.763
+level, 20, fq_size, 24076
+scan time, 1.948
+bottom_up time, 1.774
+level, 20, fq_size, 24076, time, 3.722
+level, 21, fq_size, 24061
+scan time, 1.940
+bottom_up time, 1.765
+level, 21, fq_size, 24061, time, 3.705
+level, 22, fq_size, 24048
+scan time, 1.950
+bottom_up time, 1.767
+level, 22, fq_size, 24048, time, 3.717
+level, 23, fq_size, 24037
+scan time, 1.963
+bottom_up time, 1.760
+level, 23, fq_size, 24037, time, 3.725
+level, 24, fq_size, 24025
+scan time, 1.950
+bottom_up time, 1.754
+level, 24, fq_size, 24025, time, 3.706
+level, 25, fq_size, 24013
+scan time, 1.945
+bottom_up time, 1.761
+level, 25, fq_size, 24013, time, 3.708
+level, 26, fq_size, 24001
+scan time, 1.946
+bottom_up time, 1.765
+level, 26, fq_size, 24001, time, 3.712
+level, 27, fq_size, 23993
+scan time, 1.963
+bottom_up time, 1.759
+level, 27, fq_size, 23993, time, 3.724
+level, 28, fq_size, 23986
+scan time, 1.965
+bottom_up time, 1.762
+level, 28, fq_size, 23986, time, 3.727
+level, 29, fq_size, 23979
+scan time, 1.968
+bottom_up time, 1.746
+level, 29, fq_size, 23979, time, 3.716
+level, 30, fq_size, 23969
+scan time, 1.944
+bottom_up time, 1.761
+level, 30, fq_size, 23969, time, 3.706
+level, 31, fq_size, 23962
+scan time, 1.958
+bottom_up time, 1.757
+level, 31, fq_size, 23962, time, 3.716
+level, 32, fq_size, 23958
+scan time, 1.958
+bottom_up time, 1.783
+level, 32, fq_size, 23958, time, 3.743
+level, 33, fq_size, 23954
+scan time, 1.945
+bottom_up time, 1.751
+level, 33, fq_size, 23954, time, 3.697
+level, 34, fq_size, 23951
+scan time, 1.947
+bottom_up time, 1.764
+level, 34, fq_size, 23951, time, 3.712
+level, 35, fq_size, 23949
+scan time, 1.957
+bottom_up time, 1.750
+level, 35, fq_size, 23949, time, 3.709
+level, 36, fq_size, 23946
+scan time, 1.947
+bottom_up time, 1.755
+level, 36, fq_size, 23946, time, 3.703
+level, 37, fq_size, 23944
+scan time, 1.954
+bottom_up time, 1.740
+level, 37, fq_size, 23944, time, 3.696
+level, 38, fq_size, 23942
+scan time, 1.949
+bottom_up time, 1.783
+level, 38, fq_size, 23942, time, 3.733
+level, 39, fq_size, 23939
+scan time, 1.947
+bottom_up time, 1.774
+level, 39, fq_size, 23939, time, 3.722
+level, 40, fq_size, 23937
+scan time, 1.950
+bottom_up time, 1.783
+level, 40, fq_size, 23937, time, 3.734
+level, 41, fq_size, 23936
+scan time, 1.973
+bottom_up time, 1.752
+level, 41, fq_size, 23936, time, 3.725
+level, 42, fq_size, 23935
+scan time, 1.952
+bottom_up time, 1.788
+level, 42, fq_size, 23935, time, 3.742
+level, 43, fq_size, 23934
+scan time, 1.963
+bottom_up time, 1.744
+level, 43, fq_size, 23934, time, 3.708
+level, 44, fq_size, 23932
+scan time, 1.957
+bottom_up time, 1.790
+level, 44, fq_size, 23932, time, 3.748
+level, 45, fq_size, 23931
+scan time, 1.968
+bottom_up time, 1.771
+level, 45, fq_size, 23931, time, 3.740
+level, 46, fq_size, 23929
+scan time, 1.934
+bottom_up time, 1.756
+Queue time (ms), 0.385
+fq_size, 23929
+Depth BFS, 46
+Trim time (ms), 0.286
+BFS time (ms), 171.998
+Queue time (ms), 0.385
+Color time (ms), 3.448
+WCC time (ms), 175.831
+wcc computation time, 315.60 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 7
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.001
+
+large, 0, middle, 11, small, 0
+top_down time, 1.890
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.897
+bottom_up time, 4.193
+level, 1, fq_size, 10, time, 4.196
+bottom_up time, 2.252
+level, 2, fq_size, 10, time, 2.253
+level, 3, fq_size, 49233
+scan time, 0.425
+bottom_up time, 2.177
+level, 3, fq_size, 49233, time, 2.605
+level, 4, fq_size, 29670
+scan time, 2.026
+bottom_up time, 2.072
+level, 4, fq_size, 29670, time, 4.100
+level, 5, fq_size, 26551
+scan time, 1.999
+bottom_up time, 1.918
+level, 5, fq_size, 26551, time, 3.919
+level, 6, fq_size, 25555
+scan time, 1.993
+bottom_up time, 1.860
+level, 6, fq_size, 25555, time, 3.856
+level, 7, fq_size, 25100
+scan time, 1.990
+bottom_up time, 1.845
+level, 7, fq_size, 25100, time, 3.838
+level, 8, fq_size, 24816
+scan time, 2.005
+bottom_up time, 1.816
+level, 8, fq_size, 24816, time, 3.823
+level, 9, fq_size, 24637
+scan time, 1.994
+bottom_up time, 1.818
+level, 9, fq_size, 24637, time, 3.814
+level, 10, fq_size, 24500
+scan time, 1.989
+bottom_up time, 1.785
+level, 10, fq_size, 24500, time, 3.777
+level, 11, fq_size, 24401
+scan time, 1.999
+bottom_up time, 1.809
+level, 11, fq_size, 24401, time, 3.810
+level, 12, fq_size, 24334
+scan time, 1.996
+bottom_up time, 1.783
+level, 12, fq_size, 24334, time, 3.781
+level, 13, fq_size, 24278
+scan time, 1.984
+bottom_up time, 1.773
+level, 13, fq_size, 24278, time, 3.759
+level, 14, fq_size, 24236
+scan time, 2.002
+bottom_up time, 1.787
+level, 14, fq_size, 24236, time, 3.791
+level, 15, fq_size, 24198
+scan time, 2.000
+bottom_up time, 1.808
+level, 15, fq_size, 24198, time, 3.811
+level, 16, fq_size, 24168
+scan time, 1.996
+bottom_up time, 1.799
+level, 16, fq_size, 24168, time, 3.798
+level, 17, fq_size, 24136
+scan time, 1.990
+bottom_up time, 1.800
+level, 17, fq_size, 24136, time, 3.793
+level, 18, fq_size, 24112
+scan time, 1.984
+bottom_up time, 1.799
+level, 18, fq_size, 24112, time, 3.785
+level, 19, fq_size, 24094
+scan time, 1.983
+bottom_up time, 1.797
+level, 19, fq_size, 24094, time, 3.783
+level, 20, fq_size, 24080
+scan time, 1.993
+bottom_up time, 1.785
+level, 20, fq_size, 24080, time, 3.788
+level, 21, fq_size, 24064
+scan time, 2.011
+bottom_up time, 1.777
+level, 21, fq_size, 24064, time, 3.790
+level, 22, fq_size, 24051
+scan time, 1.987
+bottom_up time, 1.826
+level, 22, fq_size, 24051, time, 3.817
+level, 23, fq_size, 24040
+scan time, 1.965
+bottom_up time, 1.762
+level, 23, fq_size, 24040, time, 3.728
+level, 24, fq_size, 24031
+scan time, 1.978
+bottom_up time, 1.789
+level, 24, fq_size, 24031, time, 3.768
+level, 25, fq_size, 24016
+scan time, 1.983
+bottom_up time, 1.776
+level, 25, fq_size, 24016, time, 3.761
+level, 26, fq_size, 24006
+scan time, 1.983
+bottom_up time, 1.786
+level, 26, fq_size, 24006, time, 3.771
+level, 27, fq_size, 23993
+scan time, 1.981
+bottom_up time, 1.765
+level, 27, fq_size, 23993, time, 3.748
+level, 28, fq_size, 23984
+scan time, 1.976
+bottom_up time, 1.787
+level, 28, fq_size, 23984, time, 3.764
+level, 29, fq_size, 23977
+scan time, 1.993
+bottom_up time, 1.766
+level, 29, fq_size, 23977, time, 3.760
+level, 30, fq_size, 23972
+scan time, 1.983
+bottom_up time, 1.764
+level, 30, fq_size, 23972, time, 3.749
+level, 31, fq_size, 23966
+scan time, 1.964
+bottom_up time, 1.773
+level, 31, fq_size, 23966, time, 3.737
+level, 32, fq_size, 23962
+scan time, 1.981
+bottom_up time, 1.775
+level, 32, fq_size, 23962, time, 3.757
+level, 33, fq_size, 23957
+scan time, 1.975
+bottom_up time, 1.779
+level, 33, fq_size, 23957, time, 3.755
+level, 34, fq_size, 23951
+scan time, 1.979
+bottom_up time, 1.788
+level, 34, fq_size, 23951, time, 3.768
+level, 35, fq_size, 23948
+scan time, 1.969
+bottom_up time, 1.768
+level, 35, fq_size, 23948, time, 3.738
+level, 36, fq_size, 23946
+scan time, 1.972
+bottom_up time, 1.778
+level, 36, fq_size, 23946, time, 3.751
+level, 37, fq_size, 23942
+scan time, 1.989
+bottom_up time, 1.782
+level, 37, fq_size, 23942, time, 3.772
+level, 38, fq_size, 23940
+scan time, 1.969
+bottom_up time, 1.774
+level, 38, fq_size, 23940, time, 3.745
+level, 39, fq_size, 23938
+scan time, 1.968
+bottom_up time, 1.777
+level, 39, fq_size, 23938, time, 3.746
+level, 40, fq_size, 23937
+scan time, 1.973
+bottom_up time, 1.779
+level, 40, fq_size, 23937, time, 3.754
+level, 41, fq_size, 23936
+scan time, 1.989
+bottom_up time, 1.800
+level, 41, fq_size, 23936, time, 3.790
+level, 42, fq_size, 23935
+scan time, 1.971
+bottom_up time, 1.781
+level, 42, fq_size, 23935, time, 3.753
+level, 43, fq_size, 23932
+scan time, 1.989
+bottom_up time, 1.772
+level, 43, fq_size, 23932, time, 3.762
+level, 44, fq_size, 23931
+scan time, 1.970
+bottom_up time, 1.803
+level, 44, fq_size, 23931, time, 3.774
+level, 45, fq_size, 23930
+scan time, 1.971
+bottom_up time, 1.792
+level, 45, fq_size, 23930, time, 3.765
+level, 46, fq_size, 23929
+scan time, 1.974
+bottom_up time, 1.793
+Queue time (ms), 0.396
+fq_size, 23929
+Depth BFS, 46
+Trim time (ms), 0.288
+BFS time (ms), 173.842
+Queue time (ms), 0.396
+Color time (ms), 3.524
+WCC time (ms), 177.762
+wcc computation time, 308.08 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 8
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.001
+
+large, 0, middle, 11, small, 0
+top_down time, 1.938
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.943
+bottom_up time, 4.149
+level, 1, fq_size, 10, time, 4.150
+bottom_up time, 2.234
+level, 2, fq_size, 10, time, 2.235
+level, 3, fq_size, 49284
+scan time, 0.414
+bottom_up time, 2.147
+level, 3, fq_size, 49284, time, 2.563
+level, 4, fq_size, 29646
+scan time, 1.967
+bottom_up time, 2.035
+level, 4, fq_size, 29646, time, 4.003
+level, 5, fq_size, 26456
+scan time, 1.970
+bottom_up time, 1.862
+level, 5, fq_size, 26456, time, 3.834
+level, 6, fq_size, 25481
+scan time, 1.976
+bottom_up time, 1.817
+level, 6, fq_size, 25481, time, 3.794
+level, 7, fq_size, 25024
+scan time, 1.960
+bottom_up time, 1.805
+level, 7, fq_size, 25024, time, 3.765
+level, 8, fq_size, 24787
+scan time, 1.960
+bottom_up time, 1.779
+level, 8, fq_size, 24787, time, 3.742
+level, 9, fq_size, 24614
+scan time, 1.964
+bottom_up time, 1.792
+level, 9, fq_size, 24614, time, 3.757
+level, 10, fq_size, 24505
+scan time, 1.973
+bottom_up time, 1.766
+level, 10, fq_size, 24505, time, 3.739
+level, 11, fq_size, 24403
+scan time, 1.977
+bottom_up time, 1.794
+level, 11, fq_size, 24403, time, 3.773
+level, 12, fq_size, 24336
+scan time, 1.963
+bottom_up time, 1.785
+level, 12, fq_size, 24336, time, 3.750
+level, 13, fq_size, 24284
+scan time, 1.961
+bottom_up time, 1.759
+level, 13, fq_size, 24284, time, 3.721
+level, 14, fq_size, 24244
+scan time, 1.963
+bottom_up time, 1.767
+level, 14, fq_size, 24244, time, 3.731
+level, 15, fq_size, 24203
+scan time, 1.973
+bottom_up time, 1.767
+level, 15, fq_size, 24203, time, 3.741
+level, 16, fq_size, 24169
+scan time, 1.959
+bottom_up time, 1.772
+level, 16, fq_size, 24169, time, 3.733
+level, 17, fq_size, 24138
+scan time, 1.953
+bottom_up time, 1.769
+level, 17, fq_size, 24138, time, 3.723
+level, 18, fq_size, 24115
+scan time, 1.963
+bottom_up time, 1.780
+level, 18, fq_size, 24115, time, 3.743
+level, 19, fq_size, 24094
+scan time, 1.972
+bottom_up time, 1.766
+level, 19, fq_size, 24094, time, 3.739
+level, 20, fq_size, 24075
+scan time, 1.957
+bottom_up time, 1.774
+level, 20, fq_size, 24075, time, 3.731
+level, 21, fq_size, 24061
+scan time, 1.959
+bottom_up time, 1.769
+level, 21, fq_size, 24061, time, 3.728
+level, 22, fq_size, 24049
+scan time, 1.960
+bottom_up time, 1.749
+level, 22, fq_size, 24049, time, 3.710
+level, 23, fq_size, 24038
+scan time, 1.976
+bottom_up time, 1.767
+level, 23, fq_size, 24038, time, 3.745
+level, 24, fq_size, 24027
+scan time, 1.972
+bottom_up time, 1.847
+level, 24, fq_size, 24027, time, 3.821
+level, 25, fq_size, 24015
+scan time, 1.961
+bottom_up time, 1.786
+level, 25, fq_size, 24015, time, 3.748
+level, 26, fq_size, 24007
+scan time, 1.965
+bottom_up time, 1.761
+level, 26, fq_size, 24007, time, 3.728
+level, 27, fq_size, 23998
+scan time, 1.949
+bottom_up time, 1.753
+level, 27, fq_size, 23998, time, 3.702
+level, 28, fq_size, 23991
+scan time, 1.958
+bottom_up time, 1.784
+level, 28, fq_size, 23991, time, 3.743
+level, 29, fq_size, 23984
+scan time, 1.958
+bottom_up time, 1.766
+level, 29, fq_size, 23984, time, 3.726
+level, 30, fq_size, 23979
+scan time, 1.958
+bottom_up time, 1.763
+level, 30, fq_size, 23979, time, 3.723
+level, 31, fq_size, 23974
+scan time, 1.964
+bottom_up time, 1.767
+level, 31, fq_size, 23974, time, 3.733
+level, 32, fq_size, 23968
+scan time, 1.953
+bottom_up time, 1.752
+level, 32, fq_size, 23968, time, 3.705
+level, 33, fq_size, 23964
+scan time, 1.956
+bottom_up time, 1.770
+level, 33, fq_size, 23964, time, 3.727
+level, 34, fq_size, 23958
+scan time, 1.956
+bottom_up time, 1.760
+level, 34, fq_size, 23958, time, 3.716
+level, 35, fq_size, 23952
+scan time, 1.964
+bottom_up time, 1.735
+level, 35, fq_size, 23952, time, 3.701
+level, 36, fq_size, 23949
+scan time, 1.975
+bottom_up time, 1.763
+level, 36, fq_size, 23949, time, 3.739
+level, 37, fq_size, 23945
+scan time, 1.965
+bottom_up time, 1.765
+level, 37, fq_size, 23945, time, 3.730
+level, 38, fq_size, 23942
+scan time, 1.958
+bottom_up time, 1.771
+level, 38, fq_size, 23942, time, 3.731
+level, 39, fq_size, 23940
+scan time, 1.960
+bottom_up time, 1.743
+level, 39, fq_size, 23940, time, 3.704
+level, 40, fq_size, 23938
+scan time, 1.946
+bottom_up time, 1.757
+level, 40, fq_size, 23938, time, 3.704
+level, 41, fq_size, 23935
+scan time, 1.968
+bottom_up time, 1.765
+level, 41, fq_size, 23935, time, 3.734
+level, 42, fq_size, 23932
+scan time, 1.961
+bottom_up time, 1.766
+level, 42, fq_size, 23932, time, 3.728
+level, 43, fq_size, 23931
+scan time, 1.962
+bottom_up time, 1.774
+level, 43, fq_size, 23931, time, 3.738
+level, 44, fq_size, 23929
+scan time, 1.947
+bottom_up time, 1.761
+Queue time (ms), 0.387
+fq_size, 23929
+Depth BFS, 44
+Trim time (ms), 0.276
+BFS time (ms), 164.448
+Queue time (ms), 0.387
+Color time (ms), 3.483
+WCC time (ms), 168.318
+wcc computation time, 292.77 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 9
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.001
+
+large, 0, middle, 11, small, 0
+top_down time, 1.907
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.914
+bottom_up time, 4.192
+level, 1, fq_size, 10, time, 4.193
+bottom_up time, 2.266
+level, 2, fq_size, 10, time, 2.267
+level, 3, fq_size, 49252
+scan time, 0.410
+bottom_up time, 2.169
+level, 3, fq_size, 49252, time, 2.581
+level, 4, fq_size, 29626
+scan time, 1.978
+bottom_up time, 2.063
+level, 4, fq_size, 29626, time, 4.046
+level, 5, fq_size, 26500
+scan time, 1.972
+bottom_up time, 1.901
+level, 5, fq_size, 26500, time, 3.875
+level, 6, fq_size, 25526
+scan time, 1.977
+bottom_up time, 1.861
+level, 6, fq_size, 25526, time, 3.840
+level, 7, fq_size, 25079
+scan time, 1.971
+bottom_up time, 1.833
+level, 7, fq_size, 25079, time, 3.805
+level, 8, fq_size, 24806
+scan time, 1.975
+bottom_up time, 1.808
+level, 8, fq_size, 24806, time, 3.784
+level, 9, fq_size, 24632
+scan time, 1.966
+bottom_up time, 1.786
+level, 9, fq_size, 24632, time, 3.753
+level, 10, fq_size, 24513
+scan time, 1.957
+bottom_up time, 1.794
+level, 10, fq_size, 24513, time, 3.752
+level, 11, fq_size, 24424
+scan time, 1.968
+bottom_up time, 1.805
+level, 11, fq_size, 24424, time, 3.774
+level, 12, fq_size, 24338
+scan time, 1.979
+bottom_up time, 1.832
+level, 12, fq_size, 24338, time, 3.813
+level, 13, fq_size, 24278
+scan time, 1.974
+bottom_up time, 1.777
+level, 13, fq_size, 24278, time, 3.753
+level, 14, fq_size, 24227
+scan time, 1.967
+bottom_up time, 1.814
+level, 14, fq_size, 24227, time, 3.783
+level, 15, fq_size, 24188
+scan time, 1.981
+bottom_up time, 1.805
+level, 15, fq_size, 24188, time, 3.787
+level, 16, fq_size, 24159
+scan time, 1.987
+bottom_up time, 1.825
+level, 16, fq_size, 24159, time, 3.814
+level, 17, fq_size, 24136
+scan time, 1.971
+bottom_up time, 1.792
+level, 17, fq_size, 24136, time, 3.764
+level, 18, fq_size, 24113
+scan time, 1.968
+bottom_up time, 1.812
+level, 18, fq_size, 24113, time, 3.781
+level, 19, fq_size, 24094
+scan time, 1.976
+bottom_up time, 1.769
+level, 19, fq_size, 24094, time, 3.747
+level, 20, fq_size, 24080
+scan time, 1.966
+bottom_up time, 1.782
+level, 20, fq_size, 24080, time, 3.750
+level, 21, fq_size, 24064
+scan time, 1.964
+bottom_up time, 1.772
+level, 21, fq_size, 24064, time, 3.737
+level, 22, fq_size, 24055
+scan time, 1.964
+bottom_up time, 1.760
+level, 22, fq_size, 24055, time, 3.724
+level, 23, fq_size, 24043
+scan time, 1.963
+bottom_up time, 1.772
+level, 23, fq_size, 24043, time, 3.736
+level, 24, fq_size, 24034
+scan time, 1.967
+bottom_up time, 1.783
+level, 24, fq_size, 24034, time, 3.753
+level, 25, fq_size, 24022
+scan time, 2.014
+bottom_up time, 1.824
+level, 25, fq_size, 24022, time, 3.840
+level, 26, fq_size, 24012
+scan time, 2.018
+bottom_up time, 1.805
+level, 26, fq_size, 24012, time, 3.825
+level, 27, fq_size, 24002
+scan time, 1.994
+bottom_up time, 1.808
+level, 27, fq_size, 24002, time, 3.804
+level, 28, fq_size, 23994
+scan time, 2.026
+bottom_up time, 1.803
+level, 28, fq_size, 23994, time, 3.831
+level, 29, fq_size, 23986
+scan time, 1.981
+bottom_up time, 1.776
+level, 29, fq_size, 23986, time, 3.757
+level, 30, fq_size, 23976
+scan time, 1.975
+bottom_up time, 1.765
+level, 30, fq_size, 23976, time, 3.741
+level, 31, fq_size, 23969
+scan time, 1.974
+bottom_up time, 1.784
+level, 31, fq_size, 23969, time, 3.759
+level, 32, fq_size, 23963
+scan time, 1.963
+bottom_up time, 1.773
+level, 32, fq_size, 23963, time, 3.737
+level, 33, fq_size, 23955
+scan time, 1.974
+bottom_up time, 1.778
+level, 33, fq_size, 23955, time, 3.753
+level, 34, fq_size, 23950
+scan time, 1.954
+bottom_up time, 1.788
+level, 34, fq_size, 23950, time, 3.743
+level, 35, fq_size, 23947
+scan time, 1.962
+bottom_up time, 1.762
+level, 35, fq_size, 23947, time, 3.725
+level, 36, fq_size, 23944
+scan time, 1.973
+bottom_up time, 1.766
+level, 36, fq_size, 23944, time, 3.768
+level, 37, fq_size, 23941
+scan time, 1.961
+bottom_up time, 1.766
+level, 37, fq_size, 23941, time, 3.729
+level, 38, fq_size, 23940
+scan time, 1.982
+bottom_up time, 1.774
+level, 38, fq_size, 23940, time, 3.758
+level, 39, fq_size, 23938
+scan time, 1.959
+bottom_up time, 1.765
+level, 39, fq_size, 23938, time, 3.727
+level, 40, fq_size, 23937
+scan time, 1.971
+bottom_up time, 1.772
+level, 40, fq_size, 23937, time, 3.745
+level, 41, fq_size, 23936
+scan time, 1.971
+bottom_up time, 1.777
+level, 41, fq_size, 23936, time, 3.750
+level, 42, fq_size, 23935
+scan time, 1.976
+bottom_up time, 1.790
+level, 42, fq_size, 23935, time, 3.768
+level, 43, fq_size, 23934
+scan time, 1.969
+bottom_up time, 1.752
+level, 43, fq_size, 23934, time, 3.722
+level, 44, fq_size, 23932
+scan time, 1.951
+bottom_up time, 1.781
+level, 44, fq_size, 23932, time, 3.734
+level, 45, fq_size, 23931
+scan time, 1.972
+bottom_up time, 1.774
+level, 45, fq_size, 23931, time, 3.747
+level, 46, fq_size, 23930
+scan time, 1.970
+bottom_up time, 1.789
+level, 46, fq_size, 23930, time, 3.761
+level, 47, fq_size, 23929
+scan time, 1.965
+bottom_up time, 1.773
+Queue time (ms), 0.403
+fq_size, 23929
+Depth BFS, 47
+Trim time (ms), 0.279
+BFS time (ms), 177.020
+Queue time (ms), 0.403
+Color time (ms), 3.494
+WCC time (ms), 180.917
+wcc computation time, 305.47 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 10
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.012
+
+large, 0, middle, 11, small, 0
+top_down time, 1.926
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.932
+bottom_up time, 4.192
+level, 1, fq_size, 10, time, 4.194
+bottom_up time, 2.225
+level, 2, fq_size, 10, time, 2.226
+level, 3, fq_size, 49223
+scan time, 0.413
+bottom_up time, 2.197
+level, 3, fq_size, 49223, time, 2.612
+level, 4, fq_size, 29647
+scan time, 2.007
+bottom_up time, 2.080
+level, 4, fq_size, 29647, time, 4.089
+level, 5, fq_size, 26555
+scan time, 2.008
+bottom_up time, 1.906
+level, 5, fq_size, 26555, time, 3.916
+level, 6, fq_size, 25562
+scan time, 1.999
+bottom_up time, 1.859
+level, 6, fq_size, 25562, time, 3.860
+level, 7, fq_size, 25090
+scan time, 1.983
+bottom_up time, 1.804
+level, 7, fq_size, 25090, time, 3.789
+level, 8, fq_size, 24821
+scan time, 1.988
+bottom_up time, 1.810
+level, 8, fq_size, 24821, time, 3.800
+level, 9, fq_size, 24639
+scan time, 1.978
+bottom_up time, 1.807
+level, 9, fq_size, 24639, time, 3.787
+level, 10, fq_size, 24517
+scan time, 1.990
+bottom_up time, 1.788
+level, 10, fq_size, 24517, time, 3.780
+level, 11, fq_size, 24411
+scan time, 1.988
+bottom_up time, 1.795
+level, 11, fq_size, 24411, time, 3.784
+level, 12, fq_size, 24336
+scan time, 1.982
+bottom_up time, 1.796
+level, 12, fq_size, 24336, time, 3.780
+level, 13, fq_size, 24287
+scan time, 1.984
+bottom_up time, 1.789
+level, 13, fq_size, 24287, time, 3.774
+level, 14, fq_size, 24244
+scan time, 1.993
+bottom_up time, 1.802
+level, 14, fq_size, 24244, time, 3.797
+level, 15, fq_size, 24201
+scan time, 1.986
+bottom_up time, 1.780
+level, 15, fq_size, 24201, time, 3.767
+level, 16, fq_size, 24164
+scan time, 1.982
+bottom_up time, 1.788
+level, 16, fq_size, 24164, time, 3.772
+level, 17, fq_size, 24137
+scan time, 1.986
+bottom_up time, 1.795
+level, 17, fq_size, 24137, time, 3.783
+level, 18, fq_size, 24113
+scan time, 1.983
+bottom_up time, 1.774
+level, 18, fq_size, 24113, time, 3.759
+level, 19, fq_size, 24090
+scan time, 2.005
+bottom_up time, 1.787
+level, 19, fq_size, 24090, time, 3.794
+level, 20, fq_size, 24069
+scan time, 1.979
+bottom_up time, 1.782
+level, 20, fq_size, 24069, time, 3.761
+level, 21, fq_size, 24056
+scan time, 1.969
+bottom_up time, 1.781
+level, 21, fq_size, 24056, time, 3.751
+level, 22, fq_size, 24044
+scan time, 1.992
+bottom_up time, 1.784
+level, 22, fq_size, 24044, time, 3.778
+level, 23, fq_size, 24033
+scan time, 1.977
+bottom_up time, 1.778
+level, 23, fq_size, 24033, time, 3.757
+level, 24, fq_size, 24022
+scan time, 1.974
+bottom_up time, 1.763
+level, 24, fq_size, 24022, time, 3.738
+level, 25, fq_size, 24012
+scan time, 1.976
+bottom_up time, 1.782
+level, 25, fq_size, 24012, time, 3.758
+level, 26, fq_size, 24000
+scan time, 1.984
+bottom_up time, 1.776
+level, 26, fq_size, 24000, time, 3.762
+level, 27, fq_size, 23988
+scan time, 1.988
+bottom_up time, 1.771
+level, 27, fq_size, 23988, time, 3.759
+level, 28, fq_size, 23980
+scan time, 1.970
+bottom_up time, 1.784
+level, 28, fq_size, 23980, time, 3.754
+level, 29, fq_size, 23975
+scan time, 1.987
+bottom_up time, 1.766
+level, 29, fq_size, 23975, time, 3.755
+level, 30, fq_size, 23969
+scan time, 1.982
+bottom_up time, 1.792
+level, 30, fq_size, 23969, time, 3.776
+level, 31, fq_size, 23962
+scan time, 1.980
+bottom_up time, 1.765
+level, 31, fq_size, 23962, time, 3.747
+level, 32, fq_size, 23958
+scan time, 1.987
+bottom_up time, 1.776
+level, 32, fq_size, 23958, time, 3.764
+level, 33, fq_size, 23955
+scan time, 1.987
+bottom_up time, 1.781
+level, 33, fq_size, 23955, time, 3.768
+level, 34, fq_size, 23953
+scan time, 1.974
+bottom_up time, 1.783
+level, 34, fq_size, 23953, time, 3.759
+level, 35, fq_size, 23951
+scan time, 2.029
+bottom_up time, 1.792
+level, 35, fq_size, 23951, time, 3.822
+level, 36, fq_size, 23946
+scan time, 1.981
+bottom_up time, 1.765
+level, 36, fq_size, 23946, time, 3.747
+level, 37, fq_size, 23944
+scan time, 1.997
+bottom_up time, 1.774
+level, 37, fq_size, 23944, time, 3.772
+level, 38, fq_size, 23942
+scan time, 1.982
+bottom_up time, 1.764
+level, 38, fq_size, 23942, time, 3.747
+level, 39, fq_size, 23939
+scan time, 2.010
+bottom_up time, 1.785
+level, 39, fq_size, 23939, time, 3.797
+level, 40, fq_size, 23937
+scan time, 1.998
+bottom_up time, 1.769
+level, 40, fq_size, 23937, time, 3.769
+level, 41, fq_size, 23936
+scan time, 1.975
+bottom_up time, 1.774
+level, 41, fq_size, 23936, time, 3.751
+level, 42, fq_size, 23935
+scan time, 1.983
+bottom_up time, 1.781
+level, 42, fq_size, 23935, time, 3.765
+level, 43, fq_size, 23932
+scan time, 1.987
+bottom_up time, 1.776
+level, 43, fq_size, 23932, time, 3.765
+level, 44, fq_size, 23931
+scan time, 1.995
+bottom_up time, 1.762
+level, 44, fq_size, 23931, time, 3.759
+level, 45, fq_size, 23929
+scan time, 1.982
+bottom_up time, 1.763
+Queue time (ms), 0.405
+fq_size, 23929
+Depth BFS, 45
+Trim time (ms), 0.282
+BFS time (ms), 169.877
+Queue time (ms), 0.405
+Color time (ms), 3.528
+WCC time (ms), 173.810
+wcc computation time, 309.92 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 11
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.002
+
+large, 0, middle, 11, small, 0
+top_down time, 1.882
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.889
+bottom_up time, 4.204
+level, 1, fq_size, 10, time, 4.205
+bottom_up time, 2.288
+level, 2, fq_size, 10, time, 2.289
+level, 3, fq_size, 49155
+scan time, 0.416
+bottom_up time, 2.073
+level, 3, fq_size, 49155, time, 2.491
+level, 4, fq_size, 29692
+scan time, 1.996
+bottom_up time, 1.883
+level, 4, fq_size, 29692, time, 3.885
+level, 5, fq_size, 26566
+scan time, 1.995
+bottom_up time, 1.754
+level, 5, fq_size, 26566, time, 3.751
+level, 6, fq_size, 25519
+scan time, 1.986
+bottom_up time, 1.749
+level, 6, fq_size, 25519, time, 3.736
+level, 7, fq_size, 25065
+scan time, 1.981
+bottom_up time, 1.758
+level, 7, fq_size, 25065, time, 3.740
+level, 8, fq_size, 24809
+scan time, 1.977
+bottom_up time, 1.756
+level, 8, fq_size, 24809, time, 3.735
+level, 9, fq_size, 24631
+scan time, 1.979
+bottom_up time, 1.759
+level, 9, fq_size, 24631, time, 3.740
+level, 10, fq_size, 24505
+scan time, 1.986
+bottom_up time, 1.763
+level, 10, fq_size, 24505, time, 3.752
+level, 11, fq_size, 24414
+scan time, 2.013
+bottom_up time, 1.763
+level, 11, fq_size, 24414, time, 3.778
+level, 12, fq_size, 24333
+scan time, 1.988
+bottom_up time, 1.756
+level, 12, fq_size, 24333, time, 3.746
+level, 13, fq_size, 24277
+scan time, 1.984
+bottom_up time, 1.761
+level, 13, fq_size, 24277, time, 3.747
+level, 14, fq_size, 24235
+scan time, 1.985
+bottom_up time, 1.758
+level, 14, fq_size, 24235, time, 3.749
+level, 15, fq_size, 24199
+scan time, 1.992
+bottom_up time, 1.760
+level, 15, fq_size, 24199, time, 3.754
+level, 16, fq_size, 24167
+scan time, 1.990
+bottom_up time, 1.760
+level, 16, fq_size, 24167, time, 3.756
+level, 17, fq_size, 24129
+scan time, 1.991
+bottom_up time, 1.763
+level, 17, fq_size, 24129, time, 3.755
+level, 18, fq_size, 24108
+scan time, 1.980
+bottom_up time, 1.756
+level, 18, fq_size, 24108, time, 3.738
+level, 19, fq_size, 24089
+scan time, 1.972
+bottom_up time, 1.756
+level, 19, fq_size, 24089, time, 3.728
+level, 20, fq_size, 24073
+scan time, 1.976
+bottom_up time, 1.757
+level, 20, fq_size, 24073, time, 3.734
+level, 21, fq_size, 24060
+scan time, 1.990
+bottom_up time, 1.761
+level, 21, fq_size, 24060, time, 3.753
+level, 22, fq_size, 24049
+scan time, 2.015
+bottom_up time, 1.757
+level, 22, fq_size, 24049, time, 3.772
+level, 23, fq_size, 24036
+scan time, 1.975
+bottom_up time, 1.758
+level, 23, fq_size, 24036, time, 3.734
+level, 24, fq_size, 24026
+scan time, 1.981
+bottom_up time, 1.757
+level, 24, fq_size, 24026, time, 3.740
+level, 25, fq_size, 24017
+scan time, 2.076
+bottom_up time, 1.757
+level, 25, fq_size, 24017, time, 3.835
+level, 26, fq_size, 24006
+scan time, 1.972
+bottom_up time, 1.758
+level, 26, fq_size, 24006, time, 3.731
+level, 27, fq_size, 23996
+scan time, 1.982
+bottom_up time, 1.752
+level, 27, fq_size, 23996, time, 3.736
+level, 28, fq_size, 23986
+scan time, 1.984
+bottom_up time, 1.758
+level, 28, fq_size, 23986, time, 3.743
+level, 29, fq_size, 23976
+scan time, 1.977
+bottom_up time, 1.758
+level, 29, fq_size, 23976, time, 3.736
+level, 30, fq_size, 23967
+scan time, 1.978
+bottom_up time, 1.756
+level, 30, fq_size, 23967, time, 3.736
+level, 31, fq_size, 23961
+scan time, 1.980
+bottom_up time, 1.757
+level, 31, fq_size, 23961, time, 3.737
+level, 32, fq_size, 23955
+scan time, 1.968
+bottom_up time, 1.757
+level, 32, fq_size, 23955, time, 3.727
+level, 33, fq_size, 23951
+scan time, 1.973
+bottom_up time, 1.755
+level, 33, fq_size, 23951, time, 3.730
+level, 34, fq_size, 23949
+scan time, 1.979
+bottom_up time, 1.757
+level, 34, fq_size, 23949, time, 3.737
+level, 35, fq_size, 23947
+scan time, 1.987
+bottom_up time, 1.756
+level, 35, fq_size, 23947, time, 3.745
+level, 36, fq_size, 23945
+scan time, 2.047
+bottom_up time, 1.774
+level, 36, fq_size, 23945, time, 3.823
+level, 37, fq_size, 23943
+scan time, 1.986
+bottom_up time, 1.755
+level, 37, fq_size, 23943, time, 3.743
+level, 38, fq_size, 23941
+scan time, 1.986
+bottom_up time, 1.755
+level, 38, fq_size, 23941, time, 3.742
+level, 39, fq_size, 23939
+scan time, 1.982
+bottom_up time, 1.757
+level, 39, fq_size, 23939, time, 3.740
+level, 40, fq_size, 23934
+scan time, 1.994
+bottom_up time, 1.758
+level, 40, fq_size, 23934, time, 3.753
+level, 41, fq_size, 23932
+scan time, 1.989
+bottom_up time, 1.755
+level, 41, fq_size, 23932, time, 3.746
+level, 42, fq_size, 23931
+scan time, 1.989
+bottom_up time, 1.755
+level, 42, fq_size, 23931, time, 3.745
+level, 43, fq_size, 23929
+scan time, 1.989
+bottom_up time, 1.757
+Queue time (ms), 0.404
+fq_size, 23929
+Depth BFS, 43
+Trim time (ms), 0.278
+BFS time (ms), 160.984
+Queue time (ms), 0.404
+Color time (ms), 3.530
+WCC time (ms), 164.918
+wcc computation time, 292.12 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 12
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.001
+
+large, 0, middle, 11, small, 0
+top_down time, 1.913
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.918
+bottom_up time, 4.197
+level, 1, fq_size, 10, time, 4.198
+bottom_up time, 2.254
+level, 2, fq_size, 10, time, 2.255
+level, 3, fq_size, 49205
+scan time, 0.417
+bottom_up time, 2.126
+level, 3, fq_size, 49205, time, 2.545
+level, 4, fq_size, 29645
+scan time, 1.941
+bottom_up time, 2.012
+level, 4, fq_size, 29645, time, 3.955
+level, 5, fq_size, 26530
+scan time, 1.935
+bottom_up time, 1.860
+level, 5, fq_size, 26530, time, 3.796
+level, 6, fq_size, 25542
+scan time, 1.945
+bottom_up time, 1.813
+level, 6, fq_size, 25542, time, 3.759
+level, 7, fq_size, 25084
+scan time, 1.931
+bottom_up time, 1.776
+level, 7, fq_size, 25084, time, 3.707
+level, 8, fq_size, 24813
+scan time, 1.934
+bottom_up time, 1.764
+level, 8, fq_size, 24813, time, 3.700
+level, 9, fq_size, 24627
+scan time, 1.928
+bottom_up time, 1.769
+level, 9, fq_size, 24627, time, 3.698
+level, 10, fq_size, 24504
+scan time, 1.957
+bottom_up time, 1.756
+level, 10, fq_size, 24504, time, 3.715
+level, 11, fq_size, 24410
+scan time, 1.916
+bottom_up time, 1.770
+level, 11, fq_size, 24410, time, 3.687
+level, 12, fq_size, 24337
+scan time, 1.927
+bottom_up time, 1.767
+level, 12, fq_size, 24337, time, 3.694
+level, 13, fq_size, 24285
+scan time, 1.934
+bottom_up time, 1.760
+level, 13, fq_size, 24285, time, 3.694
+level, 14, fq_size, 24241
+scan time, 1.936
+bottom_up time, 1.743
+level, 14, fq_size, 24241, time, 3.680
+level, 15, fq_size, 24196
+scan time, 1.923
+bottom_up time, 1.754
+level, 15, fq_size, 24196, time, 3.678
+level, 16, fq_size, 24163
+scan time, 1.925
+bottom_up time, 1.758
+level, 16, fq_size, 24163, time, 3.684
+level, 17, fq_size, 24138
+scan time, 1.911
+bottom_up time, 1.752
+level, 17, fq_size, 24138, time, 3.665
+level, 18, fq_size, 24113
+scan time, 1.933
+bottom_up time, 1.728
+level, 18, fq_size, 24113, time, 3.663
+level, 19, fq_size, 24094
+scan time, 1.916
+bottom_up time, 1.739
+level, 19, fq_size, 24094, time, 3.656
+level, 20, fq_size, 24075
+scan time, 1.930
+bottom_up time, 1.761
+level, 20, fq_size, 24075, time, 3.692
+level, 21, fq_size, 24063
+scan time, 1.920
+bottom_up time, 1.727
+level, 21, fq_size, 24063, time, 3.648
+level, 22, fq_size, 24051
+scan time, 1.927
+bottom_up time, 1.749
+level, 22, fq_size, 24051, time, 3.677
+level, 23, fq_size, 24040
+scan time, 1.927
+bottom_up time, 1.729
+level, 23, fq_size, 24040, time, 3.658
+level, 24, fq_size, 24028
+scan time, 1.923
+bottom_up time, 1.752
+level, 24, fq_size, 24028, time, 3.676
+level, 25, fq_size, 24015
+scan time, 1.917
+bottom_up time, 1.734
+level, 25, fq_size, 24015, time, 3.651
+level, 26, fq_size, 24004
+scan time, 1.938
+bottom_up time, 1.750
+level, 26, fq_size, 24004, time, 3.689
+level, 27, fq_size, 23994
+scan time, 1.929
+bottom_up time, 1.729
+level, 27, fq_size, 23994, time, 3.659
+level, 28, fq_size, 23983
+scan time, 1.925
+bottom_up time, 1.757
+level, 28, fq_size, 23983, time, 3.684
+level, 29, fq_size, 23976
+scan time, 1.938
+bottom_up time, 1.741
+level, 29, fq_size, 23976, time, 3.680
+level, 30, fq_size, 23971
+scan time, 1.932
+bottom_up time, 1.746
+level, 30, fq_size, 23971, time, 3.679
+level, 31, fq_size, 23966
+scan time, 1.910
+bottom_up time, 1.764
+level, 31, fq_size, 23966, time, 3.675
+level, 32, fq_size, 23961
+scan time, 1.943
+bottom_up time, 1.778
+level, 32, fq_size, 23961, time, 3.723
+level, 33, fq_size, 23956
+scan time, 1.930
+bottom_up time, 1.728
+level, 33, fq_size, 23956, time, 3.660
+level, 34, fq_size, 23951
+scan time, 1.926
+bottom_up time, 1.735
+level, 34, fq_size, 23951, time, 3.663
+level, 35, fq_size, 23949
+scan time, 1.922
+bottom_up time, 1.744
+level, 35, fq_size, 23949, time, 3.667
+level, 36, fq_size, 23947
+scan time, 1.924
+bottom_up time, 1.732
+level, 36, fq_size, 23947, time, 3.657
+level, 37, fq_size, 23944
+scan time, 1.924
+bottom_up time, 1.817
+level, 37, fq_size, 23944, time, 3.743
+level, 38, fq_size, 23941
+scan time, 1.969
+bottom_up time, 1.788
+level, 38, fq_size, 23941, time, 3.759
+level, 39, fq_size, 23940
+scan time, 1.977
+bottom_up time, 1.785
+level, 39, fq_size, 23940, time, 3.763
+level, 40, fq_size, 23938
+scan time, 1.970
+bottom_up time, 1.787
+level, 40, fq_size, 23938, time, 3.759
+level, 41, fq_size, 23937
+scan time, 1.969
+bottom_up time, 1.772
+level, 41, fq_size, 23937, time, 3.743
+level, 42, fq_size, 23936
+scan time, 1.969
+bottom_up time, 1.782
+level, 42, fq_size, 23936, time, 3.752
+level, 43, fq_size, 23935
+scan time, 1.974
+bottom_up time, 1.798
+level, 43, fq_size, 23935, time, 3.773
+level, 44, fq_size, 23934
+scan time, 1.974
+bottom_up time, 1.769
+level, 44, fq_size, 23934, time, 3.745
+level, 45, fq_size, 23932
+scan time, 1.943
+bottom_up time, 1.778
+level, 45, fq_size, 23932, time, 3.724
+level, 46, fq_size, 23931
+scan time, 1.971
+bottom_up time, 1.737
+level, 46, fq_size, 23931, time, 3.710
+level, 47, fq_size, 23929
+scan time, 1.920
+bottom_up time, 1.746
+Queue time (ms), 0.401
+fq_size, 23929
+Depth BFS, 47
+Trim time (ms), 0.282
+BFS time (ms), 173.945
+Queue time (ms), 0.401
+Color time (ms), 3.420
+WCC time (ms), 177.766
+wcc computation time, 302.18 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 13
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.002
+
+large, 0, middle, 11, small, 0
+top_down time, 1.950
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.956
+bottom_up time, 4.157
+level, 1, fq_size, 10, time, 4.158
+bottom_up time, 2.241
+level, 2, fq_size, 10, time, 2.241
+level, 3, fq_size, 49332
+scan time, 0.418
+bottom_up time, 2.113
+level, 3, fq_size, 49332, time, 2.533
+level, 4, fq_size, 29631
+scan time, 1.975
+bottom_up time, 2.050
+level, 4, fq_size, 29631, time, 4.027
+level, 5, fq_size, 26512
+scan time, 1.979
+bottom_up time, 1.880
+level, 5, fq_size, 26512, time, 3.861
+level, 6, fq_size, 25524
+scan time, 1.955
+bottom_up time, 1.815
+level, 6, fq_size, 25524, time, 3.771
+level, 7, fq_size, 25052
+scan time, 1.952
+bottom_up time, 1.806
+level, 7, fq_size, 25052, time, 3.760
+level, 8, fq_size, 24786
+scan time, 1.958
+bottom_up time, 1.764
+level, 8, fq_size, 24786, time, 3.724
+level, 9, fq_size, 24619
+scan time, 1.959
+bottom_up time, 1.779
+level, 9, fq_size, 24619, time, 3.738
+level, 10, fq_size, 24503
+scan time, 1.959
+bottom_up time, 1.810
+level, 10, fq_size, 24503, time, 3.771
+level, 11, fq_size, 24404
+scan time, 1.967
+bottom_up time, 1.763
+level, 11, fq_size, 24404, time, 3.731
+level, 12, fq_size, 24325
+scan time, 1.977
+bottom_up time, 1.812
+level, 12, fq_size, 24325, time, 3.792
+level, 13, fq_size, 24278
+scan time, 1.989
+bottom_up time, 1.757
+level, 13, fq_size, 24278, time, 3.747
+level, 14, fq_size, 24235
+scan time, 1.946
+bottom_up time, 1.761
+level, 14, fq_size, 24235, time, 3.708
+level, 15, fq_size, 24204
+scan time, 1.986
+bottom_up time, 1.771
+level, 15, fq_size, 24204, time, 3.759
+level, 16, fq_size, 24176
+scan time, 1.961
+bottom_up time, 1.777
+level, 16, fq_size, 24176, time, 3.739
+level, 17, fq_size, 24143
+scan time, 1.964
+bottom_up time, 1.778
+level, 17, fq_size, 24143, time, 3.742
+level, 18, fq_size, 24123
+scan time, 1.972
+bottom_up time, 1.753
+level, 18, fq_size, 24123, time, 3.727
+level, 19, fq_size, 24106
+scan time, 1.965
+bottom_up time, 1.764
+level, 19, fq_size, 24106, time, 3.731
+level, 20, fq_size, 24084
+scan time, 1.965
+bottom_up time, 1.765
+level, 20, fq_size, 24084, time, 3.732
+level, 21, fq_size, 24065
+scan time, 1.961
+bottom_up time, 1.754
+level, 21, fq_size, 24065, time, 3.716
+level, 22, fq_size, 24049
+scan time, 1.960
+bottom_up time, 1.747
+level, 22, fq_size, 24049, time, 3.709
+level, 23, fq_size, 24040
+scan time, 1.982
+bottom_up time, 1.745
+level, 23, fq_size, 24040, time, 3.729
+level, 24, fq_size, 24025
+scan time, 1.966
+bottom_up time, 1.764
+level, 24, fq_size, 24025, time, 3.731
+level, 25, fq_size, 24011
+scan time, 1.979
+bottom_up time, 1.762
+level, 25, fq_size, 24011, time, 3.743
+level, 26, fq_size, 24002
+scan time, 1.965
+bottom_up time, 1.757
+level, 26, fq_size, 24002, time, 3.722
+level, 27, fq_size, 23995
+scan time, 1.959
+bottom_up time, 1.778
+level, 27, fq_size, 23995, time, 3.739
+level, 28, fq_size, 23989
+scan time, 1.957
+bottom_up time, 1.754
+level, 28, fq_size, 23989, time, 3.713
+level, 29, fq_size, 23984
+scan time, 1.947
+bottom_up time, 1.768
+level, 29, fq_size, 23984, time, 3.717
+level, 30, fq_size, 23978
+scan time, 1.952
+bottom_up time, 1.742
+level, 30, fq_size, 23978, time, 3.694
+level, 31, fq_size, 23974
+scan time, 1.980
+bottom_up time, 1.773
+level, 31, fq_size, 23974, time, 3.755
+level, 32, fq_size, 23969
+scan time, 1.958
+bottom_up time, 1.754
+level, 32, fq_size, 23969, time, 3.713
+level, 33, fq_size, 23963
+scan time, 1.953
+bottom_up time, 1.745
+level, 33, fq_size, 23963, time, 3.698
+level, 34, fq_size, 23960
+scan time, 2.000
+bottom_up time, 1.754
+level, 34, fq_size, 23960, time, 3.756
+level, 35, fq_size, 23956
+scan time, 1.954
+bottom_up time, 1.794
+level, 35, fq_size, 23956, time, 3.749
+level, 36, fq_size, 23950
+scan time, 1.951
+bottom_up time, 1.744
+level, 36, fq_size, 23950, time, 3.697
+level, 37, fq_size, 23947
+scan time, 1.954
+bottom_up time, 1.756
+level, 37, fq_size, 23947, time, 3.711
+level, 38, fq_size, 23944
+scan time, 1.964
+bottom_up time, 1.739
+level, 38, fq_size, 23944, time, 3.703
+level, 39, fq_size, 23942
+scan time, 2.003
+bottom_up time, 1.751
+level, 39, fq_size, 23942, time, 3.756
+level, 40, fq_size, 23940
+scan time, 2.068
+bottom_up time, 1.767
+level, 40, fq_size, 23940, time, 3.837
+level, 41, fq_size, 23938
+scan time, 1.980
+bottom_up time, 1.747
+level, 41, fq_size, 23938, time, 3.729
+level, 42, fq_size, 23936
+scan time, 1.964
+bottom_up time, 1.743
+level, 42, fq_size, 23936, time, 3.708
+level, 43, fq_size, 23934
+scan time, 1.950
+bottom_up time, 1.744
+level, 43, fq_size, 23934, time, 3.695
+level, 44, fq_size, 23932
+scan time, 1.957
+bottom_up time, 1.745
+level, 44, fq_size, 23932, time, 3.703
+level, 45, fq_size, 23931
+scan time, 1.948
+bottom_up time, 1.746
+level, 45, fq_size, 23931, time, 3.695
+level, 46, fq_size, 23930
+scan time, 1.955
+bottom_up time, 1.740
+level, 46, fq_size, 23930, time, 3.696
+level, 47, fq_size, 23929
+scan time, 1.963
+bottom_up time, 1.753
+Queue time (ms), 0.400
+fq_size, 23929
+Depth BFS, 47
+Trim time (ms), 0.280
+BFS time (ms), 175.535
+Queue time (ms), 0.400
+Color time (ms), 3.481
+WCC time (ms), 179.416
+wcc computation time, 305.23 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 14
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.001
+
+large, 0, middle, 11, small, 0
+top_down time, 1.943
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.949
+bottom_up time, 4.185
+level, 1, fq_size, 10, time, 4.186
+bottom_up time, 2.280
+level, 2, fq_size, 10, time, 2.281
+level, 3, fq_size, 49304
+scan time, 0.412
+bottom_up time, 2.179
+level, 3, fq_size, 49304, time, 2.593
+level, 4, fq_size, 29636
+scan time, 1.986
+bottom_up time, 2.069
+level, 4, fq_size, 29636, time, 4.057
+level, 5, fq_size, 26550
+scan time, 1.980
+bottom_up time, 1.890
+level, 5, fq_size, 26550, time, 3.872
+level, 6, fq_size, 25590
+scan time, 1.976
+bottom_up time, 1.842
+level, 6, fq_size, 25590, time, 3.820
+level, 7, fq_size, 25092
+scan time, 1.978
+bottom_up time, 1.817
+level, 7, fq_size, 25092, time, 3.797
+level, 8, fq_size, 24816
+scan time, 1.985
+bottom_up time, 1.786
+level, 8, fq_size, 24816, time, 3.772
+level, 9, fq_size, 24642
+scan time, 1.988
+bottom_up time, 1.802
+level, 9, fq_size, 24642, time, 3.791
+level, 10, fq_size, 24517
+scan time, 1.990
+bottom_up time, 1.791
+level, 10, fq_size, 24517, time, 3.782
+level, 11, fq_size, 24419
+scan time, 2.014
+bottom_up time, 1.805
+level, 11, fq_size, 24419, time, 3.821
+level, 12, fq_size, 24348
+scan time, 1.994
+bottom_up time, 1.794
+level, 12, fq_size, 24348, time, 3.790
+level, 13, fq_size, 24295
+scan time, 1.983
+bottom_up time, 1.778
+level, 13, fq_size, 24295, time, 3.763
+level, 14, fq_size, 24246
+scan time, 1.982
+bottom_up time, 1.799
+level, 14, fq_size, 24246, time, 3.782
+level, 15, fq_size, 24208
+scan time, 1.984
+bottom_up time, 1.780
+level, 15, fq_size, 24208, time, 3.770
+level, 16, fq_size, 24179
+scan time, 1.972
+bottom_up time, 1.775
+level, 16, fq_size, 24179, time, 3.749
+level, 17, fq_size, 24147
+scan time, 1.972
+bottom_up time, 1.779
+level, 17, fq_size, 24147, time, 3.753
+level, 18, fq_size, 24120
+scan time, 1.978
+bottom_up time, 1.772
+level, 18, fq_size, 24120, time, 3.752
+level, 19, fq_size, 24100
+scan time, 1.968
+bottom_up time, 1.828
+level, 19, fq_size, 24100, time, 3.796
+level, 20, fq_size, 24085
+scan time, 1.980
+bottom_up time, 1.779
+level, 20, fq_size, 24085, time, 3.761
+level, 21, fq_size, 24069
+scan time, 1.970
+bottom_up time, 1.786
+level, 21, fq_size, 24069, time, 3.758
+level, 22, fq_size, 24058
+scan time, 1.975
+bottom_up time, 1.773
+level, 22, fq_size, 24058, time, 3.750
+level, 23, fq_size, 24046
+scan time, 1.988
+bottom_up time, 1.767
+level, 23, fq_size, 24046, time, 3.757
+level, 24, fq_size, 24031
+scan time, 1.977
+bottom_up time, 1.771
+level, 24, fq_size, 24031, time, 3.750
+level, 25, fq_size, 24022
+scan time, 1.972
+bottom_up time, 1.772
+level, 25, fq_size, 24022, time, 3.746
+level, 26, fq_size, 24010
+scan time, 1.978
+bottom_up time, 1.772
+level, 26, fq_size, 24010, time, 3.750
+level, 27, fq_size, 24000
+scan time, 1.975
+bottom_up time, 1.779
+level, 27, fq_size, 24000, time, 3.755
+level, 28, fq_size, 23992
+scan time, 1.977
+bottom_up time, 1.787
+level, 28, fq_size, 23992, time, 3.766
+level, 29, fq_size, 23982
+scan time, 1.980
+bottom_up time, 1.782
+level, 29, fq_size, 23982, time, 3.762
+level, 30, fq_size, 23974
+scan time, 1.965
+bottom_up time, 1.780
+level, 30, fq_size, 23974, time, 3.747
+level, 31, fq_size, 23969
+scan time, 1.983
+bottom_up time, 1.763
+level, 31, fq_size, 23969, time, 3.748
+level, 32, fq_size, 23965
+scan time, 1.974
+bottom_up time, 1.771
+level, 32, fq_size, 23965, time, 3.748
+level, 33, fq_size, 23957
+scan time, 1.973
+bottom_up time, 1.776
+level, 33, fq_size, 23957, time, 3.751
+level, 34, fq_size, 23953
+scan time, 1.988
+bottom_up time, 1.778
+level, 34, fq_size, 23953, time, 3.767
+level, 35, fq_size, 23950
+scan time, 1.965
+bottom_up time, 1.779
+level, 35, fq_size, 23950, time, 3.745
+level, 36, fq_size, 23946
+scan time, 1.977
+bottom_up time, 1.769
+level, 36, fq_size, 23946, time, 3.746
+level, 37, fq_size, 23941
+scan time, 1.975
+bottom_up time, 1.769
+level, 37, fq_size, 23941, time, 3.745
+level, 38, fq_size, 23938
+scan time, 1.978
+bottom_up time, 1.778
+level, 38, fq_size, 23938, time, 3.756
+level, 39, fq_size, 23936
+scan time, 1.973
+bottom_up time, 1.764
+level, 39, fq_size, 23936, time, 3.739
+level, 40, fq_size, 23933
+scan time, 1.975
+bottom_up time, 1.779
+level, 40, fq_size, 23933, time, 3.755
+level, 41, fq_size, 23931
+scan time, 1.972
+bottom_up time, 1.773
+level, 41, fq_size, 23931, time, 3.747
+level, 42, fq_size, 23930
+scan time, 1.972
+bottom_up time, 1.767
+level, 42, fq_size, 23930, time, 3.739
+level, 43, fq_size, 23929
+scan time, 1.980
+bottom_up time, 1.766
+Queue time (ms), 0.391
+fq_size, 23929
+Depth BFS, 43
+Trim time (ms), 0.278
+BFS time (ms), 161.966
+Queue time (ms), 0.391
+Color time (ms), 3.523
+WCC time (ms), 165.880
+wcc computation time, 290.35 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 15
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.001
+
+large, 0, middle, 11, small, 0
+top_down time, 1.890
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.900
+bottom_up time, 4.194
+level, 1, fq_size, 10, time, 4.195
+bottom_up time, 2.255
+level, 2, fq_size, 10, time, 2.256
+level, 3, fq_size, 49352
+scan time, 0.406
+bottom_up time, 2.179
+level, 3, fq_size, 49352, time, 2.587
+level, 4, fq_size, 29641
+scan time, 1.992
+bottom_up time, 2.055
+level, 4, fq_size, 29641, time, 4.048
+level, 5, fq_size, 26499
+scan time, 1.989
+bottom_up time, 1.903
+level, 5, fq_size, 26499, time, 3.893
+level, 6, fq_size, 25510
+scan time, 1.993
+bottom_up time, 1.840
+level, 6, fq_size, 25510, time, 3.835
+level, 7, fq_size, 25057
+scan time, 2.001
+bottom_up time, 1.808
+level, 7, fq_size, 25057, time, 3.809
+level, 8, fq_size, 24803
+scan time, 1.992
+bottom_up time, 1.803
+level, 8, fq_size, 24803, time, 3.796
+level, 9, fq_size, 24636
+scan time, 1.978
+bottom_up time, 1.807
+level, 9, fq_size, 24636, time, 3.787
+level, 10, fq_size, 24506
+scan time, 1.999
+bottom_up time, 1.795
+level, 10, fq_size, 24506, time, 3.796
+level, 11, fq_size, 24410
+scan time, 1.988
+bottom_up time, 1.791
+level, 11, fq_size, 24410, time, 3.779
+level, 12, fq_size, 24333
+scan time, 1.997
+bottom_up time, 1.810
+level, 12, fq_size, 24333, time, 3.808
+level, 13, fq_size, 24277
+scan time, 2.003
+bottom_up time, 1.792
+level, 13, fq_size, 24277, time, 3.796
+level, 14, fq_size, 24230
+scan time, 1.991
+bottom_up time, 1.787
+level, 14, fq_size, 24230, time, 3.780
+level, 15, fq_size, 24194
+scan time, 1.984
+bottom_up time, 1.787
+level, 15, fq_size, 24194, time, 3.772
+level, 16, fq_size, 24155
+scan time, 1.990
+bottom_up time, 1.793
+level, 16, fq_size, 24155, time, 3.784
+level, 17, fq_size, 24134
+scan time, 1.993
+bottom_up time, 1.800
+level, 17, fq_size, 24134, time, 3.795
+level, 18, fq_size, 24114
+scan time, 1.995
+bottom_up time, 1.791
+level, 18, fq_size, 24114, time, 3.787
+level, 19, fq_size, 24099
+scan time, 1.998
+bottom_up time, 1.796
+level, 19, fq_size, 24099, time, 3.796
+level, 20, fq_size, 24085
+scan time, 1.993
+bottom_up time, 1.793
+level, 20, fq_size, 24085, time, 3.787
+level, 21, fq_size, 24071
+scan time, 2.014
+bottom_up time, 1.797
+level, 21, fq_size, 24071, time, 3.812
+level, 22, fq_size, 24059
+scan time, 2.007
+bottom_up time, 1.784
+level, 22, fq_size, 24059, time, 3.792
+level, 23, fq_size, 24049
+scan time, 1.974
+bottom_up time, 1.798
+level, 23, fq_size, 24049, time, 3.774
+level, 24, fq_size, 24037
+scan time, 1.992
+bottom_up time, 1.890
+level, 24, fq_size, 24037, time, 3.883
+level, 25, fq_size, 24021
+scan time, 1.980
+bottom_up time, 1.800
+level, 25, fq_size, 24021, time, 3.781
+level, 26, fq_size, 24010
+scan time, 2.005
+bottom_up time, 1.797
+level, 26, fq_size, 24010, time, 3.803
+level, 27, fq_size, 23999
+scan time, 1.984
+bottom_up time, 1.816
+level, 27, fq_size, 23999, time, 3.800
+level, 28, fq_size, 23988
+scan time, 1.990
+bottom_up time, 1.790
+level, 28, fq_size, 23988, time, 3.780
+level, 29, fq_size, 23980
+scan time, 1.999
+bottom_up time, 1.785
+level, 29, fq_size, 23980, time, 3.784
+level, 30, fq_size, 23973
+scan time, 2.000
+bottom_up time, 1.773
+level, 30, fq_size, 23973, time, 3.774
+level, 31, fq_size, 23967
+scan time, 1.978
+bottom_up time, 1.776
+level, 31, fq_size, 23967, time, 3.755
+level, 32, fq_size, 23962
+scan time, 1.986
+bottom_up time, 1.765
+level, 32, fq_size, 23962, time, 3.753
+level, 33, fq_size, 23956
+scan time, 1.993
+bottom_up time, 1.798
+level, 33, fq_size, 23956, time, 3.793
+level, 34, fq_size, 23950
+scan time, 1.999
+bottom_up time, 1.780
+level, 34, fq_size, 23950, time, 3.779
+level, 35, fq_size, 23948
+scan time, 2.013
+bottom_up time, 1.766
+level, 35, fq_size, 23948, time, 3.781
+level, 36, fq_size, 23945
+scan time, 1.988
+bottom_up time, 1.794
+level, 36, fq_size, 23945, time, 3.783
+level, 37, fq_size, 23942
+scan time, 1.994
+bottom_up time, 1.795
+level, 37, fq_size, 23942, time, 3.791
+level, 38, fq_size, 23940
+scan time, 1.987
+bottom_up time, 1.783
+level, 38, fq_size, 23940, time, 3.771
+level, 39, fq_size, 23937
+scan time, 1.977
+bottom_up time, 1.796
+level, 39, fq_size, 23937, time, 3.774
+level, 40, fq_size, 23934
+scan time, 1.993
+bottom_up time, 1.786
+level, 40, fq_size, 23934, time, 3.781
+level, 41, fq_size, 23932
+scan time, 1.994
+bottom_up time, 1.789
+level, 41, fq_size, 23932, time, 3.784
+level, 42, fq_size, 23931
+scan time, 1.990
+bottom_up time, 1.825
+level, 42, fq_size, 23931, time, 3.817
+level, 43, fq_size, 23930
+scan time, 1.987
+bottom_up time, 1.788
+level, 43, fq_size, 23930, time, 3.777
+level, 44, fq_size, 23929
+scan time, 1.982
+bottom_up time, 1.783
+Queue time (ms), 0.400
+fq_size, 23929
+Depth BFS, 44
+Trim time (ms), 0.280
+BFS time (ms), 166.697
+Queue time (ms), 0.400
+Color time (ms), 3.543
+WCC time (ms), 170.640
+wcc computation time, 295.73 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 16
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.002
+
+large, 0, middle, 11, small, 0
+top_down time, 1.896
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.904
+bottom_up time, 4.197
+level, 1, fq_size, 10, time, 4.198
+bottom_up time, 2.248
+level, 2, fq_size, 10, time, 2.249
+level, 3, fq_size, 49375
+scan time, 0.415
+bottom_up time, 2.145
+level, 3, fq_size, 49375, time, 2.562
+level, 4, fq_size, 29668
+scan time, 1.972
+bottom_up time, 1.996
+level, 4, fq_size, 29668, time, 3.970
+level, 5, fq_size, 26524
+scan time, 1.957
+bottom_up time, 1.838
+level, 5, fq_size, 26524, time, 3.796
+level, 6, fq_size, 25515
+scan time, 1.966
+bottom_up time, 1.813
+level, 6, fq_size, 25515, time, 3.781
+level, 7, fq_size, 25029
+scan time, 1.962
+bottom_up time, 1.788
+level, 7, fq_size, 25029, time, 3.752
+level, 8, fq_size, 24782
+scan time, 1.955
+bottom_up time, 1.764
+level, 8, fq_size, 24782, time, 3.721
+level, 9, fq_size, 24626
+scan time, 1.957
+bottom_up time, 1.771
+level, 9, fq_size, 24626, time, 3.729
+level, 10, fq_size, 24502
+scan time, 1.947
+bottom_up time, 1.772
+level, 10, fq_size, 24502, time, 3.721
+level, 11, fq_size, 24413
+scan time, 1.959
+bottom_up time, 1.756
+level, 11, fq_size, 24413, time, 3.716
+level, 12, fq_size, 24342
+scan time, 1.937
+bottom_up time, 1.756
+level, 12, fq_size, 24342, time, 3.694
+level, 13, fq_size, 24287
+scan time, 1.974
+bottom_up time, 1.762
+level, 13, fq_size, 24287, time, 3.738
+level, 14, fq_size, 24247
+scan time, 1.948
+bottom_up time, 1.766
+level, 14, fq_size, 24247, time, 3.716
+level, 15, fq_size, 24203
+scan time, 1.951
+bottom_up time, 1.756
+level, 15, fq_size, 24203, time, 3.709
+level, 16, fq_size, 24169
+scan time, 1.942
+bottom_up time, 1.768
+level, 16, fq_size, 24169, time, 3.711
+level, 17, fq_size, 24135
+scan time, 1.960
+bottom_up time, 1.774
+level, 17, fq_size, 24135, time, 3.736
+level, 18, fq_size, 24116
+scan time, 1.947
+bottom_up time, 1.759
+level, 18, fq_size, 24116, time, 3.708
+level, 19, fq_size, 24098
+scan time, 1.966
+bottom_up time, 1.753
+level, 19, fq_size, 24098, time, 3.721
+level, 20, fq_size, 24076
+scan time, 1.941
+bottom_up time, 1.768
+level, 20, fq_size, 24076, time, 3.711
+level, 21, fq_size, 24064
+scan time, 1.951
+bottom_up time, 1.735
+level, 21, fq_size, 24064, time, 3.687
+level, 22, fq_size, 24054
+scan time, 1.951
+bottom_up time, 1.723
+level, 22, fq_size, 24054, time, 3.676
+level, 23, fq_size, 24042
+scan time, 1.949
+bottom_up time, 1.751
+level, 23, fq_size, 24042, time, 3.702
+level, 24, fq_size, 24030
+scan time, 1.942
+bottom_up time, 1.743
+level, 24, fq_size, 24030, time, 3.686
+level, 25, fq_size, 24019
+scan time, 1.938
+bottom_up time, 1.733
+level, 25, fq_size, 24019, time, 3.672
+level, 26, fq_size, 24009
+scan time, 1.947
+bottom_up time, 1.745
+level, 26, fq_size, 24009, time, 3.694
+level, 27, fq_size, 23996
+scan time, 1.950
+bottom_up time, 1.737
+level, 27, fq_size, 23996, time, 3.687
+level, 28, fq_size, 23988
+scan time, 1.950
+bottom_up time, 1.741
+level, 28, fq_size, 23988, time, 3.693
+level, 29, fq_size, 23980
+scan time, 1.955
+bottom_up time, 1.742
+level, 29, fq_size, 23980, time, 3.699
+level, 30, fq_size, 23972
+scan time, 1.960
+bottom_up time, 1.732
+level, 30, fq_size, 23972, time, 3.693
+level, 31, fq_size, 23967
+scan time, 1.945
+bottom_up time, 1.737
+level, 31, fq_size, 23967, time, 3.684
+level, 32, fq_size, 23963
+scan time, 1.951
+bottom_up time, 1.731
+level, 32, fq_size, 23963, time, 3.684
+level, 33, fq_size, 23956
+scan time, 1.950
+bottom_up time, 1.749
+level, 33, fq_size, 23956, time, 3.701
+level, 34, fq_size, 23951
+scan time, 1.966
+bottom_up time, 1.740
+level, 34, fq_size, 23951, time, 3.708
+level, 35, fq_size, 23948
+scan time, 1.953
+bottom_up time, 1.727
+level, 35, fq_size, 23948, time, 3.682
+level, 36, fq_size, 23945
+scan time, 1.962
+bottom_up time, 1.738
+level, 36, fq_size, 23945, time, 3.701
+level, 37, fq_size, 23943
+scan time, 1.942
+bottom_up time, 1.749
+level, 37, fq_size, 23943, time, 3.693
+level, 38, fq_size, 23941
+scan time, 1.953
+bottom_up time, 1.746
+level, 38, fq_size, 23941, time, 3.700
+level, 39, fq_size, 23939
+scan time, 1.974
+bottom_up time, 1.730
+level, 39, fq_size, 23939, time, 3.706
+level, 40, fq_size, 23936
+scan time, 1.953
+bottom_up time, 1.765
+level, 40, fq_size, 23936, time, 3.720
+level, 41, fq_size, 23933
+scan time, 1.955
+bottom_up time, 1.759
+level, 41, fq_size, 23933, time, 3.714
+level, 42, fq_size, 23931
+scan time, 1.944
+bottom_up time, 1.739
+level, 42, fq_size, 23931, time, 3.685
+level, 43, fq_size, 23930
+scan time, 1.957
+bottom_up time, 1.735
+level, 43, fq_size, 23930, time, 3.693
+level, 44, fq_size, 23929
+scan time, 1.950
+bottom_up time, 1.743
+Queue time (ms), 0.394
+fq_size, 23929
+Depth BFS, 44
+Trim time (ms), 0.283
+BFS time (ms), 163.208
+Queue time (ms), 0.394
+Color time (ms), 3.458
+WCC time (ms), 167.060
+wcc computation time, 291.62 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 17
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.001
+
+large, 0, middle, 11, small, 0
+top_down time, 1.902
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.910
+bottom_up time, 4.217
+level, 1, fq_size, 10, time, 4.218
+bottom_up time, 2.262
+level, 2, fq_size, 10, time, 2.263
+level, 3, fq_size, 49336
+scan time, 0.411
+bottom_up time, 2.136
+level, 3, fq_size, 49336, time, 2.549
+level, 4, fq_size, 29582
+scan time, 1.952
+bottom_up time, 2.026
+level, 4, fq_size, 29582, time, 3.979
+level, 5, fq_size, 26488
+scan time, 1.950
+bottom_up time, 1.881
+level, 5, fq_size, 26488, time, 3.863
+level, 6, fq_size, 25519
+scan time, 1.935
+bottom_up time, 1.824
+level, 6, fq_size, 25519, time, 3.760
+level, 7, fq_size, 25072
+scan time, 1.932
+bottom_up time, 1.790
+level, 7, fq_size, 25072, time, 3.724
+level, 8, fq_size, 24828
+scan time, 1.949
+bottom_up time, 1.790
+level, 8, fq_size, 24828, time, 3.741
+level, 9, fq_size, 24662
+scan time, 1.937
+bottom_up time, 1.786
+level, 9, fq_size, 24662, time, 3.724
+level, 10, fq_size, 24526
+scan time, 1.923
+bottom_up time, 1.757
+level, 10, fq_size, 24526, time, 3.682
+level, 11, fq_size, 24426
+scan time, 1.940
+bottom_up time, 1.758
+level, 11, fq_size, 24426, time, 3.699
+level, 12, fq_size, 24343
+scan time, 1.960
+bottom_up time, 1.786
+level, 12, fq_size, 24343, time, 3.746
+level, 13, fq_size, 24288
+scan time, 1.929
+bottom_up time, 1.751
+level, 13, fq_size, 24288, time, 3.682
+level, 14, fq_size, 24252
+scan time, 1.934
+bottom_up time, 1.760
+level, 14, fq_size, 24252, time, 3.696
+level, 15, fq_size, 24206
+scan time, 1.937
+bottom_up time, 1.763
+level, 15, fq_size, 24206, time, 3.701
+level, 16, fq_size, 24164
+scan time, 1.938
+bottom_up time, 1.756
+level, 16, fq_size, 24164, time, 3.696
+level, 17, fq_size, 24136
+scan time, 1.954
+bottom_up time, 1.769
+level, 17, fq_size, 24136, time, 3.724
+level, 18, fq_size, 24112
+scan time, 1.952
+bottom_up time, 1.767
+level, 18, fq_size, 24112, time, 3.720
+level, 19, fq_size, 24090
+scan time, 1.934
+bottom_up time, 1.774
+level, 19, fq_size, 24090, time, 3.710
+level, 20, fq_size, 24074
+scan time, 1.940
+bottom_up time, 1.748
+level, 20, fq_size, 24074, time, 3.688
+level, 21, fq_size, 24060
+scan time, 1.940
+bottom_up time, 1.765
+level, 21, fq_size, 24060, time, 3.706
+level, 22, fq_size, 24049
+scan time, 1.946
+bottom_up time, 1.775
+level, 22, fq_size, 24049, time, 3.722
+level, 23, fq_size, 24038
+scan time, 1.925
+bottom_up time, 1.759
+level, 23, fq_size, 24038, time, 3.685
+level, 24, fq_size, 24027
+scan time, 1.935
+bottom_up time, 1.748
+level, 24, fq_size, 24027, time, 3.685
+level, 25, fq_size, 24016
+scan time, 1.940
+bottom_up time, 1.748
+level, 25, fq_size, 24016, time, 3.690
+level, 26, fq_size, 24007
+scan time, 1.943
+bottom_up time, 1.750
+level, 26, fq_size, 24007, time, 3.695
+level, 27, fq_size, 23999
+scan time, 1.947
+bottom_up time, 1.761
+level, 27, fq_size, 23999, time, 3.709
+level, 28, fq_size, 23989
+scan time, 1.936
+bottom_up time, 1.761
+level, 28, fq_size, 23989, time, 3.699
+level, 29, fq_size, 23983
+scan time, 1.927
+bottom_up time, 1.743
+level, 29, fq_size, 23983, time, 3.671
+level, 30, fq_size, 23977
+scan time, 1.949
+bottom_up time, 1.756
+level, 30, fq_size, 23977, time, 3.707
+level, 31, fq_size, 23973
+scan time, 1.948
+bottom_up time, 1.761
+level, 31, fq_size, 23973, time, 3.709
+level, 32, fq_size, 23967
+scan time, 1.924
+bottom_up time, 1.769
+level, 32, fq_size, 23967, time, 3.694
+level, 33, fq_size, 23961
+scan time, 1.934
+bottom_up time, 1.748
+level, 33, fq_size, 23961, time, 3.684
+level, 34, fq_size, 23957
+scan time, 1.939
+bottom_up time, 1.746
+level, 34, fq_size, 23957, time, 3.687
+level, 35, fq_size, 23953
+scan time, 1.932
+bottom_up time, 1.760
+level, 35, fq_size, 23953, time, 3.694
+level, 36, fq_size, 23951
+scan time, 1.942
+bottom_up time, 1.753
+level, 36, fq_size, 23951, time, 3.697
+level, 37, fq_size, 23949
+scan time, 1.980
+bottom_up time, 1.762
+level, 37, fq_size, 23949, time, 3.743
+level, 38, fq_size, 23946
+scan time, 1.936
+bottom_up time, 1.737
+level, 38, fq_size, 23946, time, 3.674
+level, 39, fq_size, 23944
+scan time, 1.933
+bottom_up time, 1.753
+level, 39, fq_size, 23944, time, 3.688
+level, 40, fq_size, 23941
+scan time, 1.931
+bottom_up time, 1.752
+level, 40, fq_size, 23941, time, 3.685
+level, 41, fq_size, 23938
+scan time, 1.943
+bottom_up time, 1.753
+level, 41, fq_size, 23938, time, 3.698
+level, 42, fq_size, 23937
+scan time, 1.927
+bottom_up time, 1.743
+level, 42, fq_size, 23937, time, 3.671
+level, 43, fq_size, 23936
+scan time, 1.932
+bottom_up time, 1.752
+level, 43, fq_size, 23936, time, 3.686
+level, 44, fq_size, 23935
+scan time, 1.953
+bottom_up time, 1.757
+level, 44, fq_size, 23935, time, 3.711
+level, 45, fq_size, 23934
+scan time, 1.948
+bottom_up time, 1.751
+level, 45, fq_size, 23934, time, 3.701
+level, 46, fq_size, 23932
+scan time, 1.943
+bottom_up time, 1.748
+level, 46, fq_size, 23932, time, 3.692
+level, 47, fq_size, 23930
+scan time, 1.930
+bottom_up time, 1.753
+level, 47, fq_size, 23930, time, 3.684
+level, 48, fq_size, 23929
+scan time, 1.948
+bottom_up time, 1.742
+Queue time (ms), 0.393
+fq_size, 23929
+Depth BFS, 48
+Trim time (ms), 0.291
+BFS time (ms), 177.965
+Queue time (ms), 0.393
+Color time (ms), 3.446
+WCC time (ms), 181.804
+wcc computation time, 306.84 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 18
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.001
+
+large, 0, middle, 11, small, 0
+top_down time, 1.901
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.911
+bottom_up time, 4.171
+level, 1, fq_size, 10, time, 4.172
+bottom_up time, 2.287
+level, 2, fq_size, 10, time, 2.288
+level, 3, fq_size, 49379
+scan time, 0.419
+bottom_up time, 2.142
+level, 3, fq_size, 49379, time, 2.563
+level, 4, fq_size, 29598
+scan time, 1.989
+bottom_up time, 2.034
+level, 4, fq_size, 29598, time, 4.025
+level, 5, fq_size, 26511
+scan time, 1.951
+bottom_up time, 1.875
+level, 5, fq_size, 26511, time, 3.827
+level, 6, fq_size, 25535
+scan time, 1.961
+bottom_up time, 1.806
+level, 6, fq_size, 25535, time, 3.768
+level, 7, fq_size, 25083
+scan time, 1.954
+bottom_up time, 1.822
+level, 7, fq_size, 25083, time, 3.776
+level, 8, fq_size, 24824
+scan time, 1.959
+bottom_up time, 1.813
+level, 8, fq_size, 24824, time, 3.773
+level, 9, fq_size, 24647
+scan time, 1.959
+bottom_up time, 1.807
+level, 9, fq_size, 24647, time, 3.767
+level, 10, fq_size, 24532
+scan time, 1.955
+bottom_up time, 1.825
+level, 10, fq_size, 24532, time, 3.781
+level, 11, fq_size, 24425
+scan time, 1.970
+bottom_up time, 1.787
+level, 11, fq_size, 24425, time, 3.759
+level, 12, fq_size, 24331
+scan time, 1.959
+bottom_up time, 1.795
+level, 12, fq_size, 24331, time, 3.755
+level, 13, fq_size, 24269
+scan time, 1.958
+bottom_up time, 1.787
+level, 13, fq_size, 24269, time, 3.747
+level, 14, fq_size, 24222
+scan time, 1.959
+bottom_up time, 1.790
+level, 14, fq_size, 24222, time, 3.751
+level, 15, fq_size, 24188
+scan time, 1.967
+bottom_up time, 1.792
+level, 15, fq_size, 24188, time, 3.759
+level, 16, fq_size, 24149
+scan time, 1.961
+bottom_up time, 1.794
+level, 16, fq_size, 24149, time, 3.757
+level, 17, fq_size, 24121
+scan time, 1.975
+bottom_up time, 1.811
+level, 17, fq_size, 24121, time, 3.788
+level, 18, fq_size, 24102
+scan time, 2.004
+bottom_up time, 1.798
+level, 18, fq_size, 24102, time, 3.804
+level, 19, fq_size, 24081
+scan time, 1.947
+bottom_up time, 1.800
+level, 19, fq_size, 24081, time, 3.749
+level, 20, fq_size, 24065
+scan time, 1.963
+bottom_up time, 1.784
+level, 20, fq_size, 24065, time, 3.748
+level, 21, fq_size, 24052
+scan time, 1.961
+bottom_up time, 1.781
+level, 21, fq_size, 24052, time, 3.743
+level, 22, fq_size, 24042
+scan time, 1.965
+bottom_up time, 1.780
+level, 22, fq_size, 24042, time, 3.746
+level, 23, fq_size, 24033
+scan time, 1.947
+bottom_up time, 1.772
+level, 23, fq_size, 24033, time, 3.721
+level, 24, fq_size, 24020
+scan time, 1.958
+bottom_up time, 1.770
+level, 24, fq_size, 24020, time, 3.730
+level, 25, fq_size, 24012
+scan time, 1.953
+bottom_up time, 1.763
+level, 25, fq_size, 24012, time, 3.718
+level, 26, fq_size, 24003
+scan time, 1.952
+bottom_up time, 1.771
+level, 26, fq_size, 24003, time, 3.725
+level, 27, fq_size, 23994
+scan time, 1.950
+bottom_up time, 1.772
+level, 27, fq_size, 23994, time, 3.724
+level, 28, fq_size, 23986
+scan time, 1.965
+bottom_up time, 1.777
+level, 28, fq_size, 23986, time, 3.743
+level, 29, fq_size, 23977
+scan time, 1.958
+bottom_up time, 1.767
+level, 29, fq_size, 23977, time, 3.725
+level, 30, fq_size, 23969
+scan time, 1.963
+bottom_up time, 1.772
+level, 30, fq_size, 23969, time, 3.735
+level, 31, fq_size, 23964
+scan time, 1.952
+bottom_up time, 1.767
+level, 31, fq_size, 23964, time, 3.721
+level, 32, fq_size, 23959
+scan time, 1.943
+bottom_up time, 1.782
+level, 32, fq_size, 23959, time, 3.726
+level, 33, fq_size, 23953
+scan time, 1.971
+bottom_up time, 1.764
+level, 33, fq_size, 23953, time, 3.737
+level, 34, fq_size, 23949
+scan time, 1.948
+bottom_up time, 1.763
+level, 34, fq_size, 23949, time, 3.712
+level, 35, fq_size, 23946
+scan time, 1.943
+bottom_up time, 1.777
+level, 35, fq_size, 23946, time, 3.722
+level, 36, fq_size, 23944
+scan time, 1.952
+bottom_up time, 1.755
+level, 36, fq_size, 23944, time, 3.709
+level, 37, fq_size, 23941
+scan time, 1.946
+bottom_up time, 1.750
+level, 37, fq_size, 23941, time, 3.696
+level, 38, fq_size, 23938
+scan time, 1.960
+bottom_up time, 1.765
+level, 38, fq_size, 23938, time, 3.727
+level, 39, fq_size, 23937
+scan time, 1.964
+bottom_up time, 1.763
+level, 39, fq_size, 23937, time, 3.728
+level, 40, fq_size, 23936
+scan time, 1.962
+bottom_up time, 1.764
+level, 40, fq_size, 23936, time, 3.728
+level, 41, fq_size, 23935
+scan time, 1.960
+bottom_up time, 1.774
+level, 41, fq_size, 23935, time, 3.735
+level, 42, fq_size, 23934
+scan time, 1.950
+bottom_up time, 1.750
+level, 42, fq_size, 23934, time, 3.701
+level, 43, fq_size, 23932
+scan time, 1.950
+bottom_up time, 1.797
+level, 43, fq_size, 23932, time, 3.749
+level, 44, fq_size, 23931
+scan time, 1.967
+bottom_up time, 1.781
+level, 44, fq_size, 23931, time, 3.748
+level, 45, fq_size, 23930
+scan time, 1.943
+bottom_up time, 1.760
+level, 45, fq_size, 23930, time, 3.703
+level, 46, fq_size, 23929
+scan time, 1.962
+bottom_up time, 1.761
+Queue time (ms), 0.398
+fq_size, 23929
+Depth BFS, 46
+Trim time (ms), 0.278
+BFS time (ms), 172.201
+Queue time (ms), 0.398
+Color time (ms), 3.472
+WCC time (ms), 176.071
+wcc computation time, 306.40 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 19
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.001
+
+large, 0, middle, 11, small, 0
+top_down time, 1.906
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.912
+bottom_up time, 4.200
+level, 1, fq_size, 10, time, 4.201
+bottom_up time, 2.282
+level, 2, fq_size, 10, time, 2.282
+level, 3, fq_size, 49254
+scan time, 0.426
+bottom_up time, 2.191
+level, 3, fq_size, 49254, time, 2.619
+level, 4, fq_size, 29647
+scan time, 1.976
+bottom_up time, 2.057
+level, 4, fq_size, 29647, time, 4.035
+level, 5, fq_size, 26495
+scan time, 1.960
+bottom_up time, 1.876
+level, 5, fq_size, 26495, time, 3.837
+level, 6, fq_size, 25509
+scan time, 1.961
+bottom_up time, 1.818
+level, 6, fq_size, 25509, time, 3.781
+level, 7, fq_size, 25040
+scan time, 1.967
+bottom_up time, 1.791
+level, 7, fq_size, 25040, time, 3.760
+level, 8, fq_size, 24787
+scan time, 1.951
+bottom_up time, 1.779
+level, 8, fq_size, 24787, time, 3.730
+level, 9, fq_size, 24609
+scan time, 1.966
+bottom_up time, 1.790
+level, 9, fq_size, 24609, time, 3.758
+level, 10, fq_size, 24482
+scan time, 1.971
+bottom_up time, 1.768
+level, 10, fq_size, 24482, time, 3.740
+level, 11, fq_size, 24396
+scan time, 1.968
+bottom_up time, 1.765
+level, 11, fq_size, 24396, time, 3.735
+level, 12, fq_size, 24324
+scan time, 1.976
+bottom_up time, 1.779
+level, 12, fq_size, 24324, time, 3.756
+level, 13, fq_size, 24273
+scan time, 1.964
+bottom_up time, 1.763
+level, 13, fq_size, 24273, time, 3.729
+level, 14, fq_size, 24220
+scan time, 1.972
+bottom_up time, 1.778
+level, 14, fq_size, 24220, time, 3.752
+level, 15, fq_size, 24186
+scan time, 2.044
+bottom_up time, 1.767
+level, 15, fq_size, 24186, time, 3.813
+level, 16, fq_size, 24153
+scan time, 1.959
+bottom_up time, 1.776
+level, 16, fq_size, 24153, time, 3.736
+level, 17, fq_size, 24128
+scan time, 1.961
+bottom_up time, 1.785
+level, 17, fq_size, 24128, time, 3.746
+level, 18, fq_size, 24106
+scan time, 1.953
+bottom_up time, 1.786
+level, 18, fq_size, 24106, time, 3.740
+level, 19, fq_size, 24087
+scan time, 1.975
+bottom_up time, 1.775
+level, 19, fq_size, 24087, time, 3.752
+level, 20, fq_size, 24074
+scan time, 1.959
+bottom_up time, 1.769
+level, 20, fq_size, 24074, time, 3.730
+level, 21, fq_size, 24064
+scan time, 1.974
+bottom_up time, 1.749
+level, 21, fq_size, 24064, time, 3.724
+level, 22, fq_size, 24052
+scan time, 1.953
+bottom_up time, 1.759
+level, 22, fq_size, 24052, time, 3.718
+level, 23, fq_size, 24038
+scan time, 1.990
+bottom_up time, 1.758
+level, 23, fq_size, 24038, time, 3.750
+level, 24, fq_size, 24025
+scan time, 1.958
+bottom_up time, 1.757
+level, 24, fq_size, 24025, time, 3.716
+level, 25, fq_size, 24015
+scan time, 1.968
+bottom_up time, 1.772
+level, 25, fq_size, 24015, time, 3.741
+level, 26, fq_size, 24005
+scan time, 1.973
+bottom_up time, 1.765
+level, 26, fq_size, 24005, time, 3.740
+level, 27, fq_size, 23993
+scan time, 1.975
+bottom_up time, 1.763
+level, 27, fq_size, 23993, time, 3.738
+level, 28, fq_size, 23987
+scan time, 1.969
+bottom_up time, 1.754
+level, 28, fq_size, 23987, time, 3.724
+level, 29, fq_size, 23981
+scan time, 1.968
+bottom_up time, 1.762
+level, 29, fq_size, 23981, time, 3.732
+level, 30, fq_size, 23975
+scan time, 1.954
+bottom_up time, 1.756
+level, 30, fq_size, 23975, time, 3.710
+level, 31, fq_size, 23970
+scan time, 1.977
+bottom_up time, 1.767
+level, 31, fq_size, 23970, time, 3.746
+level, 32, fq_size, 23965
+scan time, 1.979
+bottom_up time, 1.776
+level, 32, fq_size, 23965, time, 3.757
+level, 33, fq_size, 23958
+scan time, 1.964
+bottom_up time, 1.760
+level, 33, fq_size, 23958, time, 3.724
+level, 34, fq_size, 23954
+scan time, 1.969
+bottom_up time, 1.758
+level, 34, fq_size, 23954, time, 3.728
+level, 35, fq_size, 23949
+scan time, 1.963
+bottom_up time, 1.739
+level, 35, fq_size, 23949, time, 3.704
+level, 36, fq_size, 23946
+scan time, 1.966
+bottom_up time, 1.767
+level, 36, fq_size, 23946, time, 3.734
+level, 37, fq_size, 23944
+scan time, 1.962
+bottom_up time, 1.752
+level, 37, fq_size, 23944, time, 3.715
+level, 38, fq_size, 23941
+scan time, 1.977
+bottom_up time, 1.764
+level, 38, fq_size, 23941, time, 3.742
+level, 39, fq_size, 23938
+scan time, 1.953
+bottom_up time, 1.749
+level, 39, fq_size, 23938, time, 3.702
+level, 40, fq_size, 23936
+scan time, 1.984
+bottom_up time, 1.753
+level, 40, fq_size, 23936, time, 3.737
+level, 41, fq_size, 23935
+scan time, 1.967
+bottom_up time, 1.777
+level, 41, fq_size, 23935, time, 3.745
+level, 42, fq_size, 23932
+scan time, 1.965
+bottom_up time, 1.767
+level, 42, fq_size, 23932, time, 3.733
+level, 43, fq_size, 23931
+scan time, 1.964
+bottom_up time, 1.772
+level, 43, fq_size, 23931, time, 3.738
+level, 44, fq_size, 23929
+scan time, 1.968
+bottom_up time, 1.767
+Queue time (ms), 0.402
+fq_size, 23929
+Depth BFS, 44
+Trim time (ms), 0.279
+BFS time (ms), 164.710
+Queue time (ms), 0.402
+Color time (ms), 3.495
+WCC time (ms), 168.607
+wcc computation time, 329.77 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244
+
+Runtime: 20
+vert_count = 2452715, edge_count = 18854882, avg_degree = 7.687
+Pivot time (ms), 0.001
+
+large, 0, middle, 11, small, 0
+top_down time, 1.906
+--->Switch to bottom up
+level, 0, fq_size, 10, time, 1.911
+bottom_up time, 4.168
+level, 1, fq_size, 10, time, 4.169
+bottom_up time, 2.249
+level, 2, fq_size, 10, time, 2.250
+level, 3, fq_size, 49249
+scan time, 0.398
+bottom_up time, 2.158
+level, 3, fq_size, 49249, time, 2.559
+level, 4, fq_size, 29613
+scan time, 1.975
+bottom_up time, 2.014
+level, 4, fq_size, 29613, time, 3.990
+level, 5, fq_size, 26504
+scan time, 1.950
+bottom_up time, 1.860
+level, 5, fq_size, 26504, time, 3.811
+level, 6, fq_size, 25512
+scan time, 1.953
+bottom_up time, 1.806
+level, 6, fq_size, 25512, time, 3.761
+level, 7, fq_size, 25026
+scan time, 1.959
+bottom_up time, 1.783
+level, 7, fq_size, 25026, time, 3.742
+level, 8, fq_size, 24776
+scan time, 1.968
+bottom_up time, 1.785
+level, 8, fq_size, 24776, time, 3.755
+level, 9, fq_size, 24618
+scan time, 1.962
+bottom_up time, 1.769
+level, 9, fq_size, 24618, time, 3.731
+level, 10, fq_size, 24502
+scan time, 1.956
+bottom_up time, 1.766
+level, 10, fq_size, 24502, time, 3.723
+level, 11, fq_size, 24397
+scan time, 1.951
+bottom_up time, 1.819
+level, 11, fq_size, 24397, time, 3.772
+level, 12, fq_size, 24330
+scan time, 1.965
+bottom_up time, 1.779
+level, 12, fq_size, 24330, time, 3.745
+level, 13, fq_size, 24275
+scan time, 1.941
+bottom_up time, 1.754
+level, 13, fq_size, 24275, time, 3.696
+level, 14, fq_size, 24226
+scan time, 1.982
+bottom_up time, 1.762
+level, 14, fq_size, 24226, time, 3.745
+level, 15, fq_size, 24187
+scan time, 1.956
+bottom_up time, 1.742
+level, 15, fq_size, 24187, time, 3.729
+level, 16, fq_size, 24156
+scan time, 1.945
+bottom_up time, 1.761
+level, 16, fq_size, 24156, time, 3.708
+level, 17, fq_size, 24131
+scan time, 1.959
+bottom_up time, 1.751
+level, 17, fq_size, 24131, time, 3.712
+level, 18, fq_size, 24105
+scan time, 1.949
+bottom_up time, 1.770
+level, 18, fq_size, 24105, time, 3.720
+level, 19, fq_size, 24088
+scan time, 1.964
+bottom_up time, 1.769
+level, 19, fq_size, 24088, time, 3.735
+level, 20, fq_size, 24067
+scan time, 1.959
+bottom_up time, 1.832
+level, 20, fq_size, 24067, time, 3.793
+level, 21, fq_size, 24054
+scan time, 1.981
+bottom_up time, 1.741
+level, 21, fq_size, 24054, time, 3.723
+level, 22, fq_size, 24039
+scan time, 1.959
+bottom_up time, 1.738
+level, 22, fq_size, 24039, time, 3.699
+level, 23, fq_size, 24024
+scan time, 1.959
+bottom_up time, 1.752
+level, 23, fq_size, 24024, time, 3.713
+level, 24, fq_size, 24012
+scan time, 1.964
+bottom_up time, 1.748
+level, 24, fq_size, 24012, time, 3.712
+level, 25, fq_size, 24002
+scan time, 1.996
+bottom_up time, 1.730
+level, 25, fq_size, 24002, time, 3.727
+level, 26, fq_size, 23994
+scan time, 1.949
+bottom_up time, 1.735
+level, 26, fq_size, 23994, time, 3.685
+level, 27, fq_size, 23986
+scan time, 1.963
+bottom_up time, 1.738
+level, 27, fq_size, 23986, time, 3.704
+level, 28, fq_size, 23977
+scan time, 1.944
+bottom_up time, 1.748
+level, 28, fq_size, 23977, time, 3.693
+level, 29, fq_size, 23971
+scan time, 1.957
+bottom_up time, 1.746
+level, 29, fq_size, 23971, time, 3.704
+level, 30, fq_size, 23965
+scan time, 1.960
+bottom_up time, 1.737
+level, 30, fq_size, 23965, time, 3.699
+level, 31, fq_size, 23959
+scan time, 1.950
+bottom_up time, 1.750
+level, 31, fq_size, 23959, time, 3.701
+level, 32, fq_size, 23954
+scan time, 1.958
+bottom_up time, 1.740
+level, 32, fq_size, 23954, time, 3.698
+level, 33, fq_size, 23949
+scan time, 1.941
+bottom_up time, 1.736
+level, 33, fq_size, 23949, time, 3.679
+level, 34, fq_size, 23947
+scan time, 1.956
+bottom_up time, 1.743
+level, 34, fq_size, 23947, time, 3.700
+level, 35, fq_size, 23945
+scan time, 1.954
+bottom_up time, 1.729
+level, 35, fq_size, 23945, time, 3.683
+level, 36, fq_size, 23942
+scan time, 1.956
+bottom_up time, 1.743
+level, 36, fq_size, 23942, time, 3.700
+level, 37, fq_size, 23940
+scan time, 1.951
+bottom_up time, 1.775
+level, 37, fq_size, 23940, time, 3.728
+level, 38, fq_size, 23937
+scan time, 1.938
+bottom_up time, 1.758
+level, 38, fq_size, 23937, time, 3.698
+level, 39, fq_size, 23935
+scan time, 1.946
+bottom_up time, 1.747
+level, 39, fq_size, 23935, time, 3.694
+level, 40, fq_size, 23932
+scan time, 1.947
+bottom_up time, 1.740
+level, 40, fq_size, 23932, time, 3.690
+level, 41, fq_size, 23931
+scan time, 1.943
+bottom_up time, 1.747
+level, 41, fq_size, 23931, time, 3.692
+level, 42, fq_size, 23930
+scan time, 1.934
+bottom_up time, 1.726
+level, 42, fq_size, 23930, time, 3.661
+level, 43, fq_size, 23929
+scan time, 1.951
+bottom_up time, 1.728
+Queue time (ms), 0.402
+fq_size, 23929
+Depth BFS, 43
+Trim time (ms), 0.286
+BFS time (ms), 159.846
+Queue time (ms), 0.402
+Color time (ms), 3.456
+WCC time (ms), 163.704
+wcc computation time, 289.10 (ms)
+wcc_number, 11973, largest wcc size, 2415542, trim_2 vertices, 13244

@@ -1,0 +1,62 @@
+args = 10
+Thread = 56, run_times = 2
+<<<<<<< HEAD
+Graph load (success): 4847571 verts, 68475391 edges 1.09093 second(s)
+=======
+Graph load (success): 4847571 verts, 68475391 edges 0.457169 second(s)
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+
+Runtime: 1
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+wcc_multigpu
+root = 327608
+GPU = 0, step = 1615857, beg = 0, end = 1615857
+GPU = 1, step = 1615857, beg = 1615857, end = 3231714
+GPU = 2, step = 1615857, beg = 3231714, end = 4847571
+<<<<<<< HEAD
+GPU, 0, bfs_time (ms), 167.715
+GPU, 1, bfs_time (ms), 167.716
+GPU, 2, bfs_time (ms), 167.713
+fq_size, 2656
+Color time (ms), 3.561
+gpu_id, 0, sa[0] = 1, sa[1] = 2
+wcc computation time, 1164.84 (ms)
+=======
+GPU, 1, bfs_time (ms), 90.930
+GPU, 0, bfs_time (ms), 90.891
+GPU, 2, bfs_time (ms), 90.929
+fq_size, 2656
+Color time (ms), 0.179
+gpu_id, 0, sa[0] = 1, sa[1] = 2
+wcc computation time, 1906.11 (ms)
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+wcc_number, 1876, largest wcc size, 4843953, trim_2 vertices, 0
+
+Runtime: 2
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+wcc_multigpu
+root = 327608
+<<<<<<< HEAD
+GPU = 2, step = 1615857, beg = 3231714, end = 4847571
+GPU = 1, step = 1615857, beg = 1615857, end = 3231714
+GPU = 0, step = 1615857, beg = 0, end = 1615857
+GPU, 1, bfs_time (ms), 179.558
+GPU, 0, bfs_time (ms), 179.559
+GPU, 2, bfs_time (ms), 179.558
+fq_size, 2656
+Color time (ms), 3.743
+gpu_id, 0, sa[0] = 1, sa[1] = 2
+wcc computation time, 552.20 (ms)
+=======
+GPU = 1, step = 1615857, beg = 1615857, end = 3231714
+GPU = 0, step = 1615857, beg = 0, end = 1615857
+GPU = 2, step = 1615857, beg = 3231714, end = 4847571
+GPU, 1, bfs_time (ms), 92.503
+GPU, 2, bfs_time (ms), 92.560
+GPU, 0, bfs_time (ms), 92.562
+fq_size, 2656
+Color time (ms), 0.189
+gpu_id, 0, sa[0] = 1, sa[1] = 2
+wcc computation time, 299.66 (ms)
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+wcc_number, 1876, largest wcc size, 4843953, trim_2 vertices, 0

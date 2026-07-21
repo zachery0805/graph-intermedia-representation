@@ -1,0 +1,143 @@
+args = 9
+Thread = 56, run_times = 20
+Graph load (success): 4847571 verts, 68475391 edges 1.02376 second(s)
+
+Runtime: 1
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 8
+bfs time (ms), 34.473
+wcc computation time, 554.07 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 2
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 8
+bfs time (ms), 32.960
+wcc computation time, 256.27 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 3
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 8
+bfs time (ms), 34.517
+wcc computation time, 264.62 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 4
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 7
+bfs time (ms), 32.875
+wcc computation time, 255.97 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 5
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 8
+bfs time (ms), 34.264
+wcc computation time, 278.63 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 6
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 8
+bfs time (ms), 32.459
+wcc computation time, 310.27 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 7
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 7
+bfs time (ms), 32.147
+wcc computation time, 305.60 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 8
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 8
+bfs time (ms), 34.580
+wcc computation time, 258.20 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 9
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 7
+bfs time (ms), 32.490
+wcc computation time, 258.19 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 10
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 7
+bfs time (ms), 30.623
+wcc computation time, 253.70 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 11
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 8
+bfs time (ms), 34.467
+wcc computation time, 258.48 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 12
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 7
+bfs time (ms), 33.288
+wcc computation time, 262.00 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 13
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 7
+bfs time (ms), 32.402
+wcc computation time, 310.02 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 14
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 7
+bfs time (ms), 30.067
+wcc computation time, 314.42 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 15
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 8
+bfs time (ms), 34.130
+wcc computation time, 257.40 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 16
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 7
+bfs time (ms), 32.347
+wcc computation time, 260.28 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 17
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 8
+bfs time (ms), 34.611
+wcc computation time, 262.39 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 18
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 8
+bfs time (ms), 32.430
+wcc computation time, 257.64 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 19
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 8
+bfs time (ms), 34.075
+wcc computation time, 258.61 (ms)
+wcc_number, 964, largest wcc size, 4843953
+
+Runtime: 20
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+depth, 7
+bfs time (ms), 32.582
+wcc computation time, 256.33 (ms)
+wcc_number, 964, largest wcc size, 4843953

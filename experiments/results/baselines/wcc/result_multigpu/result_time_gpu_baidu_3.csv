@@ -1,0 +1,65 @@
+args = 10
+Thread = 56, run_times = 2
+<<<<<<< HEAD
+Graph load (success): 2141300 verts, 17794839 edges 0.301698 second(s)
+=======
+Graph load (success): 2141300 verts, 17794839 edges 0.153177 second(s)
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+
+Runtime: 1
+vert_count = 2141300, edge_count = 17794839, avg_degree = 8.310
+wcc_multigpu
+root = 930309
+<<<<<<< HEAD
+GPU = 1, step = 713767, beg = 713767, end = 1427534
+GPU = 0, step = 713767, beg = 0, end = 713767
+GPU = 2, step = 713767, beg = 1427534, end = 2141300
+GPU, 0, bfs_time (ms), 116.886
+GPU, 1, bfs_time (ms), 116.887
+GPU, 2, bfs_time (ms), 116.895
+fq_size, 33611
+Color time (ms), 3.419
+gpu_id, 0, sa[0] = 2, sa[1] = 2
+wcc computation time, 901.91 (ms)
+=======
+GPU = 0, step = 713767, beg = 0, end = 713767
+GPU = 1, step = 713767, beg = 713767, end = 1427534
+GPU = 2, step = 713767, beg = 1427534, end = 2141300
+GPU, 1, bfs_time (ms), 45.090
+GPU, 2, bfs_time (ms), 45.090
+GPU, 0, bfs_time (ms), 45.091
+fq_size, 33611
+Color time (ms), 0.212
+gpu_id, 0, sa[0] = 2, sa[1] = 2
+wcc computation time, 1619.44 (ms)
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+wcc_number, 15561, largest wcc size, 2107689, trim_2 vertices, 0
+
+Runtime: 2
+vert_count = 2141300, edge_count = 17794839, avg_degree = 8.310
+wcc_multigpu
+root = 930309
+<<<<<<< HEAD
+GPU = 1, step = 713767, beg = 713767, end = 1427534
+GPU = 2, step = 713767, beg = 1427534, end = 2141300
+GPU = 0, step = 713767, beg = 0, end = 713767
+GPU, 0, bfs_time (ms), 121.338
+GPU, 2, bfs_time (ms), 121.343
+GPU, 1, bfs_time (ms), 121.330
+fq_size, 33611
+Color time (ms), 3.826
+gpu_id, 0, sa[0] = 2, sa[1] = 2
+wcc computation time, 322.52 (ms)
+=======
+GPU = 0, step = 713767, beg = 0, end = 713767
+GPU = 2, step = 713767, beg = 1427534, end = 2141300
+GPU = 1, step = 713767, beg = 713767, end = 1427534
+GPU, 0, bfs_time (ms), 45.966
+GPU, 2, bfs_time (ms), 45.966
+GPU, 1, bfs_time (ms), 45.966
+fq_size, 33611
+Color time (ms), 0.212
+gpu_id, 0, sa[0] = 2, sa[1] = 2
+wcc computation time, 138.78 (ms)
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+wcc_number, 15561, largest wcc size, 2107689, trim_2 vertices, 0

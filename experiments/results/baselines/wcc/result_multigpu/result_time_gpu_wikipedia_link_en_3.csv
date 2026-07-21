@@ -1,0 +1,62 @@
+args = 10
+Thread = 56, run_times = 2
+<<<<<<< HEAD
+Graph load (success): 11196007 verts, 340309824 edges 5.33595 second(s)
+=======
+Graph load (success): 11196007 verts, 340309824 edges 2.25161 second(s)
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+
+Runtime: 1
+vert_count = 11196007, edge_count = 340309824, avg_degree = 30.396
+wcc_multigpu
+root = 6717751
+<<<<<<< HEAD
+GPU = 0, step = 3732003, beg = 0, end = 3732003
+GPU = 2, step = 3732003, beg = 7464006, end = 11196007
+GPU = 1, step = 3732003, beg = 3732003, end = 7464006
+GPU, 0, bfs_time (ms), 831.750
+GPU, 1, bfs_time (ms), 831.750
+GPU, 2, bfs_time (ms), 831.750
+fq_size, 2174
+Color time (ms), 3.803
+gpu_id, 0, sa[0] = 3, sa[1] = 2
+wcc computation time, 3454.20 (ms)
+=======
+GPU = 2, step = 3732003, beg = 7464006, end = 11196007
+GPU = 1, step = 3732003, beg = 3732003, end = 7464006
+GPU = 0, step = 3732003, beg = 0, end = 3732003
+GPU, 1, bfs_time (ms), 423.318
+GPU, 0, bfs_time (ms), 423.316
+GPU, 2, bfs_time (ms), 423.276
+fq_size, 2174
+Color time (ms), 0.161
+gpu_id, 0, sa[0] = 3, sa[1] = 2
+wcc computation time, 2218.91 (ms)
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+wcc_number, 3061, largest wcc size, 11191454, trim_2 vertices, 0
+
+Runtime: 2
+vert_count = 11196007, edge_count = 340309824, avg_degree = 30.396
+wcc_multigpu
+root = 6717751
+GPU = 0, step = 3732003, beg = 0, end = 3732003
+GPU = 1, step = 3732003, beg = 3732003, end = 7464006
+GPU = 2, step = 3732003, beg = 7464006, end = 11196007
+<<<<<<< HEAD
+GPU, 0, bfs_time (ms), 829.780
+GPU, 1, bfs_time (ms), 829.781
+GPU, 2, bfs_time (ms), 829.778
+fq_size, 2174
+Color time (ms), 3.702
+gpu_id, 0, sa[0] = 3, sa[1] = 2
+wcc computation time, 3249.05 (ms)
+=======
+GPU, 1, bfs_time (ms), 419.565
+GPU, 2, bfs_time (ms), 419.569
+GPU, 0, bfs_time (ms), 419.572
+fq_size, 2174
+Color time (ms), 0.164
+gpu_id, 0, sa[0] = 3, sa[1] = 2
+wcc computation time, 1072.04 (ms)
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+wcc_number, 3061, largest wcc size, 11191454, trim_2 vertices, 0

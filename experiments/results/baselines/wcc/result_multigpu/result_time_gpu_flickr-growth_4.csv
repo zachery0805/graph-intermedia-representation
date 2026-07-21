@@ -1,0 +1,73 @@
+args = 10
+Thread = 56, run_times = 2
+<<<<<<< HEAD
+Graph load (success): 2302925 verts, 33140017 edges 0.582075 second(s)
+=======
+Graph load (success): 2302925 verts, 33140017 edges 0.298329 second(s)
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+
+Runtime: 1
+vert_count = 2302925, edge_count = 33140017, avg_degree = 14.390
+wcc_multigpu
+root = 783
+<<<<<<< HEAD
+GPU = 3, step = 575732, beg = 1727196, end = 2302925
+GPU = 1, step = 575732, beg = 575732, end = 1151464
+GPU = 2, step = 575732, beg = 1151464, end = 1727196
+GPU = 0, step = 575732, beg = 0, end = 575732
+GPU, 3, bfs_time (ms), 72.622
+GPU, 2, bfs_time (ms), 72.620
+GPU, 1, bfs_time (ms), 72.621
+GPU, 0, bfs_time (ms), 72.625
+fq_size, 129555
+Color time (ms), 3.901
+gpu_id, 0, sa[0] = 1, sa[1] = 0
+wcc computation time, 1166.51 (ms)
+=======
+GPU = 1, step = 575732, beg = 575732, end = 1151464
+GPU = 2, step = 575732, beg = 1151464, end = 1727196
+GPU = 3, step = 575732, beg = 1727196, end = 2302925
+GPU = 0, step = 575732, beg = 0, end = 575732
+GPU, 0, bfs_time (ms), 38.150
+GPU, 3, bfs_time (ms), 38.152
+GPU, 2, bfs_time (ms), 38.151
+GPU, 1, bfs_time (ms), 38.151
+fq_size, 129555
+Color time (ms), 0.297
+gpu_id, 0, sa[0] = 1, sa[1] = 0
+wcc computation time, 2267.64 (ms)
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+wcc_number, 30769, largest wcc size, 2173370, trim_2 vertices, 0
+
+Runtime: 2
+vert_count = 2302925, edge_count = 33140017, avg_degree = 14.390
+wcc_multigpu
+root = 783
+<<<<<<< HEAD
+GPU = 1, step = 575732, beg = 575732, end = 1151464
+GPU = 2, step = 575732, beg = 1151464, end = 1727196
+GPU = 3, step = 575732, beg = 1727196, end = 2302925
+GPU = 0, step = 575732, beg = 0, end = 575732
+GPU, 2, bfs_time (ms), 73.172
+GPU, 1, bfs_time (ms), 73.173
+GPU, 3, bfs_time (ms), 73.172
+GPU, 0, bfs_time (ms), 73.173
+fq_size, 129555
+Color time (ms), 4.059
+gpu_id, 0, sa[0] = 1, sa[1] = 0
+wcc computation time, 352.30 (ms)
+=======
+GPU = 0, step = 575732, beg = 0, end = 575732
+GPU = 2, step = 575732, beg = 1151464, end = 1727196
+GPU = 3, step = 575732, beg = 1727196, end = 2302925
+GPU = 1, step = 575732, beg = 575732, end = 1151464
+GPU, 2, bfs_time (ms), 36.277
+GPU, 3, bfs_time (ms), 36.277
+GPU, 0, bfs_time (ms), 36.277
+GPU, 1, bfs_time (ms), 36.277
+fq_size, 129555
+Color time (ms), 0.295
+gpu_id, 0, sa[0] = 1, sa[1] = 0
+wcc computation time, 189.30 (ms)
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+wcc_number, 30769, largest wcc size, 2173370, trim_2 vertices, 0

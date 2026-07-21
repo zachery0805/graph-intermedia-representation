@@ -1,0 +1,9 @@
+args = 9
+Thread = 56, run_times = 20
+Graph load (success): 52579682 verts, 1963263821 edges 26.7696 second(s)
+
+Runtime: 1
+vert_count = 52579682, edge_count = 1963263821, avg_degree = 37.339
+Pivot time (ms), 1.603
+
+large, 3050, middle, 0, small, 0

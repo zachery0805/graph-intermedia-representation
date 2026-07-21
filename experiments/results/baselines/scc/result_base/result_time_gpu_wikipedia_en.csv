@@ -1,0 +1,19 @@
+args = 9
+Thread = 56, run_times = 10
+Graph load (success): 18268992 verts, 172183984 edges 1.14381 second(s)
+
+Runtime: 1
+vert_count = 18268992, edge_count = 172183984, avg_degree = 9.425
+Pivot time (ms), 1.212
+Trim time (ms), 5.901
+FW BFS time (ms), 12.394
+BW BFS time (ms), 4.754
+Queue time (ms), 0.199
+Color time (ms), 160.693
+SCC time (ms), 183.371
+wcc computation time, 1230.82 (ms)
+scc_number,14459546
+scc_number, 14459546, largest scc size, 3796073
+
+Runtime: 2
+vert_count = 18268992, edge_count = 172183984, avg_degree = 9.425

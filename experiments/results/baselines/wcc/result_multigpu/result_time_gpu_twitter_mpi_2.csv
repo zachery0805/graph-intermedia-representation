@@ -1,0 +1,36 @@
+args = 10
+Thread = 56, run_times = 2
+<<<<<<< HEAD
+Graph load (success): 52579682 verts, 1963263821 edges 25.7552 second(s)
+
+Runtime: 1
+vert_count = 52579682, edge_count = 1963263821, avg_degree = 37.339
+wcc_multigpu
+root = 191
+GPU = 1, step = 26289841, beg = 26289841, end = 52579682
+GPU = 0, step = 26289841, beg = 0, end = 26289841
+=======
+Graph load (success): 52579682 verts, 1963263821 edges 13.6869 second(s)
+
+Runtime: 1
+vert_count = 52579682, edge_count = 1963263821, avg_degree = 37.339
+root = 191
+GPU = 1, step = 26289841, beg = 26289841, end = 52579682
+GPU = 0, step = 26289841, beg = 0, end = 26289841
+level, 0, gpu_id, 0, time, 1308.284
+level, 0, gpu_id, 1, time, 1308.813
+level, 1, gpu_id, 0, time, 18.872
+level, 1, gpu_id, 1, time, 16.879
+GPU, 0, bfs_time (ms), 1356.175
+GPU, 1, bfs_time (ms), 1356.178
+fq_size, 64489
+Queue time (ms), 0.541
+Color time (ms), 0.208
+gpu_id, 0, sa[0] = 2, sa[1] = 1
+wcc computation time, 6955.40 (ms)
+wcc_number, 29533, largest wcc size, 52515193, trim_2 vertices, 0
+
+Runtime: 2
+vert_count = 52579682, edge_count = 1963263821, avg_degree = 37.339
+root = 191
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f

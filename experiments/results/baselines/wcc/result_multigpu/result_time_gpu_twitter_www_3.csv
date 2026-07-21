@@ -1,0 +1,11 @@
+args = 10
+Thread = 56, run_times = 2
+Graph load (success): 41652230 verts, 1468365182 edges 23.0379 second(s)
+
+Runtime: 1
+vert_count = 41652230, edge_count = 1468365182, avg_degree = 35.253
+wcc_multigpu
+root = 1037947
+GPU = 0, step = 13884077, beg = 0, end = 13884077
+GPU = 1, step = 13884077, beg = 13884077, end = 27768154
+GPU = 2, step = 13884077, beg = 27768154, end = 41652230

@@ -1,0 +1,53 @@
+args = 10
+Thread = 56, run_times = 2
+<<<<<<< HEAD
+Graph load (success): 4000000 verts, 256000000 edges 4.06242 second(s)
+=======
+Graph load (success): 4000000 verts, 256000000 edges 1.68953 second(s)
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+
+Runtime: 1
+vert_count = 4000000, edge_count = 256000000, avg_degree = 64.000
+wcc_multigpu
+root = 2295540
+GPU = 1, step = 2000000, beg = 2000000, end = 4000000
+GPU = 0, step = 2000000, beg = 0, end = 2000000
+<<<<<<< HEAD
+GPU, 0, bfs_time (ms), 508.653
+GPU, 1, bfs_time (ms), 508.654
+fq_size, 0
+Color time (ms), 0.000
+gpu_id, 0, sa[0] = 3, sa[1] = 3
+wcc computation time, 1947.14 (ms)
+=======
+GPU, 1, bfs_time (ms), 176.089
+GPU, 0, bfs_time (ms), 176.088
+fq_size, 0
+Color time (ms), 0.000
+gpu_id, 0, sa[0] = 3, sa[1] = 3
+wcc computation time, 1908.86 (ms)
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+wcc_number, 1, largest wcc size, 4000000, trim_2 vertices, 0
+
+Runtime: 2
+vert_count = 4000000, edge_count = 256000000, avg_degree = 64.000
+wcc_multigpu
+root = 2295540
+GPU = 1, step = 2000000, beg = 2000000, end = 4000000
+GPU = 0, step = 2000000, beg = 0, end = 2000000
+<<<<<<< HEAD
+GPU, 1, bfs_time (ms), 510.375
+GPU, 0, bfs_time (ms), 510.373
+fq_size, 0
+Color time (ms), 0.000
+gpu_id, 0, sa[0] = 3, sa[1] = 3
+wcc computation time, 2170.69 (ms)
+=======
+GPU, 0, bfs_time (ms), 176.268
+GPU, 1, bfs_time (ms), 176.269
+fq_size, 0
+Color time (ms), 0.000
+gpu_id, 0, sa[0] = 3, sa[1] = 3
+wcc computation time, 752.07 (ms)
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+wcc_number, 1, largest wcc size, 4000000, trim_2 vertices, 0

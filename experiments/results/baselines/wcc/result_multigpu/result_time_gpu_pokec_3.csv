@@ -1,0 +1,63 @@
+args = 10
+Thread = 56, run_times = 2
+<<<<<<< HEAD
+Graph load (success): 1632803 verts, 30622564 edges 0.440782 second(s)
+=======
+Graph load (success): 1632803 verts, 30622564 edges 0.237247 second(s)
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+
+Runtime: 1
+vert_count = 1632803, edge_count = 30622564, avg_degree = 18.755
+wcc_multigpu
+root = 3912
+GPU = 2, step = 544268, beg = 1088536, end = 1632803
+<<<<<<< HEAD
+GPU = 1, step = 544268, beg = 544268, end = 1088536
+GPU = 0, step = 544268, beg = 0, end = 544268
+GPU, 0, bfs_time (ms), 62.781
+GPU, 2, bfs_time (ms), 62.757
+GPU, 1, bfs_time (ms), 62.749
+fq_size, 0
+Color time (ms), 0.000
+gpu_id, 0, sa[0] = 2, sa[1] = 2
+wcc computation time, 856.02 (ms)
+=======
+GPU = 0, step = 544268, beg = 0, end = 544268
+GPU = 1, step = 544268, beg = 544268, end = 1088536
+GPU, 0, bfs_time (ms), 30.972
+GPU, 2, bfs_time (ms), 30.973
+GPU, 1, bfs_time (ms), 30.973
+fq_size, 0
+Color time (ms), 0.000
+gpu_id, 0, sa[0] = 2, sa[1] = 2
+wcc computation time, 1684.42 (ms)
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+wcc_number, 1, largest wcc size, 1632803, trim_2 vertices, 0
+
+Runtime: 2
+vert_count = 1632803, edge_count = 30622564, avg_degree = 18.755
+wcc_multigpu
+root = 3912
+GPU = 0, step = 544268, beg = 0, end = 544268
+<<<<<<< HEAD
+GPU = 2, step = 544268, beg = 1088536, end = 1632803
+GPU = 1, step = 544268, beg = 544268, end = 1088536
+GPU, 2, bfs_time (ms), 62.704
+GPU, 1, bfs_time (ms), 62.713
+GPU, 0, bfs_time (ms), 62.687
+fq_size, 0
+Color time (ms), 0.000
+gpu_id, 0, sa[0] = 2, sa[1] = 2
+wcc computation time, 298.47 (ms)
+=======
+GPU = 1, step = 544268, beg = 544268, end = 1088536
+GPU = 2, step = 544268, beg = 1088536, end = 1632803
+GPU, 1, bfs_time (ms), 29.491
+GPU, 0, bfs_time (ms), 29.492
+GPU, 2, bfs_time (ms), 29.491
+fq_size, 0
+Color time (ms), 0.000
+gpu_id, 0, sa[0] = 2, sa[1] = 2
+wcc computation time, 135.98 (ms)
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+wcc_number, 1, largest wcc size, 1632803, trim_2 vertices, 0

@@ -1,0 +1,16 @@
+result_time_gpu_pokec.csv,PK
+result_time_gpu_baidu.csv,BD
+result_time_gpu_flickr-growth.csv,FL
+result_time_gpu_wiki_communication.csv,WC
+result_time_gpu_wiki_talk_en.csv,WT
+result_time_gpu_dbpedia.csv,DB
+result_time_gpu_livejournal.csv,LJ
+result_time_gpu_wikipedia_link_en.csv,WL
+result_time_gpu_wikipedia_en.csv,WE
+result_time_gpu_facebook.csv,FB
+result_time_gpu_twitter_www.csv,TW
+result_time_gpu_twitter_mpi.csv,TM
+result_time_gpu_friendster.csv,FR
+result_time_gpu_RMAT.csv,RM
+result_time_gpu_random.csv,RD
+result_time_gpu_zhishi-hudong-relatedpages.csv,HD

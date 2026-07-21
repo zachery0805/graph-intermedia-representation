@@ -1,0 +1,133 @@
+args = 9
+Thread = 56, run_times = 10
+Graph load (success): 4847571 verts, 68475391 edges 0.446708 second(s)
+
+Runtime: 1
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+Pivot time (ms), 1.283
+Trim time (ms), 35.650
+FW BFS time (ms), 24.049
+BW BFS time (ms), 49.819
+Queue time (ms), 1.731
+Color time (ms), 8.635
+SCC time (ms), 114.761
+wcc computation time, 978.40 (ms)
+scc_number,971232
+scc_number, 971232, largest scc size, 3828682
+
+Runtime: 2
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+Pivot time (ms), 0.307
+Trim time (ms), 33.645
+FW BFS time (ms), 22.627
+BW BFS time (ms), 45.027
+Queue time (ms), 1.668
+Color time (ms), 9.389
+SCC time (ms), 106.567
+wcc computation time, 307.33 (ms)
+scc_number,971232
+scc_number, 971232, largest scc size, 3828682
+
+Runtime: 3
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+Pivot time (ms), 0.390
+Trim time (ms), 32.429
+FW BFS time (ms), 21.521
+BW BFS time (ms), 44.903
+Queue time (ms), 1.660
+Color time (ms), 8.185
+SCC time (ms), 103.000
+wcc computation time, 321.86 (ms)
+scc_number,971232
+scc_number, 971232, largest scc size, 3828682
+
+Runtime: 4
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+Pivot time (ms), 0.317
+Trim time (ms), 32.416
+FW BFS time (ms), 21.557
+BW BFS time (ms), 44.959
+Queue time (ms), 1.637
+Color time (ms), 8.150
+SCC time (ms), 102.961
+wcc computation time, 302.14 (ms)
+scc_number,971232
+scc_number, 971232, largest scc size, 3828682
+
+Runtime: 5
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+Pivot time (ms), 0.287
+Trim time (ms), 32.427
+FW BFS time (ms), 21.499
+BW BFS time (ms), 44.970
+Queue time (ms), 1.651
+Color time (ms), 9.232
+SCC time (ms), 103.984
+wcc computation time, 304.61 (ms)
+scc_number,971232
+scc_number, 971232, largest scc size, 3828682
+
+Runtime: 6
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+Pivot time (ms), 0.336
+Trim time (ms), 32.425
+FW BFS time (ms), 21.536
+BW BFS time (ms), 44.906
+Queue time (ms), 1.654
+Color time (ms), 8.098
+SCC time (ms), 102.872
+wcc computation time, 306.57 (ms)
+scc_number,971232
+scc_number, 971232, largest scc size, 3828682
+
+Runtime: 7
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+Pivot time (ms), 0.416
+Trim time (ms), 32.440
+FW BFS time (ms), 21.539
+BW BFS time (ms), 44.997
+Queue time (ms), 1.657
+Color time (ms), 8.218
+SCC time (ms), 103.181
+wcc computation time, 291.23 (ms)
+scc_number,971232
+scc_number, 971232, largest scc size, 3828682
+
+Runtime: 8
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+Pivot time (ms), 0.305
+Trim time (ms), 32.420
+FW BFS time (ms), 21.657
+BW BFS time (ms), 44.943
+Queue time (ms), 1.651
+Color time (ms), 8.096
+SCC time (ms), 102.994
+wcc computation time, 304.13 (ms)
+scc_number,971232
+scc_number, 971232, largest scc size, 3828682
+
+Runtime: 9
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+Pivot time (ms), 0.246
+Trim time (ms), 32.403
+FW BFS time (ms), 21.482
+BW BFS time (ms), 44.982
+Queue time (ms), 1.632
+Color time (ms), 7.900
+SCC time (ms), 102.578
+wcc computation time, 281.99 (ms)
+scc_number,971232
+scc_number, 971232, largest scc size, 3828682
+
+Runtime: 10
+vert_count = 4847571, edge_count = 68475391, avg_degree = 14.126
+Pivot time (ms), 0.330
+Trim time (ms), 32.395
+FW BFS time (ms), 21.551
+BW BFS time (ms), 45.091
+Queue time (ms), 1.647
+Color time (ms), 8.135
+SCC time (ms), 103.086
+wcc computation time, 301.63 (ms)
+scc_number,971232
+scc_number, 971232, largest scc size, 3828682

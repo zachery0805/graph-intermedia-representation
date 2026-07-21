@@ -1,0 +1,19 @@
+result_time_gpu_pokec_,PK
+result_time_gpu_baidu_,BD
+result_time_gpu_flickr-growth_,FL
+result_time_gpu_wiki_communication_,WC
+result_time_gpu_wiki_talk_en_,WT
+result_time_gpu_dbpedia_,DB
+result_time_gpu_livejournal_,LJ
+result_time_gpu_wikipedia_link_en_,WL
+result_time_gpu_wikipedia_en_,WE
+result_time_gpu_facebook_,FB
+result_time_gpu_twitter_www_,TW
+<<<<<<< HEAD
+=======
+result_time_gpu_twitter_mpi_,TM
+result_time_gpu_friendster_,FR
+>>>>>>> 43d2123fe1d55680f04dac45697aaf16ef99af9f
+result_time_gpu_RMAT_,RM
+result_time_gpu_random_,RD
+result_time_gpu_zhishi-hudong-relatedpages_,HD

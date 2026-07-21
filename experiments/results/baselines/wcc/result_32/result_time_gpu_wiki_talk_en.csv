@@ -1,0 +1,133 @@
+args = 9
+Thread = 56, run_times = 10
+Graph load (success): 2987535 verts, 24981161 edges 0.236812 second(s)
+
+Runtime: 1
+vert_count = 2987535, edge_count = 24981161, avg_degree = 8.362
+fq_size, 125779
+Depth BFS, 4
+Pivot time (ms), 0.001
+Trim time (ms), 2.853
+BFS time (ms), 23.673
+Queue time (ms), 1.124
+Color time (ms), 2.545
+WCC time (ms), 30.196
+wcc computation time, 643.54 (ms)
+wcc_number, 125967, largest wcc size, 2859574, trim_2 vertices, 2182
+
+Runtime: 2
+vert_count = 2987535, edge_count = 24981161, avg_degree = 8.362
+fq_size, 125779
+Depth BFS, 4
+Pivot time (ms), 0.001
+Trim time (ms), 2.830
+BFS time (ms), 23.970
+Queue time (ms), 1.122
+Color time (ms), 2.588
+WCC time (ms), 30.511
+wcc computation time, 98.49 (ms)
+wcc_number, 125967, largest wcc size, 2859574, trim_2 vertices, 2182
+
+Runtime: 3
+vert_count = 2987535, edge_count = 24981161, avg_degree = 8.362
+fq_size, 125779
+Depth BFS, 4
+Pivot time (ms), 0.001
+Trim time (ms), 2.836
+BFS time (ms), 23.686
+Queue time (ms), 1.123
+Color time (ms), 2.628
+WCC time (ms), 30.274
+wcc computation time, 93.24 (ms)
+wcc_number, 125967, largest wcc size, 2859574, trim_2 vertices, 2182
+
+Runtime: 4
+vert_count = 2987535, edge_count = 24981161, avg_degree = 8.362
+fq_size, 125779
+Depth BFS, 4
+Pivot time (ms), 0.000
+Trim time (ms), 2.831
+BFS time (ms), 23.702
+Queue time (ms), 1.126
+Color time (ms), 2.595
+WCC time (ms), 30.254
+wcc computation time, 89.84 (ms)
+wcc_number, 125967, largest wcc size, 2859574, trim_2 vertices, 2182
+
+Runtime: 5
+vert_count = 2987535, edge_count = 24981161, avg_degree = 8.362
+fq_size, 125779
+Depth BFS, 4
+Pivot time (ms), 0.001
+Trim time (ms), 2.870
+BFS time (ms), 23.706
+Queue time (ms), 1.143
+Color time (ms), 2.636
+WCC time (ms), 30.356
+wcc computation time, 90.48 (ms)
+wcc_number, 125967, largest wcc size, 2859574, trim_2 vertices, 2182
+
+Runtime: 6
+vert_count = 2987535, edge_count = 24981161, avg_degree = 8.362
+fq_size, 125779
+Depth BFS, 4
+Pivot time (ms), 0.000
+Trim time (ms), 2.833
+BFS time (ms), 23.698
+Queue time (ms), 1.128
+Color time (ms), 2.559
+WCC time (ms), 30.218
+wcc computation time, 88.86 (ms)
+wcc_number, 125967, largest wcc size, 2859574, trim_2 vertices, 2182
+
+Runtime: 7
+vert_count = 2987535, edge_count = 24981161, avg_degree = 8.362
+fq_size, 125779
+Depth BFS, 4
+Pivot time (ms), 0.001
+Trim time (ms), 2.838
+BFS time (ms), 23.793
+Queue time (ms), 1.125
+Color time (ms), 2.611
+WCC time (ms), 30.368
+wcc computation time, 89.11 (ms)
+wcc_number, 125967, largest wcc size, 2859574, trim_2 vertices, 2182
+
+Runtime: 8
+vert_count = 2987535, edge_count = 24981161, avg_degree = 8.362
+fq_size, 125779
+Depth BFS, 4
+Pivot time (ms), 0.001
+Trim time (ms), 2.831
+BFS time (ms), 23.676
+Queue time (ms), 1.125
+Color time (ms), 2.581
+WCC time (ms), 30.214
+wcc computation time, 108.39 (ms)
+wcc_number, 125967, largest wcc size, 2859574, trim_2 vertices, 2182
+
+Runtime: 9
+vert_count = 2987535, edge_count = 24981161, avg_degree = 8.362
+fq_size, 125779
+Depth BFS, 4
+Pivot time (ms), 0.000
+Trim time (ms), 2.833
+BFS time (ms), 23.713
+Queue time (ms), 1.124
+Color time (ms), 2.565
+WCC time (ms), 30.235
+wcc computation time, 83.39 (ms)
+wcc_number, 125967, largest wcc size, 2859574, trim_2 vertices, 2182
+
+Runtime: 10
+vert_count = 2987535, edge_count = 24981161, avg_degree = 8.362
+fq_size, 125779
+Depth BFS, 4
+Pivot time (ms), 0.001
+Trim time (ms), 2.830
+BFS time (ms), 23.738
+Queue time (ms), 1.141
+Color time (ms), 2.586
+WCC time (ms), 30.296
+wcc computation time, 82.89 (ms)
+wcc_number, 125967, largest wcc size, 2859574, trim_2 vertices, 2182
