@@ -1,20 +1,27 @@
-exe = pre_proc
+# 编译器和编译选项
+CXX = g++
+CXXFLAGS = -O3
 
-cc = "$(shell which g++)" 
-flags = -O3 #-I../../lib/ -I. -laio -fopenmp 
+# 所有的源文件（每个都含 main）
+TOOLS = \
+    graph_clean \
+    tuple_text_to_bin \
+    txt_to_bin_bw \
+    txt_to_bin_bw_int \
+    txt_to_bin_fw \
+    txt_to_bin_fw_int \
+    txt_to_bin_undirected
 
-objs = $(patsubst %.cpp,%.o,$(wildcard ../../lib/*.cpp)) \
-			$(patsubst %.cpp,%.o,$(wildcard *.cpp))
+# 对应的可执行文件
+BINARIES = $(TOOLS)
 
-deps = $(wildcard ../../lib/*.h) \
-				$(wildcard *.h) \
-				Makefile
+# 默认目标
+all: $(BINARIES)
 
-%.o:%.cpp $(deps)
-	$(cc) -c $< -o $@ $(flags)
+# 每个工具独立编译成一个可执行文件
+%: %.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
 
-$(exe):$(objs)
-	$(cc) $(objs) -o $(exe) $(flags)
-
+# 清理目标
 clean:
-	rm -rf $(exe) $(objs)
+	rm -f $(BINARIES) *.o
