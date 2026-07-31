@@ -33,6 +33,15 @@
 % Environment form (not a simple \newcommand{}{}) so it can safely span
 % multiple paragraphs / blank lines in the source.
 \newenvironment{maybecut}{\color{red}}{}
+% Marks a number/figure/table that was produced under the OLD (purely
+% random edge-pair) update-generation methodology, now that the methodology
+% text has been rewritten to describe the DZiG-style 50%-load protocol
+% (Section~7). These need to be regenerated under the new protocol before
+% submission -- renders in orange so it's impossible to miss in a final
+% read-through. Environment form so it can span multi-paragraph blocks
+% (tables, figures) as well as inline numbers.
+\newenvironment{needsrerun}{\color{orange}}{}
+\newcommand{\rerun}[1]{\textcolor{orange}{#1}}
 
 \newtheorem{lemma}{Lemma}
 \newtheorem{definition}{Definition}

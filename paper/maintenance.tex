@@ -320,19 +320,33 @@ in Table~\ref{tab:updates}, we remove any Case~4 updates (i.e., $s$ and $t$ are 
 This filter step reduces both the number of updates and the total maintenance work.
 
 \textit{(ii) Merge}
-% After filtering, GIR 
+% After filtering, GIR
 will group the remaining updates by the structural region they may jointly affect.
 We first group the updates whose endpoints share the same WCC.
-Within each WCC group, we identify updates whose SCC endpoints have overlapping DAG rank intervals and merges them into a single SCC-level maintenance region.
-Further, we group updates that touch the same local articulation structure at the BiCC level.
+\rerun{Within each WCC group, insertions that (per Table~\ref{tab:updates}, Case~2)
+go against the existing rank order each carry a candidate rank interval
+$[\mathrm{rank}(\mathrm{SCC}(t)),\,\mathrm{rank}(\mathrm{SCC}(s))]$; GIR sorts
+these intervals and merges any that overlap or abut into a single combined
+interval, using the standard interval-merging algorithm ($O(B\log B)$ for
+$B$ candidate insertions).} Further, we group updates that touch the same
+local articulation structure at the BiCC level.
 This grouping has two benefits.
-First, it amortizes repeated maintenance. That is, the updates that would trigger repairs on the same region are handled together in a single pass.
+\rerun{First, it amortizes repeated maintenance: rather than running one bounded
+rank-interval search per edge, all edges whose intervals overlap are
+resolved by a single search over their combined range.}
 Second, it identifies structurally independent groups, each of which becomes a natural unit for parallel execution.
 
 \textit{(iii) Update.}
 Finally, GIR applies the single edge update logic to each merged region rather than to individual edges.
 A set of inserted edges may jointly create a cycle and merge several SCCs, even though none of the edges alone would trigger a merge.
-GIR detects such structural transitions over the merged region and repairs the corresponding WCC, SCC, and BC tree structures in a coordinated way.
+\rerun{To handle this correctly, GIR does not process a merged group's edges one at
+a time; instead, it re-runs the scoped SCC algorithm (the same
+\texttt{find\_scc\_scoped} routine used for construction and for Case~5b
+splits) over exactly the SCCs spanned by the group's combined rank
+interval, with all of the group's candidate edges added to the search
+simultaneously. This finds every cycle the batch creates, including ones
+that only close through a chain of several new edges together, in one pass
+rather than one search per edge.}
 Once the batch is complete, GIR processes independent merged regions concurrently.
 This makes FMU a parallel and amortized extension of SPU for high-throughput update streams.
 

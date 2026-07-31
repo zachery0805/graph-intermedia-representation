@@ -315,6 +315,7 @@ Together, they eliminate redundant operations, merge overlapping maintenance reg
 \begin{maybecut}
 Benefited from this, for the update with both insertions and deletions, on all the tested graphs, GIR achieves an average throuput of $25.4$ million edges per second (MEPS), which is $1.8\times$ more than state-of-the-art methods.
 % CUT CANDIDATE: same MEPS/1.8x number restated in Abstract and Experiment.
+% ALSO NEEDS RERUN if kept -- see note on the End-to-end evaluation block below.
 \end{maybecut}
 % achieves an average of $8.5\times$, $1.9\times$, and $1.8\times$ speedup for update throughput over recent methods, including Spruce, Terrace, and Aspen, respectively.
 %citation here
@@ -388,6 +389,7 @@ With the additional task parallelism,
 % Benefited from this,
 on all the tested graphs, GIR achieves an average of $1.2\times$, $1.2\times$, and $1.7\times$ speedups over state-of-the-art methods for running BFS, SSSP, and betweenness centrality (BC), respectively.
 % CUT CANDIDATE: same BFS/SSSP/BC numbers restated in Abstract and Experiment.
+% ALSO NEEDS RERUN if kept -- see note on the End-to-end evaluation block below.
 \end{maybecut}
 % $1.3- 3\times$ average speedups for BFS over state-of-the-art methods.
 % besides BFS, on SSSP acheives $2.7\times$ average speedups,
@@ -423,6 +425,10 @@ In addition, GIR shows strong and stable scalability across all tested datasets.
 % nearly verbatim, numbers already given in the Abstract and in full detail
 % in Experiment Sec. 7. Candidate: cut entirely, or shrink to 1-2 sentences
 % with only the single headline number.
+% ALSO NEEDS RERUN if kept: every number here is measured under the old
+% random-edge-pair methodology; Experiment now uses the DZiG-style 50%-load
+% protocol (Section~7.1), which changes these numbers too (not colored
+% orange here to avoid conflicting with the red deletion-candidate marking).
 \end{maybecut}
 % In addition, GIR shows strong and stable scalability, achieving $20.9\times$ average speedup at 64 threads, ahead of Spruce ($17\times$).
 % on average, GIR achieves $22.6$ MEPS for \textit{insertion-only} updates ($9.1\times$, $3.4\times$, and $2.7\times$ over Spruce, Aspen, and Terrace) and $8.5\times$, $4.4\times$, $3.4\times$ more for \textit{deletion-only} updates.

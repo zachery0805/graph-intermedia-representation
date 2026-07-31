@@ -1,0 +1,102 @@
+\section{Dicussion and Limitation}
+\label{sec:discussion}
+
+% \subsection{Dicussion}
+
+% \YJ{TODO. This is more like dicussion. Should them be here, merge with the next section, or move to else where.}
+
+% The three levels are mutually complementary.
+% WCC prunes at the global level, 
+% SCC prunes directed reachability and eliminates
+% cycles, and BC tree decomposes the remaining work into parallel tasks
+% and localizes maintenance.
+
+\textit{Algorithm independence.}
+The three structural layers in GIR do not depend on any specific query
+source, target, or algorithm.
+The DAG and BC trees are maintained unconditionally
+after each graph update.
+Any downstream algorithm can use these structures without
+prior knowledge.
+% of what other algorithms have run.
+
+\textit{Integration with other dynamic graph systems.}
+GIR is designed to operate above existing dynamic graph representation
+systems, not to replace them.
+It can be integrated with formats such as
+PMA~\cite{bender2007adaptive},
+DCSR~\cite{king2016dynamic},
+Terrace~\cite{pandey2021terrace}, and
+DGAP~\cite{islam2023dgap}.
+The storage layer is responsible for maintaining adjacency data
+efficiently under updates.
+GIR is responsible for maintaining the structural invariants.
+This separation improves modularity and allows GIR to be added to an existing system without redesigning the storage stack.
+
+\textit{Experimental update model.}
+Our experiments follow the standard evaluation protocol in the dynamic graph systems literature: updates are randomly generated edge insertions and deletions~\cite{pandey2021terrace,shi2024spruce,dhulipala2019low}.
+This protocol is widely adopted because large-scale real-world streaming traces are often proprietary or unavailable for the graph sizes we target.
+Randomly generated updates exercise the system uniformly and provide reproducible benchmarks, but they may not capture locality or burstiness patterns present in real streams.
+Evaluating GIR on temporal graph benchmarks (e.g., Wikipedia edit histories or Reddit interaction streams) is a natural extension for future work.
+
+\textit{Extensibility.}
+The current instantiation of GIR uses WCC, SCC, and BiCC because
+they provide a strong balance between expressiveness and
+computational feasibility at scale.
+The framework is not limited to these three.
+Additional structural indices, such as dominator trees or
+reachability indices, can be incorporated when they provide
+value for a target workload.
+
+
+\cq{\textit{Workload scope.}
+The current evaluation covers traversal-based algorithms (BFS, SSSP, BC), which align naturally with GIR's structural decomposition.
+Mining and pattern-matching tasks, such as dense subgraph discovery or subgraph isomorphism, have different computational characteristics and do not immediately exploit the condensation DAG or BC tree in the same way.
+We expect that WCC partitioning could still reduce search space for such tasks, but the precise benefit depends on the algorithm.
+Extending GIR to support mining workloads is left for future work.}
+
+% \subsection{Scope of Benefit}
+% The three GIR levels provide three types of structural knowledge that enable three corresponding optimizations.
+
+% \textit{WCC (Level 1) is for scope elimination}. Any single-source algorithm on a directed or undirected graph can immediately discard all WCCs that do not contain the source. This benefits many algorithms, such as, BFS, DFS, SSSP, APSP (per-source), reachability queries, betweenness centrality (which issues SSSP from every vertex), $k$-shortest paths. Essentially any algorithm that starts from a specific source benefits.
+
+% \textit{Condensation DAG (Level 2) is for cycle elimination.} On a directed graph, any algorithms that must follow directed paths can use the DAG to prune reachable SCCs before walking raw edges. This benefits algorithms, such as SSSP, directed reachability, topological-order-dependent algorithms, and dependency-chain analysis. Algorithms that need to traverse only forward-reachable SCCs can skip cycles entirely.
+
+% \textit{BC tree (Level 3) is for task decomposition}. Any algorithms that can process subgraphs independently and then merge results benefits. This is the basis of GIR's task parallelism contribution. BFS, DFS, SSSP, and betweenness centrality all have this property. The BC tree also enables localized updates, i.e., when GIR is maintained after an edge change, only the affected BiCC block needs to be repaired.
+
+% GIR is most beneficial for algorithms that issue queries from
+% a specific source or target, or that traverse directed paths.
+% This class includes BFS, DFS, SSSP, all-pairs shortest paths
+% (via per-source SSSP), betweenness centrality, closeness
+% centrality, reachability queries, and k-shortest paths.
+% For these algorithms, GIR enables two distinct optimizations.
+% First, WCC and DAG structure prune the search space before
+% traversal begins.
+% Second, BC-tree decomposition exposes task parallelism across
+% independent BiCC blocks.
+
+
+\cq{
+\textit{Directed vs.\ undirected graphs.}
+GIR is designed primarily for directed graphs, where the SCC condensation DAG captures asymmetric reachability and provides the most significant pruning.
+For undirected graphs, SCCs collapse to WCCs, so the condensation layer provides no additional benefit beyond what WCC partitioning already offers.
+Moreover, real-world undirected graphs often exhibit one dominant connected component, which limits the scope of WCC-level pruning.
+The BiCC block decomposition, however, remains applicable to undirected graphs and can still expose task parallelism across independent blocks.
+Extending GIR to provide richer structural indices for undirected settings is a direction for future work.
+}
+
+\textit{Limitation.}
+GIR is most beneficial for algorithms whose execution can be pruned, decomposed, or reordered using structural boundaries.
+Algorithms that aggregate globally across all vertices, such
+as PageRank~\cite{brin1998anatomy} and label propagation~\cite{zhu2003semi}, do not directly benefit from the
+condensation DAG or BC tree, since they operate on all edges regardless of source.
+However, they still benefit from WCC-level partitioning: each WCC can be processed independently and in parallel, and updates confined to one WCC require only that component's scores to be updated.
+We do not claim additional benefit for global aggregation algorithms beyond this.
+
+
+% \textbf{Scalability.}
+% Existing works have demonstrated that WCC,
+% SCC, and BiCC decompositions can be computed at high throughput
+% on billion-edge graphs~\cite{ji2018ispan,ji2022ispan,ji2020aquila}.
+% This confirms that the three-level hierarchy is a practical
+% foundation for large-scale dynamic graph analytics.

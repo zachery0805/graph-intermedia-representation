@@ -1,0 +1,114 @@
+\documentclass[conference]{IEEEtran}
+
+% -------------------------
+% Packages
+% -------------------------
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{hhline}
+\usepackage[table]{xcolor}
+\usepackage{amsmath,amsfonts}
+\usepackage{bm}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{comment}
+\usepackage{import}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{balance}
+\usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage{xurl}
+\usepackage{url}
+\usepackage{float}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usepackage{xcolor}
+\newcommand{\cq}[1]{\textcolor{black}{#1}}
+
+\usepackage{amsthm}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+% \newcommand*\circled[2][black]{%
+%   \tikz[baseline=(char.base)]{\node[
+%     shape=circle, draw=none, thick,
+%     fill=#1, inner sep=0.9pt] (char)
+%   {\textcolor{white}{#2}};}}
+
+\DeclareRobustCommand{\circled}[2][black]{%
+  \tikz[baseline=(char.base)]{
+    \node[
+      circle,
+      fill=#1,
+      inner sep=0pt,
+      minimum size=1.2em
+    ] (char)
+    {\scriptsize\textcolor{white}{#2}};
+  }%
+}
+
+% -------------------------
+% Your comment macros
+% -------------------------
+\newcommand{\yj}[1]{\textcolor{blue}{[\small YJ: ~#1~]}}
+\newcommand{\YJ}[1]{\textcolor{red}{[\small YJ: ~#1~]}}
+\newcommand{\CQ}[1]{\textcolor{brown}{[CQ: #1]}}
+
+\AtBeginDocument{%
+  \providecommand\BibTeX{{Bib\TeX}}}
+
+\newcommand{\name}{\textsc{GIR}}
+
+\begin{document}
+
+\title{\name: A Persistent Intermediate Representation for Scalable Dynamic Graph Analytics}
+
+% \title{\name: A Graph Intermediate Representation for Scalable Dynamic Graph Update and Computation}
+
+% \author{
+% \IEEEauthorblockN{Chaoqun Li, Yuede Ji}
+% \IEEEauthorblockA{
+% Department of Computer Science and Engineering\\
+% The University of Texas at Arlington\\
+% Arlington, Texas, USA
+% }
+% }
+
+\maketitle
+
+\begin{abstract}
+\input{abstract}
+\end{abstract}
+
+\input{introduction}
+\input{background}
+
+\input{methodology}
+\input{maintenance}
+\input{task_parallel}
+% \input{complexity_analysis}
+
+\input{experiment}
+
+\input{related_work}
+\input{discussion}
+\input{conclusion}
+
+\balance
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
+\section*{Acknowledgment of AI-Generated Content}
+During the preparation of this manuscript, we used the Claude Sonnet model (Anthropic) solely for grammar correction and language editing. Specifically, prompts such as ``Are there any grammatical errors in this paragraph?'' and ``Which parts of this paragraph can be removed?'' were employed. The AI model was not used for any other purposes.
+
+\clearpage
+
+\end{document}

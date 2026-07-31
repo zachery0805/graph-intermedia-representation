@@ -148,32 +148,48 @@ Since Terrace and Aspen do not support weighted graphs, they are omitted from th
 \end{figure}
 
 % \textbf{Setup.}
-We evaluate \textit{update throughput} under three settings, i.e., insertion-only, deletion-only, and mixed. 
+We evaluate \textit{update throughput} under three settings, i.e., insertion-only, deletion-only, and mixed.
 % We measure the update throughput with the metric of million edges per second (MEPS).
 The update throughput is calculated as the number of edge insertion or deletion operations a graph system can process per unit of time.
 Particularly, we use the million edges per second (MEPS) as the throughput metric.
-% For each graph, we generate randomized operations to emulate evolving graph streams and report throughput in million edges per second (MEPS).
-% We use the \textit{update throughput} as the evaluation metric, which is calculated as the number of edge insertion or deletion operations a graph system can process per unit of time. It measures how efficiently the system handles a continuous stream of structural changes to the graph.
-For each graph, we generate randomized insertion and deletion operations to emulate evolving graph streams as previous works have done.
-% and report the throughput as the number of successful operations per millisecond.
-% We also vary batch sizes and concurrency levels to study multi-threaded update scalability.
+\begin{needsrerun}
+Following DZiG's evaluation protocol~\cite{mariappan2021dzig}, for each graph
+we hold out 50\% of its edges, build the initial structure on the remaining
+50\%, and stream the held-out half back in as insertions (shuffled to
+remove locality artifacts from the original edge-list order); deletions are
+sampled from the loaded half. Because both directions draw real edges from
+the graph itself rather than independently random vertex pairs, this
+exercises each system under the same degree-skew and locality it will
+encounter on the final graph.
+All insertion/deletion/mixed throughput numbers below (Figures~\ref{fig:insertion_speedup}-\ref{fig:deletion_speedup},
+Table~\ref{tab:throughput_summary}), as well as the downstream analytics
+numbers reported later in this section, are measured under this protocol;
+since which edges get inserted/deleted changes the graph state every
+downstream algorithm runs on, this methodology change affects every number
+in this section, not just the update-throughput ones.
+% CHANGED THIS PASS: methodology description rewritten to the DZiG-style
+% protocol; code to generate updates this way is not yet implemented.
+\end{needsrerun}
 
 
 \textbf{Insertion-only.}
-Figure~\ref{fig:insertion_speedup} reports the insertion-only speedup of GIR over compared methods.% insertion numbers
-%\YJ{How many insertions?}
-For each graph, we randomly generate $|E|$ edge insertions on top of the existing graph and measure average throughput.
+Figure~\ref{fig:insertion_speedup} reports the insertion-only speedup of GIR over compared methods.
+\rerun{For each graph, the held-out 50\% of edges (Section~7.1) are streamed in as insertions and we measure average throughput.}
+% NOTE: (i)-(iii) below are unchanged text; the numbers still reflect the
+% OLD random-edge-pair methodology and must be regenerated under the new
+% protocol above before submission, but are left uncolored per the
+% "orange = actually edited text" convention now in effect.
 \textit{(i)} GIR consistently outperforms all the compared methods on every dataset.
 Particularly, GIR achieves an average of $9.1\times$, $3.4\times$, and $2.7\times$ over Spruce, Aspen, and Terrace, respectively.
 % GIR is faster across all datasets and baselines with no exception.
 
 \textit{(ii)} GIR achieves the largest gains over Spruce
 % appear on large, structurally irregular graphs.
-% For example, 
+% For example,
 on the CP graph, that is, $16.2\times$ speedup.
 It also achieves $3.9\times$ over Terrace, and $2.8\times$ over Aspen.
 Similarly, on the LJ graph, GIR achieves $10.3\times$, $2\times$, and $6.3\times$ over Spruce, Terrace, and Aspen, respectively.
-This is mainly benefited from our structure-aware incremental maintenance as each insertion is confined to the smallest affected subregion of GIR. 
+This is mainly benefited from our structure-aware incremental maintenance as each insertion is confined to the smallest affected subregion of GIR.
 Therefore, the repair cost scales with the local structural change rather than total graph size.
 
 \begin{maybecut}
@@ -188,9 +204,10 @@ Such moderate speedup over Aspen/Terrace on smaller graphs is expected since per
 
 \textbf{Deletion-only.}
 Figure~\ref{fig:deletion_speedup} reports the deletion-only speedup of GIR over compared methods.
-% \YJ{How many deletions?}
-For each graph, we randomly generate $|E|$ edge deletions on the existing graph and measure average throughput.
+\rerun{For each graph, deletions are sampled from the loaded 50\% (Section~7.1) and we measure average throughput.}
 % The overall ranking mirrors insertion; we highlight the key differences.
+% NOTE: unchanged text below, numbers still reflect the OLD methodology --
+% see the rerun note after Insertion-only.
 Beyond the similar observations in insertion-only, We find two more observations.
 \textit{(i)} The speedups of deletions are higher than insertions over Aspen and Terrace.
 % are higher for deletion than insertion.
@@ -225,13 +242,21 @@ Spruce defers some deletion cleanups lazily, which partially narrow the gap with
 
 \textbf{Mixed insertion and deletion.}
 Table~\ref{tab:throughput_summary} reports throughput under the mixed workload.
-% \YJ{How do you mix? How many operations?}
-We perform $10 \times |E|$ operations in total, with 50\% insertions and 50\% deletions interleaved uniformly at random on the existing graph.
+\rerun{The mixed setting interleaves the same two streams used above (the held-out
+50\% as insertions, edges sampled from the loaded 50\% as deletions) in a
+single shuffled order, rather than running all insertions before all
+deletions.}
 % (i)
 % Compared to either insertion- or deletion-only,
+% NOTE: unchanged text below, numbers still reflect the OLD methodology.
 The speedup of GIR over Aspen and Terrace is lower in mixed mode ($1.8\times$ and $1.9\times$) than insertion-only ($3.4\times$, $2.7\times$) or deletion-only ($4.4\times$, $3.4\times$).
 This is because Aspen and Terrace employ deferred reorganization, where mixed insertions and deletions partially cancel their structural work, reducing effective update cost for those systems.
-GIR's SPU processes each update individually and does not exploit such cancellation, so its mixed throughput closely tracks its pure-operation throughput.
+\rerun{GIR's Filter-Merge-Update pipeline (Section~5.2) captures an analogous
+cancellation for exact insert/delete pairs on the same edge within a batch,
+but does not defer or amortize structural repair across dissimilar updates
+the way Aspen/Terrace's storage-level reorganization does, so its mixed
+throughput still tracks closer to its pure-operation throughput than theirs
+does.}
 Despite this, GIR still achieves the highest throughput on every dataset, averaging 25.4 MEPS versus 14 (Aspen), 13.6 (Terrace), and 3 (Spruce).
 % with the largest per-dataset speedup over the best baseline on WT ($4.1\times$ over Terrace) and LJ ($3.2\times$ over Terrace).
 
@@ -258,7 +283,8 @@ Note, TW and FS are tested with 32 threads, since the compared methods encounter
 \setlength{\tabcolsep}{4pt}
 % \renewcommand{\arraystretch}{1.1}
 \caption{Mixed update throughput (MEPS $\uparrow$).
-The best performance of each graph is highlighted. The speedup of {\name} over current best is in bottom. Last column denotes average speedup.}
+The best performance of each graph is highlighted. The speedup of {\name} over current best is in bottom. Last column denotes average speedup.
+\protect\rerun{Needs rerun under the new 50\%-load protocol (Section~7.1).}}
 \label{tab:throughput_summary}
 \begin{tabular}{l r r r r r r r c}
 \toprule
@@ -275,6 +301,10 @@ GIR     &  \cellcolor[HTML]{CBCEFB}26.3  &  \cellcolor[HTML]{CBCEFB}24.6  &  \ce
 
 
 
+% NOTE: unchanged text from here through the end of BC below; numbers are
+% measured on the post-update graph state, which changes under the new
+% 50%-load protocol (Section~7.1) even though these are downstream
+% analytics, not update-throughput numbers themselves.
 \textbf{BFS} is evaluated against all five baselines.
 % \cq{For GraphBolt and DZiG, BFS numbers are estimated from their Ligra-based static baselines using the same hardware normalization methodology as for SSSP.}
 We make three observations.
@@ -296,7 +326,8 @@ Inside a single large SCC, there is only one large BiCC block, so the block deco
 \centering
 % \footnotesize
 \setlength{\tabcolsep}{4.8pt}
-\caption{Speedups ($\times$) of GIR over compared methods.}
+\caption{Speedups ($\times$) of GIR over compared methods.
+\protect\rerun{Needs rerun under the new 50\%-load protocol (Section~7.1).}}
 \begin{tabular}{l l r r r r r r r r}
 \toprule
 \textbf{Alg.} & \textbf{Method}
@@ -490,7 +521,8 @@ The per-source SSSP cost is then determined by that block's internal structure, 
 \begin{figure}[t]
     \centering
     \includegraphics[width=1\linewidth]{figures/multiple_thread_speedup_all-crop.pdf}
-    \caption{The BFS scalability against thread number. For TW and FS, Terrace and Aspen fail at 64 threads. For WT, Terrace fails at 64 threads.}
+    \caption{The BFS scalability against thread number. For TW and FS, Terrace and Aspen fail at 64 threads. For WT, Terrace fails at 64 threads.
+    \protect\rerun{Needs rerun under the new 50\%-load protocol (Section~7.1).}}
     % \caption{Multi-threaded BFS speedup of GIR, Terrace, Aspen, and Spruce on all seven datasets as the thread count increases from 1 to 64, where each system is normalized to its own single-threaded runtime.
     % For TW and FS, Terrace and Aspen fail at 64 threads; for WT, only Terrace fails at 64 threads.
     % Panel (h) shows the average speedup across all datasets; Terrace and Aspen averages are plotted only up to 32 threads.}
@@ -519,6 +551,8 @@ Note that Terrace and Aspen fail at 64 threads on TW and FS, and Terrace fails a
 % On TC (Figure~\ref{fig:mt_speedup}(a)), GIR reaches $11.9\times$ at 64 threads, consistent with TC's exceptionally high count of small BiCC blocks.
 % This steep scaling is driven by GIR's block-level task decomposition: each additional thread picks up independent block tasks with minimal inter-task coordination.
 
+% NOTE: unchanged text below; scalability numbers are also measured on the
+% post-update graph state and need rerun under the new protocol.
 Particularly, we make three observations.
 \textit{(i)} On average, GIR achieves $20.9\times$ speedups with 64 threads, way higher than Spruce's $17\times$.
 Terrace and Aspen achieve $15.5\times$ and $15.7\times$ with 32 threads, respectively. They are omitted at 64 threads due to failures on TW and FS.
@@ -548,7 +582,7 @@ On TC, GIR achieves $11.9\times$ at 64 threads, mainly due to TC's exceptionally
 \textit{(iii)} Scaling is more modest on graphs dominated by a few large SCCs.
 On WG and CP, all methods scale similarly, with GIR reaching $7.5\times$ and $11\times$ at 64 threads.
 On TW and FS, GIR achieves $8.9\times$ and $11.1\times$ at 32 threads before Terrace and Aspen fail to scale further.
-% The limited block count in these graphs bounds the available task parallelism. 
+% The limited block count in these graphs bounds the available task parallelism.
 
 % (i) GIR achieves the highest scalability on graphs with many independent BiCC blocks.
 % On LJ and WT, GIR achieves $45\times$ and $47.4\times$ speedups at 64 threads, respectively, much higher than other baselines.

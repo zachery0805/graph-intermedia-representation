@@ -34,10 +34,27 @@ GIR is responsible for maintaining the structural invariants.
 This separation improves modularity and allows GIR to be added to an existing system without redesigning the storage stack.
 
 \textit{Experimental update model.}
-Our experiments follow the standard evaluation protocol in the dynamic graph systems literature: updates are randomly generated edge insertions and deletions~\cite{pandey2021terrace,shi2024spruce,dhulipala2019low}.
-This protocol is widely adopted because large-scale real-world streaming traces are often proprietary or unavailable for the graph sizes we target.
-Randomly generated updates exercise the system uniformly and provide reproducible benchmarks, but they may not capture locality or burstiness patterns present in real streams.
-Evaluating GIR on temporal graph benchmarks (e.g., Wikipedia edit histories or Reddit interaction streams) is a natural extension for future work.
+\begin{needsrerun}
+Rather than generating synthetic insertions and deletions independent of the
+graph's own structure, our experiments follow DZiG's evaluation
+protocol~\cite{mariappan2021dzig}: for each graph, we hold out 50\% of its
+edges, build GIR on the remaining 50\% to obtain an initial fixed point, and
+then stream the held-out half back in as insertions; deletions are sampled
+from the loaded half. Because both the streamed insertions and the sampled
+deletions are real edges drawn from the graph itself, this exercises GIR
+under the same structural distribution (degree skew, locality) it will see
+in the final graph, unlike edge pairs drawn independently at random. We
+shuffle the streamed order to avoid artifacts from the original edge-list
+ordering, following the same practice DZiG uses to eliminate locality
+effects in its own streams. Real production traces (e.g., timestamped edit
+histories) remain out of scope here, as they are largely proprietary or
+unavailable at the graph sizes we target; adopting a real system's own
+protocol is the closest practical substitute.
+% CHANGED THIS PASS: rewritten from the old "purely random edge-pair"
+% methodology description to the DZiG-style protocol now used in
+% experiment.tex. Code to actually generate updates this way is not yet
+% implemented (see CHANGELOG) -- this describes the target methodology.
+\end{needsrerun}
 
 \textit{Extensibility.}
 The current instantiation of GIR uses WCC, SCC, and BiCC because

@@ -1,0 +1,70 @@
+\section{Time Complexity Analysis}
+\label{subsec:complexity}
+
+Let $V_{\mathrm{aff}}$ and $E_{\mathrm{aff}}$ denote vertices and edges in the structurally affected region,
+$\Delta r = [\mathrm{rank}(\mathrm{SCC}(t)), \mathrm{rank}(\mathrm{SCC}(s))]$ the rank interval for Case~2,
+$B$ the batch size, and $|\mathcal{B}_s|$ the number of reachable BiCC blocks.
+
+\textbf{SPU (single-edge update).}
+Table~\ref{tab:complexity_spu} gives the per-case cost.
+Cases 1, 2 (no cycle), and 4 cost $\mathcal{O}(1)$.
+All other cases are bounded by $\mathcal{O}(|V_{\mathrm{aff}}| + |E_{\mathrm{aff}}|)$,
+confined to the affected structural region rather than the full graph.
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.1}
+\caption{SPU time complexity per case ($V_{\mathrm{aff}}, E_{\mathrm{aff}}$: affected region).}
+\label{tab:complexity_spu}
+\begin{tabular}{c l l}
+\toprule
+\textbf{Case} & \textbf{Operation} & \textbf{Complexity} \\
+\midrule
+1  & WCC merge                       & $\mathcal{O}(1)$ \\
+2  & Inter-SCC, no cycle             & $\mathcal{O}(1)$ \\
+2  & Inter-SCC, cycle                & $\mathcal{O}(\Delta r + |V_{\mathrm{aff}}| + |E_{\mathrm{aff}}|)$ \\
+3  & Intra-SCC, inter-BiCC           & $\mathcal{O}(|V_{\mathrm{aff}}| + |E_{\mathrm{aff}}|)$ \\
+4  & Intra-BiCC (no-op)              & $\mathcal{O}(1)$ \\
+5a & Non-bridge deletion             & $\mathcal{O}(|V_{\mathrm{aff}}| + |E_{\mathrm{aff}}|)$ \\
+5b & Bridge deletion within SCC      & $\mathcal{O}(|V_{\mathrm{aff}}| + |E_{\mathrm{aff}}|)$ \\
+5c & Bridge deletion in DAG          & $\mathcal{O}(|V_{\mathrm{aff}}| + |E_{\mathrm{aff}}|)$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{FMU (batch update).}
+Filter costs $\mathcal{O}(B)$; merge costs $\mathcal{O}(B \log B)$, producing $p \leq B$ independent regions.
+The update stage runs SPU on each region concurrently, with total cost
+$\mathcal{O}\!\left(B \log B + \max_{j}(|V_{\mathrm{aff},j}| + |E_{\mathrm{aff},j}|)\right)$.
+
+\textbf{Two-level parallel execution.}
+Level~1 traverses the condensation DAG in $\mathcal{O}(|\mathcal{V}_\mathcal{D}| + |\mathcal{E}_\mathcal{D}|)$
+and the BC tree in $\mathcal{O}(|\mathcal{B}_s|)$.
+Level~2 executes $|\mathcal{B}_s|$ tasks concurrently; parallel time is bounded by the slowest task.
+Table~\ref{tab:complexity_parallel} compares GIR against sequential execution per algorithm.
+The task-parallel speedup scales as 
+$\frac{\sum_i T(S_i)}{\max_i T(S_i)}$.
+reaching $|\mathcal{B}_s|$ when blocks are balanced.
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.1}
+\caption{Level~2 parallel vs.\ sequential complexity ($V_{B_i}, E_{B_i}$: vertices/edges in block $B_i$).}
+\label{tab:complexity_parallel}
+\begin{tabular}{l l l}
+\toprule
+\textbf{Algorithm} & \textbf{GIR (parallel)} & \textbf{Sequential} \\
+\midrule
+BFS/DFS & $\mathcal{O}\!\left(\max_i(|V_{B_i}|+|E_{B_i}|)\right)$
+        & $\mathcal{O}(|V|+|E|)$ \\
+SSSP    & $\mathcal{O}\!\left(\max_i(|E_{B_i}|\log|V_{B_i}|)\right)$
+        & $\mathcal{O}(|E|\log|V|)$ \\
+BC      & $\mathcal{O}\!\left(\max_i(|V_{B_i}||E_{B_i}|)\right)$
+        & $\mathcal{O}(|V||E|)$ \\
+\bottomrule
+\end{tabular}
+\end{table}
