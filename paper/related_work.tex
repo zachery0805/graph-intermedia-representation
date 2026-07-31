@@ -1,0 +1,316 @@
+\section{Related Work}
+\label{sec: related work}
+% \subsection{Dynamic Graph Systems}
+% \label{subsec:dynamic}
+% ============================================================
+% \YJ{Discuss other related works: CuckooGraph, etc.}
+
+\textit{Dynamic graph computation.}
+% Many systems have been proposed to support efficient storage-level
+% updates on evolving graphs.
+% We have extensively discussed Terrace~\cite{pandey2021terrace}, 
+% Spruce~\cite{shi2024spruce}, and Aspen~\cite{dhulipala2019low}
+% throughout the paper. 
+Besides the extensively discussed Terrace~\cite{pandey2021terrace},
+Spruce~\cite{shi2024spruce}, Aspen~\cite{dhulipala2019low},
+GraphBolt~\cite{mariappan2019graphbolt}, and DZiG~\cite{mariappan2021dzig},
+Stinger~\cite{ediger2012stinger} aggregates edge lists into
+fixed-size blocks with a hash-table index for point queries.
+GraphOne~\cite{kumar2020graphone} combines an adjacency list with
+an edge log that is periodically merged in batches.
+Sortledton~\cite{fuchs2023sortledton} replaces edge lists with an
+unrolled skip list offering $O(\log|E|)$ update and lookup with
+transactional support.
+Teseo~\cite{de2021teseo} uses packed memory arrays as leaves of
+B+ trees with optimistic locking for concurrent access.
+CuckooGraph~\cite{fan2025cuckoograph} proposes a hash-array-based
+structure that adaptively resizes through transformation and denylist
+techniques.
+Other works include LiveGraph~\cite{zhu2019livegraph} and
+LLAMA~\cite{macko2015llama}.
+
+
+
+\textit{Query-dependent incremental computation.}
+A separate line of work attempts to reuse prior computational results
+across updates~\cite{besta2021practice,ramalingam1996computational}.
+\textit{Khanda et al.}~\cite{khanda2021parallel} maintain an SSSP
+tree rooted at a fixed source after each update, recomputing only the
+affected subtree.
+\textit{Kickstarter}~\cite{vora2017kickstarter} retains approximate monotonic
+results and propagates corrections for invalidated values.
+% \cq{ 
+\textit{GraphBolt}~\cite{mariappan2019graphbolt} uses dependency-driven
+synchronous processing: it tracks per-vertex aggregation dependencies across
+BSP iterations and propagates only the delta caused by mutations, supporting
+algorithms including PageRank, belief propagation, SSSP, and BFS.
+
+\textit{DZiG}~\cite{mariappan2021dzig} extends GraphBolt with sparsity-aware
+processing that skips zero-contribution edges during incremental propagation,
+reducing redundant work on sparse updates.
+\textit{RisGraph}~\cite{feng2021risgraph} targets sub-millisecond per-update
+analysis by streaming graph mutations into a compact active-vertex frontier.
+\textit{GraphFly}~\cite{chen2022graphfly} uses asynchronous dependency-flow
+execution to reduce synchronization overhead in streaming graph processing.
+\textit{IncBoost}~\cite{yin2024incboost} focuses on incremental processing
+under edge deletions and weight updates.
+\textit{Fan et al.}~\cite{fan2021incrementalizing} propose a general framework
+for incrementalizing arbitrary graph algorithms by detecting affected
+regions across updates.
+\textit{Bauer and Wagner}~\cite{bauer2009batch} study batch dynamic SSSP
+experimentally, showing reuse is only effective when the affected
+subgraph is small.
+
+For betweenness centrality specifically, \textit{Green et al.}~\cite{green2012fast}
+track path-count changes caused by each edge insertion or deletion to maintain
+an incremental BC score, while \textit{Nasre et al.}~\cite{Nasre2014IncBC}
+give an asymptotically faster incremental BC algorithm that exploits DAG structure
+to localize the repair.
+All of these systems maintain algorithm-specific state (e.g., per-vertex
+aggregation values, SSSP trees, path-count tables, or monotonic approximations)
+that must be reset or rebuilt when the algorithm or source changes.
+GIR instead maintains \emph{algorithm-agnostic} structural invariants
+(WCC, SCC, BiCC) that benefit BFS, SSSP, and BC simultaneously, with no
+per-algorithm reconfiguration.
+% }
+
+\textit{Theoretical dynamic graph algorithms.}
+A substantial body of theory addresses fully dynamic connectivity; we refer
+to Hanauer et al.~\cite{Hanauer2022DynSurvey} for a comprehensive survey.
+\textit{Holm et al.}~\cite{holm2001poly} give poly-logarithmic deterministic
+algorithms for dynamic connectivity, MST, 2-edge connectivity, and
+biconnectivity.
+\textit{Wulff-Nilsen}~\cite{wulff2013faster} improves the deterministic
+connectivity bound.
+\textit{De Man et al.}~\cite{de2025towards} study batch-dynamic
+connectivity in a practical parallel setting, targeting throughput on
+large batches of concurrent edge updates.
+These algorithms target worst-case update complexity under arbitrary adversarial
+sequences.
+GIR's maintenance is not designed to match these worst-case guarantees; instead,
+it exploits the SPU five-case classification to achieve \emph{low average-case
+cost} on real-world graphs, where most updates fall into cheap cases (Case 1
+or Case 4) and full structural repair is rare.
+Unlike purely theoretical constructions, GIR integrates maintenance with a
+two-level parallel execution framework and is evaluated end-to-end on real
+graph workloads.
+% These approaches can be highly efficient when the same algorithm is
+% repeated from the same source, but they are tightly coupled to a
+% specific algorithm and, in some cases, a specific source node.
+% In practice, dynamic graph workloads involve ad hoc queries with
+% varying sources, targets, and algorithms~\cite{Hanauer2022DynSurvey},
+% so such query-dependent systems offer limited reuse.
+
+
+% \textbf{Intermediate representations and graph frameworks.}
+\textit{Intermediate representations (IRs)}, such as LLVM
+IR~\cite{Lattner2004LLVM}, decouple source languages from back-end
+optimization passes, enabling reusable analysis across many
+compilation stages.
+% GIR is directly inspired by this principle: just as a compiler IR is
+% computed once and reused across many passes, GIR maintains structural
+% invariants once and makes them available to many downstream
+% algorithms.
+Several graph domain-specific languages adopt a related
+algorithm-execution separation.
+GraphIt~\cite{Zhang2018GraphIt} separates algorithm descriptions from
+scheduling decisions.
+Galois~\cite{nguyen2013lightweight} decouples
+operator logic from parallel execution policies.
+Ligra~\cite{Shun2013Ligra}, Green-Marl~\cite{hong2012green},
+Gemini~\cite{zhu2016gemini}, and Pregel~\cite{malewicz2010pregel}
+target shared- and distributed-memory execution on static snapshots.
+
+% Unlike these frameworks, GIR is not a programming abstraction or a
+% scheduling layer.
+% Instead, it is a persistent structural layer maintained
+% incrementally under continuous updates and exposed directly to
+% downstream algorithms.
+% No existing system simultaneously maintains multi-granular,
+% query-agnostic structural invariants, repairs them incrementally
+% under dynamic updates, and exposes them for task-parallel query
+% execution. This is the gap GIR fills.
+
+
+% Terrace~\cite{pandey2021terrace},
+% Aspen~\cite{dhulipala2019low}, and Spruce~\cite{shi2024spruce}
+% (evaluated as baselines in Section~\ref{sec:experiment}) take
+% complementary storage-layer approaches.
+% All of these systems optimize for update throughput at the storage
+% layer but provide no persistent structural invariants for downstream
+% analytics.
+
+% CuckooGraph~\cite{fan2025cuckoograph} proposes a hash-array-based structure for large-scale dynamic graphs that adaptively resizes through TRANSFORMATION and DENYLIST techniques, achieving high insertion throughput with low memory overhead.
+% Like Terrace, Spruce, and Aspen, CuckooGraph is optimized purely for storage-level update performance and does not maintain any structural invariants for downstream analytics.
+% Several other adjacency-list-based systems have been proposed for dynamic graph storage.
+% Stinger~\cite{ediger2012stinger} aggregates edge lists into fixed-size blocks and uses a
+% hash table as a secondary index to improve point query efficiency.
+% GraphOne~\cite{kumar2020graphone} combines an adjacency list with an edge log array:
+% updates are appended to the log and periodically merged into the adjacency list in batches,
+% supporting real-time analytics on evolving graphs.
+% LiveGraph~\cite{zhu2019livegraph} stores edges in purely sequential transactional edge logs,
+% optimizing sequential scan performance for read-heavy workloads.
+% Sortledton~\cite{fuchs2023sortledton} replaces edge lists with an unrolled skip list,
+% providing $O(\log|E|)$ lookup, insertion, and deletion with transactional support.
+% Teseo~\cite{de2021teseo} uses packed memory arrays as leaves of B$^+$ trees and
+% supports concurrent reads and writes through optimistic locking.
+% LLAMA~\cite{macko2015llama} takes a snapshot-oriented approach,
+% storing graph versions as large multiversioned arrays to support
+% efficient analytics on historical snapshots.
+% Like CuckooGraph, Terrace, Spruce, and Aspen, all of these systems target update throughput
+% at the storage layer and provide no persistent structural invariants for downstream analytics.
+
+% Dynamic graph systems must support two operations: integrating
+% structural updates quickly and answering downstream queries
+% efficiently.
+% Existing systems focus primarily on the first operation.
+% We survey the most relevant systems and explain their limitations
+% for the second operation.
+
+% \textbf{Graph storage systems.} 
+% % \YJ{They should not be called "storage system".}
+% Most dynamic graph systems propose specialized in-memory data
+% structures that balance update cost, query efficiency,
+% and memory usage.
+% Static representations such as CSR and CSC~\cite{wheatman2018packed}
+% store adjacency information in contiguous arrays and enable
+% efficient traversal, but edge insertions and deletions require
+% rebuilding large arrays, which is prohibitively expensive
+% under frequent updates.
+
+% Terrace~\cite{pandey2021terrace} targets skewed streaming graphs.
+% It introduces a hierarchical adjacency representation in which
+% a vertex's neighbors are stored using different data structures
+% depending on its degree.
+% As degrees evolve, the system dynamically reorganizes storage
+% to improve locality and update efficiency on power-law graphs.
+% However, Terrace focuses entirely on storage and does not
+% maintain any structural invariants for downstream computation.
+
+% Spruce~\cite{shi2024spruce} combines compact indexing with
+% update-friendly adjacency organization.
+% It integrates dynamic buffers with CSR-like sorted blocks and
+% introduces a read-optimized concurrency protocol that supports
+% efficient simultaneous reads and writes.
+% Like Terrace, Spruce targets update throughput and leaves
+% downstream analytics to be rerun from scratch after each update.
+
+% Aspen~\cite{dhulipala2019low} represents graphs using compressed purely
+% functional trees and exposes immutable snapshot views for
+% analytics.
+% Each update produces a new graph version, enabling concurrent
+% readers on consistent snapshots while preserving structural
+% sharing across versions.
+% This versioning design is well suited for analytics on static
+% snapshots, but it does not maintain structural invariants
+% incrementally and requires full recomputation for downstream
+% algorithms after each update.
+
+% \YJ{Avoid duplicates. If they have been discussed in detail earlier, we can simply mention them here.}
+
+% \textbf{Query-dependent computation systems.}
+% Another line of work attempts to reuse prior computational
+% results directly~\cite{besta2021practice,ramalingam1996computational}.
+% For example, \textit{Khanda et al.}~\cite{khanda2021parallel} maintains an SSSP tree
+% rooted at a fixed source after each query. %people--> according to the first
+% After a graph update, it identifies the affected subtree and
+% recomputes only that portion.
+% Kickstarter~\cite{vora2017kickstarter} retains approximate monotonic
+% computation results across updates, trimming values that have been
+% invalidated by edge deletions and propagating corrections only
+% within the affected region.
+% Green et al.~\cite{green2012fast} maintain an incremental
+% betweenness centrality score by tracking only the path-count
+% changes caused by each edge insertion or deletion.
+% Fan et al.~\cite{fan2021incrementalizing} propose a general framework
+% for incrementalizing arbitrary graph algorithms by detecting affected
+% regions and reusing unaffected partial results across updates.
+% Bauer and Wagner~\cite{bauer2009batch} study batch dynamic SSSP algorithms
+% experimentally, showing that incremental updates outperform recomputation
+% only when the affected subgraph remains small relative to the full graph.
+% These approaches are efficient when the same query is repeated
+% under the same algorithm.
+% However, each is tightly coupled to a specific algorithm and,
+% in some cases, a specific source node.
+% If the query algorithm or source changes, the cached state
+% provides no benefit.
+% In practice, dynamic graph workloads involve ad hoc queries
+% with varying sources, targets, and algorithms~\cite{Hanauer2022DynSurvey},
+% so such query-dependent systems offer limited reuse.
+
+% % \YJ{Double check which 2-extreme does each method belong to.}
+
+% % \textbf{GIR's position.}
+% % GIR differs from all of these systems in one key respect.
+% % Storage systems such as Terrace, Spruce, and Aspen are
+% % history-blind: they discard all prior structural computation
+% % after each update.
+% % Query-dependent systems preserve results but tie them to
+% % a specific query and source.
+% % GIR occupies the middle ground: it maintains a small set of
+% % query-agnostic structural invariants that persist across updates
+% % and benefit many downstream algorithms without being tied to
+% % any specific query or source.
+% % GIR is designed to operate on top of existing storage systems
+% % rather than replace them.
+% % It can be integrated with formats such as Terrace, Aspen,
+% % Spruce, and others~\cite{bender2007adaptive,king2016dynamic,islam2023dgap} as a
+% % structural layer above the storage layer.
+
+% % % ============================================================
+% % \subsection{Intermediate Representations for Graphs}
+% % ============================================================
+
+% % \textbf{Intermediate representation in compilers.}
+% % Compiler intermediate representations (IRs), such as LLVM IR~\cite{Lattner2004LLVM}, decouple source languages from optimization passes.
+% % This abstraction enables reusable analysis and transformation across different compilation stages.\YJ{Discuss any works that either call or relate to IR for Graph} Several graph DSLs and compilers, such as GraphIt~\cite{Zhang2018GraphIt}, provide scheduling abstractions that separate algorithm specification from execution optimization. \YJ{Only one? Any others?}
+% % However, these systems primarily focus on optimizing computation rather than maintaining persistent structural invariants under dynamic updates.
+
+% % ============================================================
+
+% % \textbf{Inter}
+% \textbf{Intermediate representations (IRs)}, 
+% % in compilers.}
+% % Compiler intermediate representations (IRs), 
+% such as LLVM
+% IR~\cite{Lattner2004LLVM}, decouple source languages from
+% back-end optimization passes.
+% This abstraction enables reusable analysis and transformation
+% across compilation stages.
+% A key property of compiler IRs is that they are computed once
+% and reused across many passes, rather than recomputed from
+% source on every pass.
+% % \textbf{Graph DSLs and scheduling abstractions.}
+% Several graph domain-specific languages adopt a similar
+% separation between algorithm specification and execution
+% strategy.
+% GraphIt~\cite{Zhang2018GraphIt} separates graph algorithm
+% descriptions from scheduling decisions such as direction
+% optimization, NUMA-awareness, and cache tiling.
+% Galois~\cite{nguyen2013lightweight} provides a worklist-based runtime
+% that separates operator logic from parallel execution policies.
+% Ligra~\cite{Shun2013Ligra} provides a unified interface for
+% vertex-subset-based graph algorithms on shared memory.
+% Green-Marl~\cite{hong2012green} provides a domain-specific language
+% with a property graph model that compiles to efficient parallel C++ code.
+% Gemini~\cite{zhu2016gemini} targets distributed-memory execution with
+% chunk-based graph partitioning.
+% Pregel~\cite{malewicz2010pregel} introduces a vertex-centric bulk synchronous parallel model for large-scale graph processing.
+% These systems improve programmability and performance for
+% static graph analytics.
+% However, they operate on fixed graph snapshots~\cite{mccune2015thinking}.
+% They do not maintain persistent structural invariants across
+% updates, and they require each downstream algorithm to
+% rebuild structural knowledge from scratch.
+
+% \textbf{GIR's distinction.}
+% GIR adopts the IR philosophy and applies it to dynamic graphs.
+% Like a compiler IR, GIR is computed incrementally and reused
+% across many downstream operations.
+% Unlike graph DSLs, GIR is not a programming abstraction.
+% It is a persistent structural layer that is maintained under
+% continuous updates and that exposes structural invariants
+% directly to downstream algorithms.
+% No prior dynamic graph system maintains a multi-granular,
+% query-agnostic structural layer of this kind.
+% This is the gap that GIR fills.

@@ -1,0 +1,29 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+
+We present GIR, a query-agnostic graph intermediate representation that bridges high-throughput dynamic graph updates and efficient downstream analytics for large-scale evolving graphs.
+GIR maintains a three-level hierarchy of WCC, SCC condensation DAG, and BiCC block-cut trees, confines maintenance to the affected region via SPU and FMU, and exposes a parallel framework with task parallelism across BiCC blocks and data parallelism within each block. The hierarchical organization significantly reduces redundant recomputation and improves scalability under frequent graph updates and diverse query workloads.
+Unlike prior systems tied to a specific algorithm, GIR's invariants are reused across BFS, SSSP, and BC without reconfiguration or algorithm-specific redesign efforts, enabling flexible support for multiple downstream analytics tasks.
+Experiments on seven real-world graphs show $1.8\times$ higher update throughput and average speedups of $1.2\times$, $1.2\times$, $1.7\times$ for BFS, SSSP, and BC, with near-linear scaling to $20.9\times$ at 64 threads.
+
+
+
+
+
+%We design {GIR}, a query-agnostic graph intermediate representation.
+% that bridges high-throughput dynamic graph updates and efficient downstream analytics. 
+%GIR persistently maintains a three-level structural hierarchy of WCC, SCC, and BiCC, confines maintenance to the minimum affected region, and enables task parallelism.
+% SCC with a condensation DAG, and BiCC with BC trees. 
+% We confine maintenance to the minimum affected region, avoiding global recomputation.
+% GIR further enables task parallelism.
+%Experiments on seven real-world graphs show that GIR achieves 1.8$\times$ more  update throughput than state-of-the-art methods.
+%For downstream graph analytics, GIR achieves an average speedups of $1.2\times$, $1.2\times$, and $1.7\times$ for BFS, SSSP, and betweenness %centrality, respectively.
+
+% up to $3\times$ speedup on BFS, $2.7\times$ on SSSP, and $1.7\times$ on
+% betweenness centrality over state-of-the-art systems, with competitive update
+% throughput and near-linear scalability.
+
+% We presented GIR, a query-agnostic intermediate representation that bridges high-throughput dynamic updates and efficient downstream graph analytics by maintaining a multi-granular hierarchy of structural invariants (WCC, SCC, and BC tree). To keep GIR current under continuous evolution, we proposed the SPU and FMU update strategies, which confine maintenance work to localized regions of influence and avoid global recomputation. Building on these invariants, our hierarchical concurrent computation framework combines DAG-level pruning with BC-tree-based task parallelism, enabling traversal algorithms to skip unaffected regions and exploit structural concurrency. Experiments on seven real-world graphs show that GIR achieves up to $3.0\times$ speedup on BFS, $2.7\times$ on SSSP, and $1.7\times$ on betweenness centrality over state-of-the-art systems, while maintaining competitive update throughput and near-linear scalability up to 32 threads.
+
+% \YJ{TODO}

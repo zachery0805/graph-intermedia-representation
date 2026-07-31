@@ -1,0 +1,99 @@
+% acmart itself loads xcolor internally (with the `prologue` option); pass
+% `table` (for \cellcolor/\rowcolor in experiment.tex's tables) as an extra
+% option here so it merges instead of clashing when acmart loads it later.
+\PassOptionsToPackage{table}{xcolor}
+
+\documentclass[sigplan,10pt,screen,review,anonymous]{acmart}
+
+% -------------------------
+% Packages
+% -------------------------
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{hhline}
+\usepackage{amsmath,amsfonts}
+\usepackage{bm}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{comment}
+\usepackage{import}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{enumitem}
+\usepackage{balance}
+\usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage{xurl}
+\usepackage{float}
+\usepackage{tikz}
+
+\newcommand{\cq}[1]{\textcolor{black}{#1}}
+% Marks a passage as a candidate for deletion (page-limit trimming pass) --
+% renders in red for the authors/advisor to review; does NOT remove or
+% comment out the text. Left in place until a human decides to cut it.
+% Environment form (not a simple \newcommand{}{}) so it can safely span
+% multiple paragraphs / blank lines in the source.
+\newenvironment{maybecut}{\color{red}}{}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+\DeclareRobustCommand{\circled}[2][black]{%
+  \tikz[baseline=(char.base)]{
+    \node[
+      circle,
+      fill=#1,
+      inner sep=0pt,
+      minimum size=1.2em
+    ] (char)
+    {\scriptsize\textcolor{white}{#2}};
+  }%
+}
+
+\newcommand{\name}{\textsc{GIR}}
+
+% Double-blind submission: no venue/rights info is finalized yet, and
+% \acmConference/\copyrightyear/\acmDOI etc. are left as the acmart
+% anonymous-mode defaults rather than filled in, since the actual
+% conference/proceedings metadata (ACM ISBN, DOI) is only assigned after
+% acceptance.
+\acmConference[PPoPP '27]{Submitted to PPoPP 2027}{}{}
+\acmYear{2027}
+\copyrightyear{2027}
+\setcopyright{none}
+\settopmatter{printacmref=false}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+
+\begin{document}
+
+\title{\name: A Persistent Intermediate Representation for Scalable Dynamic Graph Analytics}
+
+\begin{abstract}
+\input{abstract}
+\end{abstract}
+
+\maketitle
+
+\input{introduction}
+\input{background}
+
+\input{methodology}
+\input{maintenance}
+\input{task_parallel}
+% \input{complexity_analysis}
+
+\input{experiment}
+
+\input{related_work}
+\input{discussion}
+\input{conclusion}
+
+\balance
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{refs}
+
+\section*{Acknowledgment of AI-Generated Content}
+During the preparation of this manuscript, we used the Claude Sonnet model (Anthropic) solely for grammar correction and language editing. Specifically, prompts such as ``Are there any grammatical errors in this paragraph?'' and ``Which parts of this paragraph can be removed?'' were employed. The AI model was not used for any other purposes.
+
+\end{document}
