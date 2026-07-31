@@ -5,12 +5,8 @@
 % ============================================================
 % \YJ{Discuss other related works: CuckooGraph, etc.}
 
+\begin{maybecut}
 \textit{Dynamic graph computation.}
-% Many systems have been proposed to support efficient storage-level
-% updates on evolving graphs.
-% We have extensively discussed Terrace~\cite{pandey2021terrace}, 
-% Spruce~\cite{shi2024spruce}, and Aspen~\cite{dhulipala2019low}
-% throughout the paper. 
 Besides the extensively discussed Terrace~\cite{pandey2021terrace},
 Spruce~\cite{shi2024spruce}, Aspen~\cite{dhulipala2019low},
 GraphBolt~\cite{mariappan2019graphbolt}, and DZiG~\cite{mariappan2021dzig},
@@ -28,6 +24,22 @@ structure that adaptively resizes through transformation and denylist
 techniques.
 Other works include LiveGraph~\cite{zhu2019livegraph} and
 LLAMA~\cite{macko2015llama}.
+% CUT CANDIDATE: none of these are experimental baselines (only
+% Terrace/Spruce/Aspen/GraphBolt/DZiG are); condensed in \texttt{fixed} below.
+\end{maybecut}
+\begin{fixed}
+\textit{Dynamic graph computation.}
+Besides the extensively discussed Terrace~\cite{pandey2021terrace},
+Spruce~\cite{shi2024spruce}, Aspen~\cite{dhulipala2019low},
+GraphBolt~\cite{mariappan2019graphbolt}, and DZiG~\cite{mariappan2021dzig},
+several other systems propose specialized storage structures for dynamic
+graphs, including Stinger~\cite{ediger2012stinger} (hash-indexed edge
+blocks), GraphOne~\cite{kumar2020graphone} (adjacency list with a batched
+edge log), Sortledton~\cite{fuchs2023sortledton} (unrolled skip list),
+Teseo~\cite{de2021teseo} (packed memory arrays with optimistic locking),
+CuckooGraph~\cite{fan2025cuckoograph} (adaptive hash-array resizing),
+LiveGraph~\cite{zhu2019livegraph}, and LLAMA~\cite{macko2015llama}.
+\end{fixed}
 
 
 
@@ -48,6 +60,7 @@ algorithms including PageRank, belief propagation, SSSP, and BFS.
 \textit{DZiG}~\cite{mariappan2021dzig} extends GraphBolt with sparsity-aware
 processing that skips zero-contribution edges during incremental propagation,
 reducing redundant work on sparse updates.
+\begin{maybecut}
 \textit{RisGraph}~\cite{feng2021risgraph} targets sub-millisecond per-update
 analysis by streaming graph mutations into a compact active-vertex frontier.
 \textit{GraphFly}~\cite{chen2022graphfly} uses asynchronous dependency-flow
@@ -66,6 +79,18 @@ track path-count changes caused by each edge insertion or deletion to maintain
 an incremental BC score, while \textit{Nasre et al.}~\cite{Nasre2014IncBC}
 give an asymptotically faster incremental BC algorithm that exploits DAG structure
 to localize the repair.
+% CUT CANDIDATE: none of these are experimental baselines (unlike Khanda
+% et al./Kickstarter/GraphBolt/DZiG above); condensed in \texttt{fixed} below.
+\end{maybecut}
+\begin{fixed}
+Other systems in this space target complementary goals: sub-millisecond
+per-update latency~\cite{feng2021risgraph}, asynchronous dependency-flow
+execution~\cite{chen2022graphfly}, incremental processing under deletions
+and weight updates~\cite{yin2024incboost}, general frameworks for
+incrementalizing arbitrary algorithms~\cite{fan2021incrementalizing},
+batch dynamic SSSP~\cite{bauer2009batch}, and incremental betweenness
+centrality~\cite{green2012fast,Nasre2014IncBC}.
+\end{fixed}
 All of these systems maintain algorithm-specific state (e.g., per-vertex
 aggregation values, SSSP trees, path-count tables, or monotonic approximations)
 that must be reset or rebuilt when the algorithm or source changes.
@@ -74,6 +99,7 @@ GIR instead maintains \emph{algorithm-agnostic} structural invariants
 per-algorithm reconfiguration.
 % }
 
+\begin{maybecut}
 \textit{Theoretical dynamic graph algorithms.}
 A substantial body of theory addresses fully dynamic connectivity; we refer
 to Hanauer et al.~\cite{Hanauer2022DynSurvey} for a comprehensive survey.
@@ -87,6 +113,16 @@ connectivity in a practical parallel setting, targeting throughput on
 large batches of concurrent edge updates.
 These algorithms target worst-case update complexity under arbitrary adversarial
 sequences.
+% CUT CANDIDATE: theoretical worst-case algorithms, not empirical baselines;
+% condensed in \texttt{fixed} below.
+\end{maybecut}
+\begin{fixed}
+\textit{Theoretical dynamic graph algorithms.}
+A substantial body of theory addresses fully dynamic connectivity, MST, and
+biconnectivity with poly-logarithmic worst-case guarantees under arbitrary
+adversarial update
+sequences~\cite{Hanauer2022DynSurvey,holm2001poly,wulff2013faster,de2025towards}.
+\end{fixed}
 GIR's maintenance is not designed to match these worst-case guarantees; instead,
 it exploits the SPU five-case classification to achieve \emph{low average-case
 cost} on real-world graphs, where most updates fall into cheap cases (Case 1

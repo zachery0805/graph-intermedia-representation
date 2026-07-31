@@ -40,7 +40,7 @@ The update stage runs SPU on each region concurrently, with total cost
 $\mathcal{O}\!\left(B \log B + \max_{j}(|V_{\mathrm{aff},j}| + |E_{\mathrm{aff},j}|)\right)$.
 
 \textbf{Two-level parallel execution.}
-Level~1 traverses the condensation DAG in $\mathcal{O}(|\mathcal{V}_\mathcal{D}| + |\mathcal{E}_\mathcal{D}|)$
+Level~1 traverses the condensation DAG in $\mathcal{O}(|\mathcal{V}_{\mathcal{D}}| + |\mathcal{E}_{\mathcal{D}}|)$
 and the BC tree in $\mathcal{O}(|\mathcal{B}_s|)$.
 Level~2 executes $|\mathcal{B}_s|$ tasks concurrently; parallel time is bounded by the slowest task.
 Table~\ref{tab:complexity_parallel} compares GIR against sequential execution per algorithm.

@@ -46,7 +46,7 @@ Let $G = (V, E)$ be a directed graph.
 GIR maintains a three-level structural hierarchy.
 At the WCC level, GIR stores  $\{W_1, \ldots, W_p\}$.
 At the SCC level, GIR stores $\{C_1, \ldots, C_q\}$
-and their condensation DAG $\mathcal{D} = (\mathcal{V}_\mathcal{D}, \mathcal{E}_\mathcal{D})$.
+and their condensation DAG $\mathcal{D} = (\mathcal{V}_{\mathcal{D}}, \mathcal{E}_{\mathcal{D}})$.
 At the BiCC level, for each SCC $C_k$,
 GIR stores the BiCC blocks $\{B_1^k, \ldots, B_{r_k}^k\}$
 of the underlying undirected graph $\hat{G}[C_k]$,
@@ -238,17 +238,18 @@ Given a source $s$, GIR executes BFS in four concrete stages.
 \textit{Stage 1: SCC pruning via the condensation DAG.}
 GIR traverses $\mathcal{D}$ from the SCC $C_s$ containing $s$
 and retains only the reachable set
-$\mathcal{R} = \{C \in \mathcal{V}_\mathcal{D} : C_s \rightsquigarrow C\}$.
+$\mathcal{R} = \{C \in \mathcal{V}_{\mathcal{D}} : C_s \rightsquigarrow C\}$.
 All SCCs outside $\mathcal{R}$ are provably irrelevant by Lemma~\ref{lemma:scc_sep}.
-The time complexity of this stage is $\mathcal{O}(|\mathcal{V}_\mathcal{D}| + |\mathcal{E}_\mathcal{D}|)$.
+The time complexity of this stage is $\mathcal{O}(|\mathcal{V}_{\mathcal{D}}| + |\mathcal{E}_{\mathcal{D}}|)$.
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=1\linewidth]{figures/concurrent_bfs-crop.pdf}
     \caption{Concurrent BFS on GIR from root vertex 3. (a) shows an example graph in BC tree. (b) shows the BFS computation workflow.}
-    % The three-stage workflow: find block entry APs, run concurrent BFS per block, and assemble global levels. 
+    \Description{Diagram of an example graph organized as a BC tree, and the four-stage concurrent BFS workflow that prunes SCCs, decomposes into block tasks, runs BFS per block, and merges global levels.}
+    % The three-stage workflow: find block entry APs, run concurrent BFS per block, and assemble global levels.
     % \YJ{TODO, L10: 1}
-    
+
     \label{fig:concurrent_bfs}
 \end{figure}
 
@@ -347,7 +348,7 @@ assembling global centrality scores at APs via boundary composability.
 % Let $G = (V, E)$ be a directed graph.
 % GIR maintains a three-level decomposition.
 % At the SCC level, GIR stores SCCs $\{C_1, \ldots, C_q\}$ and their condensation DAG
-% $\mathcal{D} = (\mathcal{V}_\mathcal{D}, \mathcal{E}_\mathcal{D})$,
+% $\mathcal{D} = (\mathcal{V}_{\mathcal{D}}, \mathcal{E}_{\mathcal{D}})$,
 % where each node in $\mathcal{D}$ represents one SCC.
 % At the BiCC level, GIR stores BiCC blocks $\{B_1, \ldots, B_r\}$ within each SCC,
 % organized as a BC tree $\mathcal{T}$.
@@ -402,7 +403,7 @@ assembling global centrality scores at APs via boundary composability.
 %   \item \textbf{Level 1 (SCC pruning).}
 %     GIR traverses the condensation DAG $\mathcal{D}$ from the SCC $C_s$ containing $s$,
 %     and retains only the set of reachable SCCs
-%     $\mathcal{R} = \{C \in \mathcal{V}_\mathcal{D} : C_s \rightsquigarrow C \text{ in } \mathcal{D}\}$.
+%     $\mathcal{R} = \{C \in \mathcal{V}_{\mathcal{D}} : C_s \rightsquigarrow C \text{ in } \mathcal{D}\}$.
 %     All SCCs outside $\mathcal{R}$ are provably unreachable from $s$ and do not affect the output.
 %   \item \textbf{Level 2 (block task execution).}
 %     GIR identifies the set of reachable blocks
@@ -452,7 +453,7 @@ assembling global centrality scores at APs via boundary composability.
 % \textbf{Stage 1: Coarse-grained pruning on the condensation DAG.}
 % GIR traverses $\mathcal{D}$ from $C_s$ and computes the reachable set $\mathcal{R}$.
 % The condensation DAG is much smaller than $G$, so this step is cheap.
-% The time complexity is $\mathcal{O}(|V_\mathcal{D}| + |E_\mathcal{D}|)$.
+% The time complexity is $\mathcal{O}(|V_{\mathcal{D}}| + |E_{\mathcal{D}}|)$.
 
 % \textbf{Stage 2: Task decomposition via the BC tree.}
 % GIR traverses $\mathcal{T}$ from the block containing $s$ to identify $\mathcal{B}_s$.

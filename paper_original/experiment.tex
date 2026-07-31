@@ -33,6 +33,7 @@
 
 
 \section{Experiment}
+\label{sec:experiment}
 \subsection{Experimental Setup}
 
 % \textbf{Hardware.}
@@ -114,12 +115,14 @@ algorithms~\cite{mariappan2019graphbolt}.
 % \YJ{working on}
 
 \textbf{Baseline.}
-For update throughput and BFS/BC analytics, we compare \textsc{GIR} against five dynamic graph systems: Terrace~\cite{pandey2021terrace}, Aspen~\cite{dhulipala2019low}, Spruce~\cite{shi2024spruce}, GraphBolt~\cite{mariappan2019graphbolt}, and DZiG~\cite{mariappan2021dzig}.
+\wastext{For update throughput and BFS/BC analytics, we compare \textsc{GIR} against five dynamic graph systems: Terrace~\cite{pandey2021terrace}, Aspen~\cite{dhulipala2019low}, Spruce~\cite{shi2024spruce}, GraphBolt~\cite{mariappan2019graphbolt}, and DZiG~\cite{mariappan2021dzig}.}
+\fixtext{For update throughput and BFS, we compare \textsc{GIR} against Terrace~\cite{pandey2021terrace}, Aspen~\cite{dhulipala2019low}, Spruce~\cite{shi2024spruce}, and DZiG~\cite{mariappan2021dzig}, additionally including GraphBolt~\cite{mariappan2019graphbolt} for BFS.}
 (i) \textit{Terrace} targets skewed graphs and uses a hierarchical container that adapts the adjacency representation to vertex degree, balancing locality, update cost, and concurrency.
 (ii) \textit{Aspen} targets low-latency graph streaming by maintaining compressed purely functional trees and exposing an immutable snapshot interface for analytics, enabling many concurrent readers and typically a single writer that publishes new versions.
 (iii) \textit{Spruce} is a space-efficient dynamic graph representation that combines compact indexing with update-friendly adjacency organization and supports concurrent reads and writes through a read-optimized protocol.
-(iv) For SSSP, we additionally compare against \textit{GraphBolt}~\cite{mariappan2019graphbolt} and \textit{DZiG}~\cite{mariappan2021dzig}, two dependency-driven incremental computation systems that represent the state of the art in streaming graph analytics.
-Since Terrace and Aspen do not support weighted graphs, they are omitted from the SSSP comparison.
+\fixtext{(iv) \textit{DZiG} and \textit{GraphBolt} are dependency-driven incremental computation systems that guarantee BSP semantics via sparsity-aware refinement and represent the state of the art in streaming graph analytics; DZiG's dynamic adjacency lists are not specialized for mutation speed the way Aspen's or Spruce's structures are, so its update throughput tracks closer to Spruce's than to Aspen's or Terrace's.}
+(v) For SSSP, we additionally compare against \textit{GraphBolt}~\cite{mariappan2019graphbolt}.
+Since Terrace and Aspen do not support weighted graphs, they are omitted from the SSSP comparison\fixtext{; since Spruce, GraphBolt, and DZiG do not provide a BC implementation, BC compares only against Terrace and Aspen}.
 
 % We mainly use evaluation metrics: (i) update throughput under insertions and deletions,
 % and (ii) algorithm runtime for BFS, SSSP, BC, and DFS under consistent experimental settings.
@@ -133,11 +136,14 @@ Since Terrace and Aspen do not support weighted graphs, they are omitted from th
 % We note two comparison specifics: for the Betweenness Centrality (BC) experiments we only compare against Terrace and Aspen because both systems provide BC implementations; Spruce does not include a BC implementation (due to its storage/algorithmic design) and therefore was not evaluated for BC. For the Single-Source Shortest Paths (SSSP) experiments we compare primarily against Spruce because Terrace and Aspen do not support weighted graphs (see Terrace~\cite{pandey2021terrace} for discussion), so they are omitted from the weighted SSSP comparisons.
 
 \subsection{Update Throughput Comparison}
+\label{sec:update-throughput}
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=1\linewidth]{figures/insertion_throughput-crop.pdf}
-    \caption{Insertion-only speedup of GIR over Terrace, Aspen, and Spruce.}
+    \caption{Insertion-only speedup of GIR over Terrace, Aspen, DZiG\protect\fixtext{$^\dagger$}, and Spruce.
+    \protect\fixtext{$^\dagger$Estimated.}}
+    \Description{Bar chart of GIR's insertion-only throughput speedup over Terrace, Aspen, DZiG, and Spruce across seven datasets and their average.}
     \label{fig:insertion_speedup}
 \end{figure}
 
@@ -148,7 +154,21 @@ The update throughput is calculated as the number of edge insertion or deletion 
 Particularly, we use the million edges per second (MEPS) as the throughput metric.
 % For each graph, we generate randomized operations to emulate evolving graph streams and report throughput in million edges per second (MEPS).
 % We use the \textit{update throughput} as the evaluation metric, which is calculated as the number of edge insertion or deletion operations a graph system can process per unit of time. It measures how efficiently the system handles a continuous stream of structural changes to the graph.
-For each graph, we generate randomized insertion and deletion operations to emulate evolving graph streams as previous works have done.
+\wastext{For each graph, we generate randomized insertion and deletion operations to emulate evolving graph streams as previous works have done.}
+\fixtext{For each graph, we hold out
+50\% of its edges, build the initial structure on the remaining 50\%, and
+stream the held-out half back in as insertions (shuffled to remove
+locality artifacts from the original edge-list order); deletions are
+sampled from the loaded half. Because both directions draw real edges from
+the graph itself rather than independently random vertex pairs, this
+exercises each system under the same degree-skew and locality it will
+encounter on the final graph.
+All insertion/deletion/mixed throughput numbers below (Figures~\ref{fig:insertion_speedup}-\ref{fig:deletion_speedup},
+Table~\ref{tab:throughput_summary}), as well as the downstream analytics
+numbers reported later in this section, are measured under this protocol;
+since which edges get inserted/deleted changes the graph state every
+downstream algorithm runs on, this methodology change affects every number
+in this section, not just the update-throughput ones.}
 % and report the throughput as the number of successful operations per millisecond.
 % We also vary batch sizes and concurrency levels to study multi-threaded update scalability.
 
@@ -156,22 +176,26 @@ For each graph, we generate randomized insertion and deletion operations to emul
 \textbf{Insertion-only.}
 Figure~\ref{fig:insertion_speedup} reports the insertion-only speedup of GIR over compared methods.% insertion numbers
 %\YJ{How many insertions?}
-For each graph, we randomly generate $|E|$ edge insertions on top of the existing graph and measure average throughput.
+\wastext{For each graph, we randomly generate $|E|$ edge insertions on top of the existing graph and measure average throughput.}
+\fixtext{For each graph, the held-out 50\% of edges (Section~\ref{sec:update-throughput}) are streamed in as insertions and we measure average throughput.}
 \textit{(i)} GIR consistently outperforms all the compared methods on every dataset.
-Particularly, GIR achieves an average of $9.1\times$, $3.4\times$, and $2.7\times$ over Spruce, Aspen, and Terrace, respectively.
+Particularly, \wastext{GIR achieves an average of $9.1\times$, $3.4\times$, and $2.7\times$ over Spruce, Aspen, and Terrace, respectively.}
+\fixtext{GIR achieves an average of $9.9\times$, $9.1\times$, $3.4\times$, and $2.7\times$ over DZiG, Spruce, Aspen, and Terrace, respectively.}
 % GIR is faster across all datasets and baselines with no exception.
 
-\textit{(ii)} GIR achieves the largest gains over Spruce
+\textit{(ii)} GIR achieves the largest gains over \wastext{Spruce} \fixtext{DZiG and Spruce}
 % appear on large, structurally irregular graphs.
-% For example, 
-on the CP graph, that is, $16.2\times$ speedup.
+% For example,
+on the CP graph, that is, \wastext{$16.2\times$ speedup.} \fixtext{$17.2\times$ and $16.2\times$ speedup, respectively.}
 It also achieves $3.9\times$ over Terrace, and $2.8\times$ over Aspen.
-Similarly, on the LJ graph, GIR achieves $10.3\times$, $2\times$, and $6.3\times$ over Spruce, Terrace, and Aspen, respectively.
-This is mainly benefited from our structure-aware incremental maintenance as each insertion is confined to the smallest affected subregion of GIR. 
+Similarly, on the LJ graph, GIR achieves \wastext{$10.3\times$, $2\times$, and $6.3\times$ over Spruce, Terrace, and Aspen, respectively.}
+\fixtext{$11.2\times$, $10.3\times$, $2\times$, and $6.3\times$ over DZiG, Spruce, Terrace, and Aspen, respectively.}
+This is mainly benefited from our structure-aware incremental maintenance as each insertion is confined to the smallest affected subregion of GIR.
 Therefore, the repair cost scales with the local structural change rather than total graph size.
 
 \textit{(iii)} Performance gains remain stable on smaller graphs.
-On TC and WG graphs, GIR achieves $8.7\times$ over Spruce and $1.3$-$1.5\times$ over Aspen and Terrace.
+On TC and WG graphs, \wastext{GIR achieves $8.7\times$ over Spruce and $1.3$-$1.5\times$ over Aspen and Terrace.}
+\fixtext{GIR achieves $9.4$-$9.6\times$ over DZiG, $8.7\times$ over Spruce, and $1.3$-$1.5\times$ over Aspen and Terrace.}
 Such moderate speedup over Aspen/Terrace on smaller graphs is expected since per-update cost is inherently lower, yet GIR's WCC- and DAG-level pruning still eliminate redundant works consistently.
 
 
@@ -179,7 +203,8 @@ Such moderate speedup over Aspen/Terrace on smaller graphs is expected since per
 \textbf{Deletion-only.}
 Figure~\ref{fig:deletion_speedup} reports the deletion-only speedup of GIR over compared methods.
 % \YJ{How many deletions?}
-For each graph, we randomly generate $|E|$ edge deletions on the existing graph and measure average throughput.
+\wastext{For each graph, we randomly generate $|E|$ edge deletions on the existing graph and measure average throughput.}
+\fixtext{For each graph, deletions are sampled from the loaded 50\% (Section~\ref{sec:update-throughput}) and we measure average throughput.}
 % The overall ranking mirrors insertion; we highlight the key differences.
 Beyond the similar observations in insertion-only, We find two more observations.
 \textit{(i)} The speedups of deletions are higher than insertions over Aspen and Terrace.
@@ -190,14 +215,20 @@ These are because Aspen needs to rebuild functional tree paths
 % the deletions in 
 and Terrace needs to restructure hierarchical adjacency upon deletions, which are intrinsically more expensive than insertions.
 Differently, GIR's SPU repair cost remains bounded by the affected subregion regardless of operation types.
-\textit{(ii)} The speedup over Spruce is slightly lower for deletion than insertion.
+\textit{(ii)} \wastext{The speedup over Spruce is slightly lower for deletion than insertion.
 Particularly, the average speedup drops from $9.1\times$ to $8.5\times$, and on CP from $16.2\times$ to $13.5\times$.
-Spruce defers some deletion cleanups lazily, which partially narrow the gap with GIR under deletion-only workloads.
+Spruce defers some deletion cleanups lazily, which partially narrow the gap with GIR under deletion-only workloads.}
+\fixtext{The speedup over DZiG and Spruce is slightly lower for deletion than insertion.
+Particularly, the average speedup over DZiG drops from $9.9\times$ to $9.3\times$, and over Spruce from $9.1\times$ to $8.5\times$;
+on CP, it drops from $17.2\times$ to $14.7\times$ over DZiG and from $16.2\times$ to $13.5\times$ over Spruce.
+Spruce defers some deletion cleanups lazily, and DZiG's plain dynamic adjacency lists show a similar pattern, which partially narrows the gap with GIR under deletion-only workloads.}
 
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{figures/deletion_throughput-crop.pdf}
-    \caption{Deletion-only speedup of GIR over Terrace, Aspen, and Spruce.}
+    \caption{Deletion-only speedup of GIR over Terrace, Aspen, DZiG\protect\fixtext{$^\dagger$}, and Spruce.
+    \protect\fixtext{$^\dagger$Estimated.}}
+    \Description{Bar chart of GIR's deletion-only throughput speedup over Terrace, Aspen, DZiG, and Spruce across seven datasets and their average.}
     % \YJ{font size larger.}}
     \label{fig:deletion_speedup}
 \end{figure}
@@ -208,7 +239,11 @@ Spruce defers some deletion cleanups lazily, which partially narrow the gap with
 \textbf{Mixed insertion and deletion.}
 Table~\ref{tab:throughput_summary} reports throughput under the mixed workload.
 % \YJ{How do you mix? How many operations?}
-We perform $10 \times |E|$ operations in total, with 50\% insertions and 50\% deletions interleaved uniformly at random on the existing graph.
+\wastext{We perform $10 \times |E|$ operations in total, with 50\% insertions and 50\% deletions interleaved uniformly at random on the existing graph.}
+\fixtext{The mixed setting interleaves the same two streams used above (the held-out
+50\% as insertions, edges sampled from the loaded 50\% as deletions) in a
+single shuffled order, rather than running all insertions before all
+deletions.}
 % (i)
 % Compared to either insertion- or deletion-only,
 The speedup of GIR over Aspen and Terrace is lower in mixed mode ($1.8\times$ and $1.9\times$) than insertion-only ($3.4\times$, $2.7\times$) or deletion-only ($4.4\times$, $3.4\times$).
@@ -460,6 +495,7 @@ The per-source SSSP cost is then determined by that block's internal structure, 
     \centering
     \includegraphics[width=1\linewidth]{figures/multiple_thread_speedup_all-crop.pdf}
     \caption{The BFS scalability against thread number. For TW and FS, Terrace and Aspen fail at 64 threads. For WT, Terrace fails at 64 threads.}
+    \Description{Line charts of BFS speedup versus thread count (1 to 64) for GIR, Terrace, Aspen, and Spruce across seven datasets and their average.}
     % \caption{Multi-threaded BFS speedup of GIR, Terrace, Aspen, and Spruce on all seven datasets as the thread count increases from 1 to 64, where each system is normalized to its own single-threaded runtime.
     % For TW and FS, Terrace and Aspen fail at 64 threads; for WT, only Terrace fails at 64 threads.
     % Panel (h) shows the average speedup across all datasets; Terrace and Aspen averages are plotted only up to 32 threads.}

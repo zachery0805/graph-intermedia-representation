@@ -20,7 +20,7 @@ Over the past years, graph processing systems and domain-specific
 frameworks have achieved substantial performance improvements for 
 \emph{static} graph analytics on both CPUs and 
 GPUs~\cite{Shun2013Ligra,Wang2016Gunrock,Zhang2018GraphIt}. 
-% In parallel,  dynamic graph data structures have made it possible to ingest and  maintain evolving graphs under high update  rates~\cite{ediger2012stinger,Busato2018Hornet,Awad2020DynamicGPU}.
+% In parallel,  dynamic graph data structures have made it possible to ingest and  maintain evolving graphs under high update  rates~\cite{ediger2012stinger,busato2018hornet,Awad2020DynamicGPU}.
 However, in many real-world domains, graphs are \emph{dynamic}, i.e., vertices and edges
 continuously appear and disappear as the underlying system evolves~\cite{besta2021practice}. At the
 same time, the users might issue \emph{ad hoc} queries with changing sources,
@@ -36,7 +36,7 @@ dimensions.
 
 Existing dynamic graph systems primarily focus on \textit{update throughput}, 
 i.e., how quickly structural changes can be incorporated into the 
-graph~\cite{ediger2012stinger,Busato2018Hornet,Awad2020DynamicGPU,fan2025cuckoograph}. 
+graph~\cite{ediger2012stinger,busato2018hornet,Awad2020DynamicGPU,fan2025cuckoograph}. 
 However, update throughput only addresses part of the end-to-end workload. 
 That is, after each structural change, downstream analytics such as BFS, SSSP, BC, 
 and reachability often need to be recomputed, either partially or entirely. 
@@ -50,12 +50,12 @@ continuous evolution is equally critical.
 % Graphs provide a natural abstraction for modeling relationships and dependencies in domains such as social and information networks, transportation systems, cybersecurity provenance, and software package ecosystems~\cite{rahman2025hugginggraph, brank2003download,kikas2017structure}. 
 % Directed graphs (digraphs) capture asymmetric dependencies and causal flows, which underpin fundamental analytics including breadth-first search (BFS), single-source and all-pairs shortest paths (SSSP/APSP), and betweenness centrality (BC)~\cite{Brandes2001BC}. 
 % Over the past decade, graph processing systems and domain-specific frameworks have achieved substantial performance improvements for \emph{static} graph analytics on both CPUs and GPUs~\cite{Shun2013Ligra,Wang2016Gunrock,Zhang2018GraphIt}. 
-% In parallel, dynamic graph data structures have made it possible to ingest and maintain evolving graphs under high update rates~\cite{Ediger2012Stinger,Busato2018Hornet,Awad2020DynamicGPU}.
+% In parallel, dynamic graph data structures have made it possible to ingest and maintain evolving graphs under high update rates~\cite{Ediger2012Stinger,busato2018hornet,Awad2020DynamicGPU}.
 % However, real-world graphs are not only \emph{large} but also inherently \emph{dynamic}. 
 % Vertices and edges continuously appear and disappear, while analysts issue \emph{ad hoc} queries with changing sources, targets, and scopes. 
 % For example, analysts may need to trace the blast radius of a newly disclosed vulnerability, recompute reachability after integrating new services, or update dependency analysis in evolving software ecosystems. %cite here
 
-% Existing dynamic graph systems primarily focus on \textit{update throughput}, i.e., how quickly structural changes can be incorporated into the graph~\cite{Ediger2012Stinger,Busato2018Hornet,Awad2020DynamicGPU}. 
+% Existing dynamic graph systems primarily focus on \textit{update throughput}, i.e., how quickly structural changes can be incorporated into the graph~\cite{Ediger2012Stinger,busato2018hornet,Awad2020DynamicGPU}. 
 
 
 
@@ -96,26 +96,23 @@ Existing approaches fall into two extremes, where they either igore such previou
 % is well suited for ad hoc dynamic graph workloads.
 % Particulalry,
 
+\begin{maybecut}
 \textit{(i) History-blind systems.}
-Most dynamic graph systems, including Terrace~\cite{pandey2021terrace}, 
+Most dynamic graph systems, including Terrace~\cite{pandey2021terrace},
 Spruce~\cite{shi2024spruce}, and Aspen~\cite{dhulipala2019low}, treat each query independently.
 That is, after an update, such a system integrates the change into the graph representation and reruns the queried graph algorithm.
-These systems are generic to any queries, while they discard the 
+These systems are generic to any queries, while they discard the
 prior computation after every update.
 For large graphs with frequent updates, such a system will incur large overhead due to repeated recomputation.
-% is the dominant source of overhead.
-% ~\cite{ramalingam1996computational}.
 
 \textit{(ii) Query-dependent systems.}
 A different class of systems try to reuse prior results more
 directly.
 For example,
-% \textit{Khanda et al.}~\cite{khanda2021parallel} maintain an SSSP tree rooted at a fixed source $s$ after each query~\cite{khanda2021parallel}.
-\textit{Khanda et al.} designed a method by maintaining  
-% TPDS\cite{khanda2021parallel} maintains 
-an SSSP tree rooted 
+\textit{Khanda et al.} designed a method by maintaining
+an SSSP tree rooted
 at a fixed source $s$~\cite{khanda2021parallel}.
-\cq{Upon an update, they recompute only the affected subtree.
+Upon an update, they recompute only the affected subtree.
 \textit{GraphBolt}~\cite{mariappan2019graphbolt} and
 \textit{DZiG}~\cite{mariappan2021dzig} maintain per-vertex aggregation
 dependencies for a fixed algorithm (e.g., PageRank) and propagate only the
@@ -123,12 +120,41 @@ incremental delta caused by mutations.
 \textit{Kickstarter}~\cite{vora2017kickstarter} retains approximate monotonic results for path-based algorithms and propagates corrections after updates.
 These approaches can be efficient when the same algorithm is repeated on the same graph.
 However, they are tied to specific queries, e.g., a specific source vertex for SSSP query.
-% However, each system is tied to a specific algorithm and, in some cases, a specific source vertex.
 If the next query uses a different source, or switches to a different algorithm,
-the cached state provides no benefit and must be rebuilt.}
+the cached state provides no benefit and must be rebuilt.
 In practice, dynamic graph workloads are dominated by \emph{ad hoc} queries
 with varying sources, targets, and algorithms~\cite{Hanauer2022DynSurvey}.
 Thus, such query-dependent systems offer limited reuse in practice.
+% CUT CANDIDATE: name-by-name walkthrough of Terrace/Spruce/Aspen/Khanda
+% et al./GraphBolt/DZiG/Kickstarter, condensed in \texttt{fixed} below --
+% Related Work (Section~\ref{sec: related work}) covers these systems in
+% comparable or greater depth.
+\end{maybecut}
+\begin{fixed}
+\textit{(i) History-blind systems.}
+Most dynamic graph systems, including Terrace~\cite{pandey2021terrace},
+Spruce~\cite{shi2024spruce}, and Aspen~\cite{dhulipala2019low}, treat each
+query independently: after an update, they integrate the change into the
+graph representation and rerun the queried algorithm from scratch,
+discarding all prior computation. For large graphs with frequent updates,
+this repeated recomputation incurs large overhead.
+
+\textit{(ii) Query-dependent systems.}
+A different class of systems reuse prior results more directly by
+maintaining algorithm-specific state, e.g., an SSSP tree rooted at a fixed
+source~\cite{khanda2021parallel}, per-vertex aggregation dependencies for
+a fixed algorithm~\cite{mariappan2019graphbolt,mariappan2021dzig}, or
+approximate monotonic results for path-based
+algorithms~\cite{vora2017kickstarter}; Section~\ref{sec: related work}
+surveys these systems in detail.
+These approaches can be efficient when the same algorithm is repeated on
+the same graph, but they are tied to specific queries: if the next query
+uses a different source or algorithm, the cached state provides no
+benefit and must be rebuilt.
+In practice, dynamic graph workloads are dominated by \emph{ad hoc} queries
+with varying sources, targets, and algorithms~\cite{Hanauer2022DynSurvey}.
+Thus, such query-dependent systems offer limited reuse in practice.
+\end{fixed}
 
 
 
@@ -251,7 +277,7 @@ and downstream algorithms repeatedly operate on the result
 % Challenge 2. Limited parallelism --> Concurrent computation framework} 
 
 % Maintaining such structural information is challenging under three key properties of modern workloads:
-% (i) \textbf{High update velocity}, which requires low-latency maintenance~\cite{Ediger2012Stinger,Busato2018Hornet};
+% (i) \textbf{High update velocity}, which requires low-latency maintenance~\cite{Ediger2012Stinger,busato2018hornet};
 % (ii) \textbf{Ad hoc queries}, which limit the effectiveness of source-specific caching~\cite{Hanauer2022DynSurvey};
 % and (iii) \textbf{Scale and skew}, where billion-edge graphs with heavy-tailed degree distributions stress memory locality and load balancing on both CPUs and GPUs~\cite{Shun2013Ligra,Wang2016Gunrock,Zhang2018GraphIt,Gao2024DynGPUSurvey}.
 % To prevent maintenance overhead from overwhelming query gains, our GIR also enforce strict \emph{scope control}, ensuring that each update triggers only the minimal necessary repairs.
@@ -264,6 +290,7 @@ and downstream algorithms repeatedly operate on the result
      \includegraphics[width=1\linewidth]{figures/compiler_figure.pdf}
     \caption{\textit{From compiler IR to Graph IR (GIR).}
     Compiler IR enables reusable optimizations across different programming languages. Similarly, GIR maintains reusable structural invariants across dynamic updates.}
+    \Description{Side-by-side diagram comparing a compiler pipeline (source code, IR, optimization passes, machine code) with GIR's pipeline (input graph, structural analysis, GIR, downstream graph queries).}
     \label{fig:gir_ir}
 \end{figure}
 
@@ -358,7 +385,7 @@ Benefited from this, for the update with both insertions and deletions, on all t
 
 \textbf{GIR-enabled two-level parallel execution.}
 Conventional dynamic graph systems rely primarily on data parallelism,
-% ~\cite{ediger2012stinger,Busato2018Hornet,Awad2020DynamicGPU,fan2025cuckoograph}, 
+% ~\cite{ediger2012stinger,busato2018hornet,Awad2020DynamicGPU,fan2025cuckoograph}, 
 i.e., all threads work
 on the same task simultaneously.
 GIR unlocks a second, complementary form of parallelism, i.e., task parallelism.
@@ -457,7 +484,7 @@ In addition, GIR shows strong and stable scalability across all tested datasets.
 % We make three major contributions.
 
 % \textbf{Graph Intermediate Representation (GIR).}
-% We introduce GIR, a reusable and query-agnostic graph representation that maintains structural invariants and lightweight summaries under continuous updates, enabling diverse ad hoc analytics to avoid redundant recomputation. GIR complements dynamic graph stores that prioritize update throughput~\cite{Ediger2012Stinger,Busato2018Hornet,Awad2020DynamicGPU} and static graph DSLs that optimize compute-only performance~\cite{Shun2013Ligra,Wang2016Gunrock,Zhang2018GraphIt}.
+% We introduce GIR, a reusable and query-agnostic graph representation that maintains structural invariants and lightweight summaries under continuous updates, enabling diverse ad hoc analytics to avoid redundant recomputation. GIR complements dynamic graph stores that prioritize update throughput~\cite{Ediger2012Stinger,busato2018hornet,Awad2020DynamicGPU} and static graph DSLs that optimize compute-only performance~\cite{Shun2013Ligra,Wang2016Gunrock,Zhang2018GraphIt}.
 % Based on GIR, we further develop the SPU strategy, an incremental maintenance method that restricts structural repairs to a bounded region of influence in the condensation structure, thereby avoiding global recomputation.
 % Rather than optimizing a single algorithm, GIR provides a reusable structural backbone that supports multiple analytics simultaneously, similar to how a compiler IR supports multiple optimization passes.
 % Our goal is to enable a responsiveness-oriented dynamic graph processing pipeline in which both updates and downstream computation can execute efficiently.

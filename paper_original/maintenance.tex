@@ -45,6 +45,7 @@ For each case, we identify which GIR layers are affected (\textit{scope}), how G
     % while \circled{c5} is about deletion.
     % classified by whether the removed edge is a bridge and at which GIR layer.
     Affected DAG nodes are highlighted in blue, and green shade indicates a WCC.}
+    \Description{An example graph illustrating the five structural update cases (insertions and a deletion) and how each affects the WCC, condensation DAG, and BiCC layers.}
     % \YJ{X on the deletion edge.}}
     \label{fig:scope-update}
 \end{figure}
@@ -53,16 +54,17 @@ For each case, we identify which GIR layers are affected (\textit{scope}), how G
 \begin{table}[t]
     \centering
     % \footnotesize
-    \setlength{\tabcolsep}{3pt}
+    \setlength{\tabcolsep}{2pt}
     % \renewcommand{\arraystretch}{1.1}
     \caption{Scope rules and SPU time complexity per case.
     $|V_{\mathrm{a}}|$ and $|E_{\mathrm{a}}|$ denote the number of vertices and edges in the affected region;
-    $\Delta r$ denotes the rank interval for Case~2.}
+    $\Delta r$ denotes the rank interval for Case~2\fixtext{;
+    $|W_{\min}|$ denotes the number of SCCs in the smaller of the two WCCs being merged for Case~1 (Section~\ref{sec: maintenance})}.}
     \begin{tabular}{c l c l l}
     \toprule
     \textbf{Case} & \textbf{Endpoint relation} & \textbf{Op} & \textbf{Layers} & \textbf{Complexity} \\
     \midrule
-    1  & Different WCCs                         & Ins & WCC             & $\mathcal{O}(1)$ \\
+    1  & Different WCCs                         & Ins & WCC             & \wastext{$\mathcal{O}(1)$} \fixtext{$\mathcal{O}(\alpha(n) + |W_{\min}|)$} \\
     \multirow{2}{*}{2}
        & \multirow{2}{*}{Same WCC, diff.\ SCCs} & \multirow{2}{*}{Ins}
                                                 & SCC (no cycle)  & $\mathcal{O}(1)$ \\
@@ -83,15 +85,32 @@ For each case, we identify which GIR layers are affected (\textit{scope}), how G
 The inserted edge connects two previously disconnected regions.
 No directed cycle can form across WCC boundaries, and thus no biconnected structure inside either component changes.
 
-\textit{Scope.} GIR identifies WCC layer as the only affected layer.
+\textit{Scope.} GIR identifies WCC layer as the only affected layer\fixtext{; no BiCC
+repair is needed, since no cross-WCC path can enter a biconnected block}.
 
-\textit{Prune and Update.} GIR merges the two components in $O(1)$ time via a
+\textit{Prune and Update.}
+\wastext{GIR merges the two components in $O(1)$ time via a
 union-find root-pointer update~\cite{tarjan1975efficiency}: only the root label
 of the smaller component is redirected to the root of the larger one, with no
 SCC or BC tree traversal.
 Full path compression is applied lazily during subsequent label lookups, keeping
-amortized per-operation cost at $O(\alpha(n))$.
-% \CQ{The time complexity is $\mathcal{O}(1)$, as the merge requires only a single WCC label update with no SCC or BiCC traversal.}
+amortized per-operation cost at $O(\alpha(n))$.}
+\fixtext{GIR merges the two WCC labels via a union-find
+root-pointer update~\cite{tarjan1975efficiency}: only the root label of the
+smaller component is redirected to the root of the larger one, with amortized
+cost $O(\alpha(n))$ (path compression is applied lazily during subsequent
+label lookups). This union-find step alone touches no SCC or BC tree data.
+However, Case~2's rank-interval pruning (below) requires that every SCC
+within one WCC hold a rank consistent with a single topological order.
+Since the two WCCs' SCC ranks were assigned independently before the merge,
+their numeric ranges can overlap; GIR restores a globally consistent order by
+rebasing every SCC rank in the smaller of the two WCCs (by SCC count) so it
+falls entirely above or below the larger WCC's range, leaving the larger
+side's ranks untouched. This costs $O(|W_{\min}|)$, where $|W_{\min}|$ is the
+SCC count of the smaller WCC, giving a total cost of
+$O(\alpha(n) + |W_{\min}|)$ for Case~1. Always rebasing the smaller side
+bounds this by half the total SCC count in the worst case; we do not claim a
+tighter worst-case bound.}
 
 
 \textit{Example.}
@@ -145,11 +164,12 @@ The time complexity is $\mathcal{O}(|V_{\mathrm{a}}| + |E_{\mathrm{a}}|)$, confi
 \begin{figure}[t]
     \centering
     \includegraphics[width=1\linewidth]{figures/scope_update-crop.pdf}
-    \caption{Rank-interval pruning for Case \circled{c2} (inter-SCC insertion). 
+    \caption{Rank-interval pruning for Case \circled{c2} (inter-SCC insertion).
     Inserting edge (2, 8) will not affect SCC, while edge (7, 4) will merge multiple SCCs.
     % Each SCC is assigned a topological rank in the condensation DAG. When an inserted edge goes against the DAG order from $\mathrm{SCC}(s)$ to $\mathrm{SCC}(t)$, GIR restricts cycle detection to the rank interval $[\mathrm{rank}(\mathrm{SCC}(t)),\,\mathrm{rank}(\mathrm{SCC}(s))]$ (shaded region), avoiding a global DAG traversal.
     %\YJ{Make sure this figure matches with the example in Figure 5.} done it;s the same
     }
+    \Description{Diagram showing SCC ranks in the condensation DAG and the rank interval scanned to detect whether an inserted edge creates a cycle.}
     \label{fig:rank-prune}
 \end{figure}
 \textit{Example.}

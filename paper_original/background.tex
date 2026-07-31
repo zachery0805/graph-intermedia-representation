@@ -25,6 +25,7 @@ However, CSR and CSC are not suitable for dynamic workloads as vertex/edge inser
 % under frequent updates.
 
 \textbf{Dynamic graph representation.}
+\begin{maybecut}
 To support evolving graphs, recent systems propose specialized
 in-memory structures that balance update cost and query
 efficiency.
@@ -39,6 +40,17 @@ concurrency protocol.
 Aspen~\cite{dhulipala2019low} represents graphs using
 compressed purely functional trees and exposes immutable
 snapshot views that support concurrent readers across updates.
+% CUT CANDIDATE: same one-line descriptions of Terrace/Spruce/Aspen
+% repeated almost verbatim in experiment.tex's Baseline paragraph;
+% condensed in \texttt{fixed} below.
+\end{maybecut}
+\begin{fixed}
+To support evolving graphs, recent systems propose specialized
+in-memory structures that balance update cost and query efficiency,
+including Terrace~\cite{pandey2021terrace}, Spruce~\cite{shi2024spruce},
+and Aspen~\cite{dhulipala2019low}; Section~\ref{sec:experiment} describes
+each in detail as an experimental baseline.
+\end{fixed}
 
 \textbf{Incremental graph computation.}
 A complementary approach maintains algorithm-specific state to avoid full recomputation after updates.
@@ -51,6 +63,7 @@ Both systems rely on Ligra-style static computation for initial results and are 
     \centering
     \includegraphics[width=\linewidth]{figures/scc_wcc_bcc-crop.pdf}
     \caption{Examples of weakly connected component (WCC), strongly connected component (SCC), biconnected component (BiCC), and block-cut (BC) tree.}
+    \Description{An example directed graph annotated with its weakly connected components, strongly connected components, biconnected components, and the resulting block-cut tree.}
     % \YJ{TODO}}
     % \YJ{BC tree should look more like a "tree".\CQ{Done}}
     % }

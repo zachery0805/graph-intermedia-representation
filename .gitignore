@@ -59,3 +59,22 @@ paper/Graph_Intermediate_Representation_for_Dynamic_Graph__Due__Aug__3__PPoPP__2
 
 # Third-party PDFs kept locally for reference only, not ours to redistribute
 /other paper/
+
+# LaTeX build artifacts for the paper_original/ working copy (same reasons as paper/ above)
+paper_original/*.pdf
+paper_original/*.aux
+paper_original/*.bbl
+paper_original/*.blg
+paper_original/*.log
+paper_original/*.out
+paper_original/*.fls
+paper_original/*.fdb_latexmk
+paper_original/*.synctex.gz
+paper_original/libertinusmath-regular.otf
+# Superseded by figures/*-crop.pdf once swapped in; regenerate via figures/scripts/plot_throughput.py
+paper_original/figures/insertion_throughput_regen.pdf
+paper_original/figures/deletion_throughput_regen.pdf
+
+# Scratch environment from an in-progress attempt to build/benchmark DZiG locally
+# (cloned third-party repo + compiled binaries; not source we maintain)
+/experiments/dzig_bench/
