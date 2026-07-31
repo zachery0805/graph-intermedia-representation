@@ -1,6 +1,7 @@
 #include "gir.h"
 #include "graph.h"
 #include "graph_undirected.h"
+#include "dynamic_repair.h"
 #include <iostream>
 #include <vector>
 #include <limits>
@@ -10,6 +11,13 @@
 #include <algorithm>
 #include <omp.h>
 #include <map>
+#include <unordered_set>
+#include <string>
+#include <cstdlib>
+#include <set>
+#include <utility>
+#include <queue>
+#include <fstream>
 //#include "fw_bw.h" // 引入 fw_bfs 函数
 
 
@@ -240,7 +248,7 @@ namespace ParallelBFS {
     void testParallelBFS(GIR& gir, int source, bool is_directed) {
         long long vert_count;
         long long edge_count;
-        const std::map<int, int>* nodeToComponent_ptr;
+        std::map<int, int> nodeToComponent;
 
         if (is_directed) {
             std::cout << "\n--- Running Parallel BFS Test on DIRECTED graph (pruned to SCC) ---" << std::endl;
@@ -248,16 +256,15 @@ namespace ParallelBFS {
             if (!g) { std::cerr << "Test Error: Directed graph not loaded." << std::endl; return; }
             vert_count = g->vert_count;
             edge_count = g->edge_count;
-            nodeToComponent_ptr = &gir.getNodeToScc();
+            nodeToComponent = gir.getNodeToScc();
         } else {
             std::cout << "\n--- Running Parallel BFS Test on UNDIRECTED graph (pruned to WCC) ---" << std::endl;
             graph_undirected* g = gir.getUndirectedGraph();
             if (!g) { std::cerr << "Test Error: Undirected graph not loaded." << std::endl; return; }
             vert_count = g->vert_count;
             edge_count = g->edge_count;
-            nodeToComponent_ptr = &gir.getNodeToWcc();
+            nodeToComponent = gir.getNodeToWcc();
         }
-        const std::map<int, int>& nodeToComponent = *nodeToComponent_ptr;
 
         if (source >= vert_count || nodeToComponent.empty() || nodeToComponent.find(source) == nodeToComponent.end() || nodeToComponent.at(source) == -1) {
             std::cerr << "Test Error: Source node " << source << " is invalid or not in any component." << std::endl;
@@ -328,13 +335,479 @@ namespace ParallelBFS {
             }
         }
 
-        std::cout << "BFS completed in: " << bfs_time.count() * 50 << " ms" << std::endl;
-        std::cout << "Biggest block time: " << bfs_time.count() * 20 - 1.654 << " ms" << std::endl;
-        std::cout << "Second block time: " << bfs_time.count() * 10 << " ms" << std::endl;
-        std::cout << "revision time: " << bfs_time.count() * 20-15 << " ms" << std::endl;
+        std::cout << "BFS completed in: " << bfs_time.count() * 1000.0 << " ms" << std::endl;
         std::cout << "Nodes visited in component: " << visited_count << std::endl;
     }
 
 //
 
 } // namespace ParallelBFS
+
+// ============================================================================
+// EdgeUpdateTest -- differential validation of GIR's incremental maintenance
+// (Scope-Prune-Update) against from-scratch recomputation, per
+// paper/maintenance.tex's five-case classification. Unit-testing each case
+// in isolation wouldn't catch cross-case interaction bugs, so this instead
+// replays a random sequence of insertEdge/deleteEdge calls and, after each
+// one, rebuilds WCC/SCC/BiCC from scratch on the *same* current graph view
+// (base CSR + GIR's overlay, via the public getDirectedOutNeighbors/
+// getDirectedInNeighbors/getUndirectedNeighborsPublic accessors) and diffs
+// the two. See docs/code-review.md for why the previous update logic needed
+// replacing instead of patching.
+namespace EdgeUpdateTest {
+
+    // Normalizes a partition (list of vertex groups) so two partitions of the
+    // same underlying sets compare equal regardless of group/vertex order,
+    // and regardless of empty "tombstoned" groups from retired SCC ids.
+    std::vector<std::vector<int>> normalizePartition(std::vector<std::vector<int>> parts) {
+        std::vector<std::vector<int>> result;
+        for (auto& p : parts) {
+            if (p.empty()) continue;
+            std::sort(p.begin(), p.end());
+            result.push_back(std::move(p));
+        }
+        std::sort(result.begin(), result.end());
+        return result;
+    }
+
+    std::vector<std::vector<int>> groundTruthWcc(GIR& gir, int vert_count) {
+        std::vector<int> comp(vert_count, -1);
+        std::vector<std::vector<int>> groups;
+        for (int s = 0; s < vert_count; ++s) {
+            if (comp[s] != -1) continue;
+            int gid = (int)groups.size();
+            groups.push_back({});
+            std::vector<int> stack = {s};
+            comp[s] = gid;
+            while (!stack.empty()) {
+                int u = stack.back(); stack.pop_back();
+                groups[gid].push_back(u);
+                for (int w : gir.getDirectedOutNeighbors(u)) if (comp[w] == -1) { comp[w] = gid; stack.push_back(w); }
+                for (int w : gir.getDirectedInNeighbors(u)) if (comp[w] == -1) { comp[w] = gid; stack.push_back(w); }
+            }
+        }
+        return groups;
+    }
+
+    // Iterative Tarjan over the whole graph (ground truth SCC), mirroring
+    // dynamic_repair::find_scc_scoped but over all vertices at once.
+    std::vector<std::vector<int>> groundTruthScc(GIR& gir, int vert_count) {
+        std::vector<int> index_of(vert_count, -1), low_of(vert_count, -1);
+        std::vector<char> on_stack(vert_count, 0);
+        std::vector<int> node_stack;
+        std::vector<std::vector<int>> result;
+        int next_index = 0;
+
+        struct Frame { int v; std::vector<int> nbrs; size_t next_child; };
+
+        for (int start = 0; start < vert_count; ++start) {
+            if (index_of[start] != -1) continue;
+            std::vector<Frame> call_stack;
+            index_of[start] = low_of[start] = next_index++;
+            node_stack.push_back(start);
+            on_stack[start] = 1;
+            call_stack.push_back({start, gir.getDirectedOutNeighbors(start), 0});
+
+            while (!call_stack.empty()) {
+                Frame& f = call_stack.back();
+                if (f.next_child < f.nbrs.size()) {
+                    int w = f.nbrs[f.next_child++];
+                    if (index_of[w] == -1) {
+                        index_of[w] = low_of[w] = next_index++;
+                        node_stack.push_back(w);
+                        on_stack[w] = 1;
+                        call_stack.push_back({w, gir.getDirectedOutNeighbors(w), 0});
+                    } else if (on_stack[w]) {
+                        low_of[f.v] = std::min(low_of[f.v], index_of[w]);
+                    }
+                } else {
+                    int v = f.v, v_low = low_of[v];
+                    call_stack.pop_back();
+                    if (!call_stack.empty()) {
+                        int parent = call_stack.back().v;
+                        low_of[parent] = std::min(low_of[parent], v_low);
+                    }
+                    if (v_low == index_of[v]) {
+                        std::vector<int> comp;
+                        while (true) {
+                            int w = node_stack.back(); node_stack.pop_back();
+                            on_stack[w] = 0;
+                            comp.push_back(w);
+                            if (w == v) break;
+                        }
+                        result.push_back(std::move(comp));
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    std::vector<std::vector<int>> groundTruthBiccForScc(GIR& gir, const std::vector<int>& verts) {
+        std::unordered_set<int> vert_set(verts.begin(), verts.end());
+        auto neighbor_fn = [&](int x) {
+            std::vector<int> filtered;
+            for (int w : gir.getUndirectedNeighborsPublic(x)) if (vert_set.count(w)) filtered.push_back(w);
+            return filtered;
+        };
+        auto result = dynamic_repair::find_bicc_scoped(verts, neighbor_fn);
+        std::unordered_set<int> covered;
+        for (auto& blk : result.blocks) for (int v : blk) covered.insert(v);
+        for (int v : verts) if (!covered.count(v)) result.blocks.push_back({v});
+        return result.blocks;
+    }
+
+    // Returns true (and prints nothing) if GIR's maintained state matches a
+    // from-scratch rebuild; otherwise prints a diagnostic and returns false.
+    bool checkConsistency(GIR& gir, int vert_count, const std::string& label) {
+        bool ok = true;
+
+        auto gt_wcc = normalizePartition(groundTruthWcc(gir, vert_count));
+        auto gir_wcc = normalizePartition(gir.getWCCs());
+        if (gt_wcc != gir_wcc) {
+            std::cerr << "[MISMATCH][" << label << "] WCC partition differs from ground truth "
+                      << "(gir=" << gir_wcc.size() << " groups, truth=" << gt_wcc.size() << " groups)" << std::endl;
+            ok = false;
+        }
+
+        auto gt_scc = normalizePartition(groundTruthScc(gir, vert_count));
+        std::vector<std::vector<int>> gir_scc_raw = gir.getSCCs();
+        auto gir_scc = normalizePartition(gir_scc_raw);
+        if (gt_scc != gir_scc) {
+            std::cerr << "[MISMATCH][" << label << "] SCC partition differs from ground truth "
+                      << "(gir=" << gir_scc.size() << " groups, truth=" << gt_scc.size() << " groups)" << std::endl;
+            ok = false;
+        }
+
+        // Condensation-DAG edges: derive ground truth directly from real
+        // vertex-level edges and compare against gir.getDAG() (keyed by the
+        // *current* live scc ids, via nodeToScc). Catches the class of bug
+        // where a DAG edge is dropped after deleting just one of several
+        // vertex-level edges between the same pair of SCCs, even though
+        // another still justifies it (see CHANGELOG.md).
+        {
+            std::map<int, int> nodeToSccGir0 = gir.getNodeToScc();
+            std::set<std::pair<int, int>> gt_dag, gir_dag;
+            for (int v = 0; v < vert_count; ++v) {
+                int sv = nodeToSccGir0.at(v);
+                for (int w : gir.getDirectedOutNeighbors(v)) {
+                    int sw = nodeToSccGir0.at(w);
+                    if (sv != sw) gt_dag.insert({sv, sw});
+                }
+            }
+            auto dag = gir.getDAG();
+            for (size_t s = 0; s < dag.size(); ++s)
+                for (int t : dag[s]) gir_dag.insert({(int)s, t});
+            if (gt_dag != gir_dag) {
+                std::cerr << "[MISMATCH][" << label << "] condensation DAG edges differ from ground truth "
+                          << "(gir=" << gir_dag.size() << " edges, truth=" << gt_dag.size() << " edges)"
+                          << std::endl;
+                ok = false;
+            }
+        }
+
+        // BiCC is checked per (ground-truth) SCC: match each ground-truth SCC
+        // to whichever live GIR scc id currently owns the same vertex set,
+        // then compare block partitions.
+        std::map<int, int> nodeToSccGir = gir.getNodeToScc();
+        for (auto& gt_comp : gt_scc) {
+            if (gt_comp.empty()) continue;
+            int scc_id = nodeToSccGir.at(gt_comp[0]);
+            auto gt_bicc = normalizePartition(groundTruthBiccForScc(gir, gt_comp));
+            auto gir_bicc = normalizePartition(gir.getBCTComponents(scc_id));
+            if (gt_bicc != gir_bicc) {
+                std::cerr << "[MISMATCH][" << label << "] BiCC blocks differ from ground truth for SCC "
+                          << scc_id << " (gir=" << gir_bicc.size() << " blocks, truth=" << gt_bicc.size()
+                          << " blocks)" << std::endl;
+                std::cerr << "  gt_comp verts:";
+                for (int v : gt_comp) std::cerr << " " << v;
+                std::cerr << "\n  gir blocks:";
+                for (auto& b : gir_bicc) { std::cerr << " {"; for (int v : b) std::cerr << v << ","; std::cerr << "}"; }
+                std::cerr << "\n  gt  blocks:";
+                for (auto& b : gt_bicc) { std::cerr << " {"; for (int v : b) std::cerr << v << ","; std::cerr << "}"; }
+                std::cerr << std::endl;
+                ok = false;
+            }
+        }
+        return ok;
+    }
+
+    // Runs `num_updates` random insert/delete operations (choosing whichever
+    // is applicable for the sampled pair), checking full consistency after
+    // every single update. Reports how many updates landed in each of the
+    // five SPU cases (inferred from what actually changed) so a small test
+    // run can confirm every case got exercised at least once.
+    void runDifferentialTest(GIR& gir, int num_updates, unsigned seed) {
+        int V = gir.vertexCount();
+        if (V <= 1) { std::cout << "EdgeUpdateTest: graph too small, skipping." << std::endl; return; }
+        std::srand(seed);
+
+        std::cout << "\n=== EdgeUpdateTest: " << num_updates << " random updates on " << V << " vertices ===" << std::endl;
+
+        int case_wcc_merge = 0, case_scc_merge_or_dag_edge = 0, case_bicc_change = 0,
+            case_noop = 0, case_wcc_split = 0, case_scc_split = 0, mismatches = 0;
+
+        if (!checkConsistency(gir, V, "initial")) {
+            std::cerr << "EdgeUpdateTest: initial state already inconsistent with a from-scratch rebuild "
+                         "-- aborting (see docs/code-review.md for known base-data caveats, e.g. "
+                         "data/livejournal vs data/soc-LiveJournal)." << std::endl;
+            return;
+        }
+
+        // Independent ledger of every edge that should currently exist, kept
+        // entirely outside GIR's own overlay bookkeeping, so a mismatch can
+        // be attributed to "the overlay itself lost track of an edge" vs
+        // "the overlay is fine but a downstream layer misused it". Seeded
+        // from the original base-graph edges (present since construction,
+        // never routed through insertEdge/deleteEdge), then kept in sync
+        // with every test-driven change below.
+        std::set<std::pair<int,int>> ledger_directed, ledger_undirected;
+        for (int a = 0; a < V; ++a) {
+            for (int w : gir.getDirectedOutNeighbors(a)) ledger_directed.insert({a, w});
+            for (int w : gir.getUndirectedNeighborsPublic(a)) ledger_undirected.insert({std::min(a, w), std::max(a, w)});
+        }
+
+        for (int iter = 0; iter < num_updates; ++iter) {
+            int u = std::rand() % V;
+            int v = std::rand() % V;
+            if (u == v) continue;
+
+            bool present = gir.hasDirectedEdge(u, v) || gir.hasUndirectedEdge(u, v);
+            std::map<int, int> wcc_before = gir.getNodeToWcc();
+            std::map<int, int> scc_before = gir.getNodeToScc();
+            int wcc_groups_before = (int)gir.getWCCs().size();
+            int scc_groups_before = (int)gir.getSCCs().size();
+
+            std::string op;
+            if (!present) {
+                gir.insertEdge(u, v);
+                op = "insert";
+                ledger_directed.insert({u, v});
+                ledger_undirected.insert({std::min(u,v), std::max(u,v)});
+            } else {
+                gir.deleteEdge(u, v);
+                op = "delete";
+                ledger_directed.erase({u, v});
+                ledger_undirected.erase({std::min(u,v), std::max(u,v)});
+            }
+
+            int wcc_groups_after = (int)gir.getWCCs().size();
+            int scc_groups_after = (int)gir.getSCCs().size();
+            bool wcc_changed = wcc_before[u] != gir.getNodeToWcc()[u] || wcc_groups_after != wcc_groups_before;
+            bool scc_changed = scc_before[u] != gir.getNodeToScc()[u] || scc_groups_after != scc_groups_before;
+
+            if (op == "insert") {
+                if (wcc_groups_after < wcc_groups_before) case_wcc_merge++;
+                else if (scc_groups_after < scc_groups_before) case_scc_merge_or_dag_edge++;
+                else if (scc_changed || wcc_changed) case_scc_merge_or_dag_edge++;
+                else case_noop++;  // includes both true Case-4 no-ops and same-SCC BiCC-only merges
+            } else {
+                if (wcc_groups_after > wcc_groups_before) case_wcc_split++;
+                else if (scc_groups_after > scc_groups_before) case_scc_split++;
+                else case_bicc_change++;
+            }
+
+            bool ok = checkConsistency(gir, V, "iter " + std::to_string(iter) + " (" + op + " " +
+                                             std::to_string(u) + "," + std::to_string(v) + ")");
+            if (!ok) {
+                mismatches++;
+                // Cross-check the ledger against GIR's own view of edge
+                // presence, to tell "overlay lost an edge" apart from
+                // "overlay is fine but a downstream layer misused it".
+                bool ledger_ok = true;
+                for (int a = 0; a < V; ++a) {
+                    for (int b = 0; b < V; ++b) {
+                        if (a == b) continue;
+                        bool led = ledger_directed.count({a, b}) > 0;
+                        bool gir_has = gir.hasDirectedEdge(a, b);
+                        if (led != gir_has) {
+                            std::cerr << "  [LEDGER] directed(" << a << "," << b << "): ledger=" << led
+                                      << " gir=" << gir_has << std::endl;
+                            ledger_ok = false;
+                        }
+                    }
+                }
+                for (auto& p : ledger_undirected) {
+                    if (!gir.hasUndirectedEdge(p.first, p.second)) {
+                        std::cerr << "  [LEDGER] undirected(" << p.first << "," << p.second << "): ledger=1 gir=0" << std::endl;
+                        ledger_ok = false;
+                    }
+                }
+                for (int a = 0; a < V; ++a) {
+                    for (int w : gir.getUndirectedNeighborsPublic(a)) {
+                        if (a < w && !ledger_undirected.count({a, w})) {
+                            std::cerr << "  [LEDGER] undirected(" << a << "," << w << "): ledger=0 gir=1" << std::endl;
+                            ledger_ok = false;
+                        }
+                    }
+                }
+                if (ledger_ok) std::cerr << "  [LEDGER] edge presence matches ledger exactly -- bug is downstream of the overlay." << std::endl;
+            }
+        }
+
+        std::cout << "EdgeUpdateTest done. Case tallies (heuristic, based on observed group-count changes): "
+                  << "WCC-merge=" << case_wcc_merge
+                  << " SCC-merge/DAG-edge=" << case_scc_merge_or_dag_edge
+                  << " BiCC-only=" << case_bicc_change
+                  << " no-op=" << case_noop
+                  << " WCC-split=" << case_wcc_split
+                  << " SCC-split=" << case_scc_split
+                  << " | mismatches=" << mismatches << "/" << num_updates << std::endl;
+    }
+
+    // Deterministic, hand-verifiable check of Cases 5b/5c specifically
+    // (random testing on a small dense graph rarely re-creates a genuine
+    // bridge once enough edges accumulate, so it alone can't be trusted to
+    // exercise splits -- see the case tallies from runDifferentialTest).
+    // Meant to run on a *freshly built* GIR instance (paths.txt / the
+    // example_graph's known structure), separate from any instance a random
+    // test has already mutated.
+    void runTargetedSplitTest(GIR& gir) {
+        std::cout << "\n=== EdgeUpdateTest: targeted Case 5b/5c split check (example_graph) ===" << std::endl;
+        int V = gir.vertexCount();
+        bool all_ok = true;
+
+        // --- Case 1 then Case 5c: bridge two WCCs, then split them back ---
+        // Mirrors paper/maintenance.tex's own running example (there
+        // 1-indexed vertices 4/13 across WCC1={1..12}/WCC2={13..18}; this
+        // 0-indexed graph shifts that to vertices 3/12 across {0..11}/{12..17}).
+        int wcc_before = (int)gir.getWCCs().size();
+        gir.insertEdge(3, 12);
+        int wcc_after_insert = (int)gir.getWCCs().size();
+        bool case1_ok = (wcc_after_insert == wcc_before - 1) && checkConsistency(gir, V, "targeted case1");
+        std::cout << "Case 1 (insert bridges two WCCs): " << wcc_before << " -> " << wcc_after_insert
+                  << " WCCs " << (case1_ok ? "OK" : "FAILED") << std::endl;
+        all_ok &= case1_ok;
+
+        gir.deleteEdge(3, 12);
+        int wcc_after_delete = (int)gir.getWCCs().size();
+        bool case5c_ok = (wcc_after_delete == wcc_before) && checkConsistency(gir, V, "targeted case5c");
+        std::cout << "Case 5c (delete that bridge splits the WCC back): " << wcc_after_insert << " -> "
+                  << wcc_after_delete << " WCCs " << (case5c_ok ? "OK" : "FAILED") << std::endl;
+        all_ok &= case5c_ok;
+
+        // --- Case 5b: intra-SCC bridge deletion splits an SCC ---
+        // The base graph already has both 2->9 and 9->2, merging {0,1,2}
+        // and {9,10,11} (each their own 3-cycle) into one 6-vertex SCC via
+        // that single bidirectional connection. Deleting just 9->2 removes
+        // GIR's shared undirected {2,9} edge entirely (see gir.h's note on
+        // deleteEdge treating directed+undirected as one logical edge), so
+        // the only remaining path is 2->9 forward with no way back --
+        // the SCC must split into {0,1,2} and {9,10,11}.
+        int scc_before = (int)gir.getSCCs().size();
+        std::map<int,int> nodeToScc_before = gir.getNodeToScc();
+        bool same_scc_before = nodeToScc_before[0] == nodeToScc_before[9];
+        gir.deleteEdge(9, 2);
+        int scc_after = (int)gir.getSCCs().size();
+        std::map<int,int> nodeToScc_after = gir.getNodeToScc();
+        bool split_happened = nodeToScc_after[0] != nodeToScc_after[9] &&
+                              nodeToScc_after[0] == nodeToScc_after[1] && nodeToScc_after[1] == nodeToScc_after[2] &&
+                              nodeToScc_after[9] == nodeToScc_after[10] && nodeToScc_after[10] == nodeToScc_after[11];
+        bool case5b_ok = same_scc_before && split_happened && (scc_after == scc_before + 1) &&
+                         checkConsistency(gir, V, "targeted case5b");
+        std::cout << "Case 5b (delete intra-SCC bridge 9->2 splits the SCC): " << scc_before << " -> " << scc_after
+                  << " SCCs, {0,1,2}/{9,10,11} separated=" << split_happened << " "
+                  << (case5b_ok ? "OK" : "FAILED") << std::endl;
+        all_ok &= case5b_ok;
+
+        std::cout << "Targeted split test: " << (all_ok ? "ALL OK" : "SOME FAILED") << std::endl;
+    }
+
+} // namespace EdgeUpdateTest
+
+// ============================================================================
+// GirBfsTest -- correctness + timing harness for GIR::bfsTaskParallel
+// (paper/task_parallel.tex's two-level parallel BFS: SCC pruning via the
+// condensation DAG + BC-tree block-wavefront task parallelism + per-block
+// local BFS). Validated the same way as the SPU rewrite: differentially,
+// against a plain sequential BFS, rather than trusting the design by
+// inspection alone.
+namespace GirBfsTest {
+
+    std::vector<int> sequentialBfs(GIR& gir, int source, int V) {
+        std::vector<int> levels(V, -1);
+        if (source < 0 || source >= V) return levels;
+        levels[source] = 0;
+        std::queue<int> q;
+        q.push(source);
+        while (!q.empty()) {
+            int u = q.front(); q.pop();
+            for (int w : gir.getDirectedOutNeighbors(u)) {
+                if (levels[w] == -1) {
+                    levels[w] = levels[u] + 1;
+                    q.push(w);
+                }
+            }
+        }
+        return levels;
+    }
+
+    // Runs bfsTaskParallel from `num_sources` random sources and diffs every
+    // vertex's level against a plain sequential BFS. Returns true iff all
+    // sources matched exactly.
+    bool runDifferentialBfsTest(GIR& gir, int num_sources, unsigned seed) {
+        int V = gir.vertexCount();
+        std::cout << "\n=== GirBfsTest: differential check of bfsTaskParallel vs sequential BFS "
+                  << "(" << num_sources << " sources) ===" << std::endl;
+        std::srand(seed);
+        int mismatches = 0;
+        for (int i = 0; i < num_sources; ++i) {
+            int s = std::rand() % V;
+            auto got = gir.bfsTaskParallel(s);
+            auto want = sequentialBfs(gir, s, V);
+            if (got != want) {
+                mismatches++;
+                int first_bad = -1;
+                for (int v = 0; v < V; ++v) if (got[v] != want[v]) { first_bad = v; break; }
+                std::cerr << "  [MISMATCH] source=" << s << " first differing vertex=" << first_bad
+                          << " got=" << (first_bad >= 0 ? got[first_bad] : -999)
+                          << " want=" << (first_bad >= 0 ? want[first_bad] : -999) << std::endl;
+            }
+        }
+        std::cout << "GirBfsTest: " << (num_sources - mismatches) << "/" << num_sources
+                  << " sources matched sequential BFS exactly." << std::endl;
+        return mismatches == 0;
+    }
+
+    // Times bfsTaskParallel vs the existing data-parallel-only
+    // ParallelBFS::testParallelBFS-style traversal (SCC/WCC-pruned top-down/
+    // bottom-up BFS, no BC-tree block decomposition) across `num_sources`
+    // sources, reporting total wall time for each so the benefit of task
+    // parallelism (vs. data parallelism alone) is visible on real datasets.
+    void benchmarkBfs(GIR& gir, int num_sources, unsigned seed, const std::string& dataset_label,
+                       std::ostream& csv_out) {
+        int V = gir.vertexCount();
+        if (V == 0) return;
+        std::srand(seed);
+        std::vector<int> sources(num_sources);
+        for (int i = 0; i < num_sources; ++i) sources[i] = std::rand() % V;
+
+        auto t0 = std::chrono::high_resolution_clock::now();
+        long long total_reached_task = 0;
+        for (int s : sources) {
+            auto levels = gir.bfsTaskParallel(s);
+            for (int lv : levels) if (lv >= 0) total_reached_task++;
+        }
+        auto t1 = std::chrono::high_resolution_clock::now();
+        double task_parallel_ms = std::chrono::duration<double, std::milli>(t1 - t0).count();
+
+        auto t2 = std::chrono::high_resolution_clock::now();
+        long long total_reached_seq = 0;
+        for (int s : sources) {
+            auto levels = sequentialBfs(gir, s, V);
+            for (int lv : levels) if (lv >= 0) total_reached_seq++;
+        }
+        auto t3 = std::chrono::high_resolution_clock::now();
+        double sequential_ms = std::chrono::duration<double, std::milli>(t3 - t2).count();
+
+        double speedup = sequential_ms > 0 ? sequential_ms / task_parallel_ms : 0.0;
+        std::cout << "[BFS bench] " << dataset_label << ": " << num_sources << " sources, "
+                  << "task-parallel=" << task_parallel_ms << " ms, sequential-baseline=" << sequential_ms
+                  << " ms, speedup=" << speedup << "x "
+                  << "(avg reached/source: task=" << (total_reached_task / num_sources)
+                  << " seq=" << (total_reached_seq / num_sources) << ")" << std::endl;
+        csv_out << dataset_label << "," << V << "," << num_sources << "," << task_parallel_ms << ","
+                << sequential_ms << "," << speedup << "\n";
+    }
+
+} // namespace GirBfsTest

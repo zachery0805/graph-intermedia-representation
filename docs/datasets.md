@@ -8,21 +8,27 @@ triple for the symmetrized version).
 | Dataset | Path | Size on disk | Notes |
 |---|---|---|---|
 | example_graph | `data/example_graph/` | 68K | 12-vertex toy graph, tracked in git as a test fixture |
-| com-youtube | `data/com-youtube_sym.bin/` | 89M | YouTube social network, ~1.1M vertices / ~3M edges |
 | web-Google | `data/web-Google_sym/` | 967M | Web crawl graph, ~875K vertices / ~5M edges |
-| CHEM_5 | `data/CHEM_5_sym.bin/` | 433M | Chemistry graph |
-| GeoLifeNoScale_2 | `data/GeoLifeNoScale_2.bin/` | 1.1G | GeoLife trajectory-derived graph |
-| soc-LiveJournal (v1) | `data/livejournal/` | 2.3G | Has original `soc-LiveJournal1.txt` edge list |
-| soc-LiveJournal (v2) | `data/soc-LiveJournal/` | 1.3G | ~4.8M vertices / ~69M edges — check which of the two LiveJournal copies is canonical before running experiments, they look like separate conversions of the same source |
+| soc-LiveJournal | `data/livejournal/` | 2.3G | Has original `soc-LiveJournal1.txt` edge list; canonical LiveJournal copy (see below) |
 | RoadUSA | `data/RoadUSA_sym/` | 5.0G | US road network |
 | grid_1000_100000 | `data/grid_1000_100000/` | 14G | Synthetic grid graph; also bundles its own txt<->bin conversion tools |
-| twitter | `data/twitter/` | 129G | Large-scale Twitter follow graph |
+| twitter | `data/twitter/` | 104G | Large-scale Twitter follow graph (Kwak et al. 2010) — the same source DZiG's paper cites as its "Twitter (TW)" dataset (~1.47B edges / ~41.7M vertices) |
 
-**Total:** ~153GB. This is why `data/` is git-ignored wholesale (only `example_graph/` is whitelisted) —
+**Total:** ~126GB. This is why `data/` is git-ignored wholesale (only `example_graph/` is whitelisted) —
 regenerate or re-copy the rest from wherever they were originally sourced.
 
-## Open item
+## 2026-07-27 cleanup
 
-`data/livejournal/` and `data/soc-LiveJournal/` both look like LiveJournal conversions but aren't
-identical (different file sets, no `.txt` in the second one). Worth resolving which one is authoritative
-before it causes confusion in an experiment writeup — flagging here rather than silently picking one.
+Deleted to reclaim disk space (server-wide disk was at 100%, 16GB free — see CHANGELOG.md):
+`data/soc-LiveJournal/` (1.3G, a second/older LiveJournal conversion, duplicate of `data/livejournal/`
+which is kept as canonical), `data/CHEM_5_sym.bin` (433M, chemistry graph, unrelated to the SCC/BCC
+paper line of work), `data/GeoLifeNoScale_2.bin` (1.1G, GPS-trajectory graph, likewise unrelated), and
+`data/com-youtube_sym.bin` (89M, unused by the current benchmark suite). Also deleted
+`data/twitter/twitter.txt` (25G raw edge-list text — the `.bin` CSR files converted from it are kept and
+are what `GIR`/`bench_main.cpp` actually load at runtime; the `.txt` would need to be re-sourced if the
+`.bin` files ever need to be regenerated from scratch).
+
+Freed ~28GB total (16GB → 43GB available). This is a small dent, not a fix: the disk being full is
+mostly other users'/other projects' usage on a shared server (this project's `data/` was only ~153GB out
+of 6.6TB used), so adding a Friendster-scale dataset (~150-250GB estimated) is on hold pending a real
+storage solution (quota increase or external storage), not something on-disk cleanup here can solve.

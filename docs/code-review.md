@@ -1,5 +1,13 @@
 # Code Review — 2026-07-21
 
+> **Update (2026-07-22):** the dynamic edge-update API and the SCC-DAG population bug described below
+> have been fixed — see `CHANGELOG.md`'s "Rewrote GIR's dynamic edge-update (SPU) to match the paper's
+> design" entry for what changed and how it was validated. The `txt_to_bin_undirected.cpp` /
+> `scc_core.cpp` label-collision bugs are still present in those files as originally described (GIR now
+> works around their effects internally rather than requiring them to be fixed first — see the same
+> changelog entry) and the rest of this document (KSP/Yen/PeeK family, graph_converter's other findings,
+> etc.) is still an open list, not yet acted on.
+
 Deep correctness audit of `gir_constructor/` (core system) and `graph_converter/` (conversion tools),
 done before the codebase is used to produce paper results. Five review passes (core GIR class, KSP/Yen/PeeK
 family, Delta-Stepping/SSSP + I/O, scc_cpu/wcc_cpu baselines, graph_converter) plus a targeted adversarial

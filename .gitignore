@@ -33,7 +33,29 @@ CMakeFiles/
 **/graph_clean
 **/graph-convert-standalone
 **/tags
+**/dag.bin
 
 # Graph datasets: kept on disk, not versioned (see docs/datasets.md)
 /data/*
 !/data/example_graph/
+
+# gir_constructor benchmark binary (rebuild via the g++ command in CHANGELOG.md)
+/gir_constructor/bench_gir
+
+# LaTeX build artifacts (regenerate with tectonic/pdflatex from paper/*.tex)
+paper/*.pdf
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.synctex.gz
+# Font fetched at build time for tectonic (see CHANGELOG.md), not our source
+paper/libertinusmath-regular.otf
+# Redundant same-day backup zip of the paper/ directory
+paper/Graph_Intermediate_Representation_for_Dynamic_Graph__Due__Aug__3__PPoPP__27_.zip
+
+# Third-party PDFs kept locally for reference only, not ours to redistribute
+/other paper/

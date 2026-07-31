@@ -1,0 +1,116 @@
+
+########## Dataset: example_graph ##########
+Graph load (success): 18 verts, 26 edges 0.000355005 second(s)
+=== Build WCC ===
+Found 2 WCCs.
+=== Build SCC + DAG ===
+Time to find SCC: 1.0576e-05 seconds
+DAG saved to dag.bin (7 SCCs)
+Found 7 SCCs, 7 ranked in initial condensation DAG.
+=== Build BCT (per SCC, per paper/task_parallel.tex model) ===
+Graph load (success): 18 verts, 26 edges 0.000138044 second(s)
+Built per-SCC BC trees for 7 SCCs in 1.5313e-05 seconds
+V=18 SCCs=7 WCCs=2
+load=0.000395884s wcc=9.264e-06s sccdag=0.0107264s bct=0.000176475s
+Insert MEPS=0.314762 Delete MEPS=0.117218 Mixed MEPS=0.223073 (op_count=18)
+
+=== GirBfsTest: differential check of bfsTaskParallel vs sequential BFS (5 sources) ===
+GirBfsTest: 5/5 sources matched sequential BFS exactly.
+BFS: task-parallel avg=0.00537528 ms, sequential avg=0.000836278 ms, speedup=0.155579x, diff_ok=1
+
+########## Dataset: livejournal ##########
+Graph load (success): 4847571 verts, 68475391 edges 0.596277 second(s)
+=== Build WCC ===
+Found 1876 WCCs.
+=== Build SCC + DAG ===
+Time to find SCC: 20.4987 seconds
+DAG saved to dag.bin (971232 SCCs)
+Found 971232 SCCs, 971232 ranked in initial condensation DAG.
+=== Build BCT (per SCC, per paper/task_parallel.tex model) ===
+Graph load (success): 4847571 verts, 85702474 edges 0.345914 second(s)
+Built per-SCC BC trees for 971232 SCCs in 29.7927 seconds
+V=4847571 SCCs=971232 WCCs=1876
+load=0.59633s wcc=0.448498s sccdag=51.363s bct=36.8531s
+Insert MEPS=1.56188e-07 Delete MEPS=4.7143e-08 Mixed MEPS=7.53879e-08 (op_count=20)
+
+=== GirBfsTest: differential check of bfsTaskParallel vs sequential BFS (5 sources) ===
+GirBfsTest: 5/5 sources matched sequential BFS exactly.
+BFS: task-parallel avg=269.665 ms, sequential avg=1096.45 ms, speedup=4.06597x, diff_ok=1
+
+########## Dataset: web-Google ##########
+Graph load (success): 8644103 verts, 8644092 edges 0.0632641 second(s)
+=== Build WCC ===
+Found 7768390 WCCs.
+=== Build SCC + DAG ===
+Time to find SCC: 5.49604 seconds
+DAG saved to dag.bin (7768395 SCCs)
+Found 7768395 SCCs, 7768395 ranked in initial condensation DAG.
+=== Build BCT (per SCC, per paper/task_parallel.tex model) ===
+Graph load (success): 8644103 verts, 17288184 edges 0.0654669 second(s)
+Built per-SCC BC trees for 7768395 SCCs in 10.491 seconds
+V=8644103 SCCs=7768395 WCCs=7768390
+load=0.0633238s wcc=0.407171s sccdag=12.4879s bct=12.3799s
+Insert MEPS=0.0110473 Delete MEPS=6.37843e-05 Mixed MEPS=0.0240771 (op_count=20)
+
+=== GirBfsTest: differential check of bfsTaskParallel vs sequential BFS (5 sources) ===
+GirBfsTest: 5/5 sources matched sequential BFS exactly.
+BFS: task-parallel avg=5.32265 ms, sequential avg=0.621737 ms, speedup=0.11681x, diff_ok=1
+
+########## Dataset: RoadUSA ##########
+Graph load (success): 57708625 verts, 57708623 edges 0.287223 second(s)
+=== Build WCC ===
+Found 33785979 WCCs.
+=== Build SCC + DAG ===
+Time to find SCC: 64.1932 seconds
+DAG saved to dag.bin (34246674 SCCs)
+Found 34246674 SCCs, 34246674 ranked in initial condensation DAG.
+=== Build BCT (per SCC, per paper/task_parallel.tex model) ===
+Graph load (success): 57708625 verts, 115417246 edges 0.615406 second(s)
+Built per-SCC BC trees for 34246674 SCCs in 100.883 seconds
+V=57708625 SCCs=34246674 WCCs=33785979
+load=0.287271s wcc=2.20137s sccdag=84.8757s bct=114.176s
+Insert MEPS=0.000334026 Delete MEPS=8.26457e-08 Mixed MEPS=0.000213678 (op_count=20)
+
+=== GirBfsTest: differential check of bfsTaskParallel vs sequential BFS (5 sources) ===
+GirBfsTest: 5/5 sources matched sequential BFS exactly.
+BFS: task-parallel avg=1271.76 ms, sequential avg=3963.42 ms, speedup=3.11649x, diff_ok=1
+
+########## Dataset: grid_1000_100000 ##########
+Graph load (success): 68993774 verts, 68993786 edges 1.89899 second(s)
+=== Build WCC ===
+Found 64156265 WCCs.
+=== Build SCC + DAG ===
+Time to find SCC: 45.0643 seconds
+DAG saved to dag.bin (65142841 SCCs)
+Found 65142841 SCCs, 65142841 ranked in initial condensation DAG.
+=== Build BCT (per SCC, per paper/task_parallel.tex model) ===
+Graph load (success): 68993774 verts, 137987574 edges 0.402185 second(s)
+Built per-SCC BC trees for 65142841 SCCs in 69.321 seconds
+V=68993774 SCCs=65142841 WCCs=64156265
+load=1.89903s wcc=3.37916s sccdag=99.303s bct=82.1534s
+Insert MEPS=0.0153229 Delete MEPS=5.68275e-06 Mixed MEPS=0.018467 (op_count=20)
+
+=== GirBfsTest: differential check of bfsTaskParallel vs sequential BFS (5 sources) ===
+GirBfsTest: 5/5 sources matched sequential BFS exactly.
+BFS: task-parallel avg=69.4454 ms, sequential avg=140.714 ms, speedup=2.02625x, diff_ok=1
+
+########## Dataset: twitter ##########
+Graph load (success): 41652231 verts, 1468365182 edges 1.55288 second(s)
+=== Build WCC ===
+Found 2 WCCs.
+=== Build SCC + DAG ===
+Time to find SCC: 424.615 seconds
+DAG saved to dag.bin (8044729 SCCs)
+Found 8044729 SCCs, 8044729 ranked in initial condensation DAG.
+=== Build BCT (per SCC, per paper/task_parallel.tex model) ===
+Graph load (success): 41652231 verts, 1468365182 edges 2.9045 second(s)
+Built per-SCC BC trees for 8044729 SCCs in 838.189 seconds
+V=41652231 SCCs=8044729 WCCs=2
+load=1.55293s wcc=15.1014s sccdag=1737.17s bct=989.63s
+Insert MEPS=7.56057e-09 Delete MEPS=1.33578e-09 Mixed MEPS=2.16709e-08 (op_count=20)
+
+=== GirBfsTest: differential check of bfsTaskParallel vs sequential BFS (5 sources) ===
+GirBfsTest: 5/5 sources matched sequential BFS exactly.
+BFS: task-parallel avg=2923.02 ms, sequential avg=23226 ms, speedup=7.94591x, diff_ok=1
+
+Results written to /home/cxl6029/projects/GIR/experiments/results/gir_benchmark.csv

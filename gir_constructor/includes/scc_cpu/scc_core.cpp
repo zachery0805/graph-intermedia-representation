@@ -35,7 +35,7 @@ void scc_detection(
         std::vector<std::vector<int>>& sccs,
         std::map<int, int>& nodeToScc)
 {
-    std::atomic<index_t> atomic_scc_label(2);
+    std::atomic<index_t> atomic_scc_label(SCC_TRIM_LABEL_START);
     const index_t vert_count = g->vert_count;
     const index_t edge_count = g->edge_count;
     const double avg_degree = edge_count * 1.0 / vert_count;
@@ -556,18 +556,27 @@ void scc_detection(
             scc_id,
             vert_count);
 
-  // Populate the output sccs and nodeToScc map
+  // Populate the output sccs and nodeToScc map.
+  //
+  // IMPORTANT: nodeToScc must hold the *compact* index into sccs (0..N-1),
+  // not the raw scc_id[] label -- those labels (trim-assigned counters,
+  // the SCC_ELEPHANT_LABEL sentinel, or mice_fw_bw's vertex-id-based
+  // labels, see fw_bw.h) are only unique/comparable to each other, not
+  // small contiguous indices. Every vertex is grouped here (including any
+  // left at the initial scc_id==0, which previously fell through with a
+  // dangling nodeToScc[i]=0 that didn't correspond to any group at all).
     std::map<int, std::vector<int>> tempSccs;
+    for (int i = 0; i < vert_count; ++i) {
+        tempSccs[static_cast<int>(scc_id[i])].push_back(i);
+    }
+
     sccs.clear();
     nodeToScc.clear();
-
-    for (int i = 0; i < vert_count; ++i) {
-        int current_scc_id = static_cast<int>(scc_id[i]);
-        nodeToScc[i] = current_scc_id;
-        // Assuming 0 is not a valid SCC ID for grouping, or represents trivial SCCs.
-        if (current_scc_id != 0) {
-            tempSccs[current_scc_id].push_back(i);
-        }
+    int compact_id = 0;
+    for (const auto& pair : tempSccs) {
+        sccs.push_back(pair.second);
+        for (int v : pair.second) nodeToScc[v] = compact_id;
+        ++compact_id;
     }
 
     if (DEBUG)
@@ -578,10 +587,6 @@ void scc_detection(
             printf("Node %d -> SCC ID %d\n", pair.first, pair.second);
         }
         printf("-----------------------------\n");
-    }
-
-    for (const auto& pair : tempSccs) {
-        sccs.push_back(pair.second);
     }
 
     delete[] scc_id;

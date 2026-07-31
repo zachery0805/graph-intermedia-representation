@@ -5,8 +5,19 @@
 #include "util.h"
 #include "graph.h"
 #include <set>
-#include "scc_common.h" 
+#include "scc_common.h"
 #include <iostream>
+
+// SCC labels used to draw from the same [0, vert_count) integer space as
+// real vertex ids (trim labels started at 2 and climbed upward, the
+// "largest SCC" sentinel was hardcoded to 1, and mice_fw_bw labeled small
+// residual SCCs with the pivot vertex's own id) -- any of these could
+// collide with a real vertex id or with each other, silently merging
+// unrelated SCCs. These offsets keep the three label kinds in disjoint
+// ranges, comfortably above any realistic vert_count.
+#define SCC_ELEPHANT_LABEL   (1 << 29)
+#define SCC_TRIM_LABEL_START ((1 << 29) + 1)
+#define SCC_MICE_LABEL_OFFSET (1 << 30)
 
 inline void fw_bfs(
         index_t *scc_id,
@@ -217,7 +228,7 @@ inline void bw_bfs(
     bool is_top_down = true;
     bool is_top_down_queue = false;
     index_t level = 0;
-    scc_id[root] = 1;
+    scc_id[root] = SCC_ELEPHANT_LABEL;  // was hardcoded 1, collided with real vertex ids and trim labels
     index_t queue_size = vert_count / thread_count;
     while(true)
     {
@@ -244,7 +255,7 @@ inline void bw_bfs(
                             bw_sa[nebr] = level+1;
                             my_work_next+=bw_beg_pos[nebr+1]-bw_beg_pos[nebr];
                             front_count++;
-                            scc_id[nebr] = 1;	
+                            scc_id[nebr] = SCC_ELEPHANT_LABEL;	
                         }
                     }
                 }
@@ -269,7 +280,7 @@ inline void bw_bfs(
                             {
                                 bw_sa[vert_id] = level+1;
                                 front_count++;
-                                scc_id[vert_id] = 1;
+                                scc_id[vert_id] = SCC_ELEPHANT_LABEL;
                                 break;
                             }
                         }
@@ -318,7 +329,7 @@ inline void bw_bfs(
                             q[tail++] = w;
                             if(tail == queue_size)
                                 tail = 0;
-                            scc_id[w] = 1;
+                            scc_id[w] = SCC_ELEPHANT_LABEL;
                             bw_sa[w] = level + 1;
                         }
                     }
@@ -972,7 +983,7 @@ inline void bw_bfs_fq_queue(
 {
     depth_t level = 0;
     bw_sa[root] = 0;
-    scc_id[root] = 1;
+    scc_id[root] = SCC_ELEPHANT_LABEL;  // was hardcoded 1, collided with real vertex ids and trim labels
     temp_queue[0] = root;
     vertex_t queue_size = 1;
 //    vertex_t upper_bound = vert_count/thread_count * 10;
@@ -1032,7 +1043,7 @@ inline void bw_bfs_fq_queue(
                             bw_sa[nebr] = level+1;
                             thread_queue[vertex_frontier] = nebr;
                             vertex_frontier++;
-                            scc_id[nebr] = 1;
+                            scc_id[nebr] = SCC_ELEPHANT_LABEL;
                         }
                     }
                 }
@@ -1058,7 +1069,7 @@ inline void bw_bfs_fq_queue(
                             {
                                 bw_sa[vert_id] = level+1;
                                 vertex_frontier++;
-                                scc_id[vert_id] = 1;
+                                scc_id[vert_id] = SCC_ELEPHANT_LABEL;
 //                                front_count++;
                                 break;
                             }
@@ -1100,7 +1111,7 @@ inline void bw_bfs_fq_queue(
                             thread_queue[tail++] = w;
                             if(tail == end_queue)
                                 tail = 0;
-                            scc_id[w] = 1; 
+                            scc_id[w] = SCC_ELEPHANT_LABEL; 
                             bw_sa[w] = level + 1;
                         }
                     }
@@ -1288,7 +1299,7 @@ inline void bw_bfs_fq(
         is_top_down_async = true;
     }
     index_t level = 0;
-    scc_id[root] = 1;
+    scc_id[root] = SCC_ELEPHANT_LABEL;  // was hardcoded 1, collided with real vertex ids and trim labels
     index_t queue_size = fq_size / thread_count;
     while(true)
     {
@@ -1319,7 +1330,7 @@ inline void bw_bfs_fq(
                                 bw_sa[nebr] = level+1;
 //                                my_work_next+=bw_beg_pos[nebr+1]-bw_beg_pos[nebr];
                                 vertex_frontier++;
-                                scc_id[nebr] = 1;	
+                                scc_id[nebr] = SCC_ELEPHANT_LABEL;	
                             }
                         }
                     }
@@ -1345,7 +1356,7 @@ inline void bw_bfs_fq(
 //                                my_work_next+=bw_beg_pos[nebr+1]-bw_beg_pos[nebr];
                                 vertex_frontier++;
 //                                front_count++;
-                                scc_id[nebr] = 1;	
+                                scc_id[nebr] = SCC_ELEPHANT_LABEL;	
                             }
                         }
                     }
@@ -1376,7 +1387,7 @@ inline void bw_bfs_fq(
                                 bw_sa[vert_id] = level+1;
 //                                front_count++;
                                 vertex_frontier++;
-                                scc_id[vert_id] = 1;
+                                scc_id[vert_id] = SCC_ELEPHANT_LABEL;
                                 break;
                             }
                         }
@@ -1422,7 +1433,7 @@ inline void bw_bfs_fq(
                             q[tail++] = w;
                             if(tail == queue_size)
                                 tail = 0;
-                            scc_id[w] = 1;
+                            scc_id[w] = SCC_ELEPHANT_LABEL;
                             bw_sa[w] = level + 1;
                         }
                     }
@@ -1656,7 +1667,7 @@ inline void mice_fw_bw(
                     }
                 }
                 //bw
-                scc_id[v] = v;
+                scc_id[v] = v + SCC_MICE_LABEL_OFFSET;  // was scc_id[v]=v, collided with trim/elephant labels and the "0=unresolved" sentinel
                 q[tail++] = v;
                 if(tail == fq_size)
                     tail = 0;
@@ -1679,7 +1690,7 @@ inline void mice_fw_bw(
                             q[tail++] = w;
                             if(tail == fq_size)
                                 tail = 0;
-                            scc_id[w] = v;
+                            scc_id[w] = v + SCC_MICE_LABEL_OFFSET;
                         }
                     }
                 }
