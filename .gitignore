@@ -78,3 +78,22 @@ paper_original/figures/deletion_throughput_regen.pdf
 # Scratch environment from an in-progress attempt to build/benchmark DZiG locally
 # (cloned third-party repo + compiled binaries; not source we maintain)
 /experiments/dzig_bench/
+
+# gir_constructor test/bench binaries
+gir_constructor/gir_selftest
+gir_constructor/bench_gir
+gir_constructor/gir
+
+# Compiled drivers and tools (rebuild with each directory's Makefile)
+gir_constructor/el_to_csr
+experiments/baselines/aspen/aspen_driver
+experiments/baselines/spruce/spruce_driver
+experiments/baselines/terrace/terrace_driver
+experiments/baselines/terrace/terrace_sssp
+experiments/baselines/gir/gir_stream
+experiments/baselines/dzig/prepare
+# Run-time switches and one-off orchestration of the 2026-10 runs
+experiments/baselines/spruce_skip_mixed
+experiments/baselines/chain_*.sh
+# (the **/gir rule above is for the GIR binary; this directory holds sources)
+!/experiments/baselines/gir/

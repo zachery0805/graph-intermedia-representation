@@ -1,12 +1,7 @@
-# Compiler
 CXX = g++
-CXXFLAGS = -std=c++17 -O3 -fopenmp -I./includes -I./includes/scc_cpu
+CXXFLAGS = -std=c++17 -O3 -fopenmp -I. -I./includes -I./includes/scc_cpu
 
-# 可选编译开关
-# 用法：
-#   make DEBUG=1        # 开启DEBUG日志
-#   make OUTPUT_TIME=1  # 开启时间输出
-#   make DEBUG=1 OUTPUT_TIME=1 # 同时开启
+# make DEBUG=1 / make OUTPUT_TIME=1
 ifeq ($(DEBUG),1)
     CXXFLAGS += -DDEBUG
 endif
@@ -14,29 +9,40 @@ ifeq ($(OUTPUT_TIME),1)
     CXXFLAGS += -DOUTPUT_TIME
 endif
 
-# Source files
-SRCS = main.cpp gir.cpp graph.cpp graph_undirected.cpp \
-       includes/scc_cpu/scc_core.cpp \
-       includes/scc_cpu/load_print.cpp \
-       includes/wcc_cpu/wcc_core.cpp
+CORE = gir.o gir_query.o graph.o graph_undirected.o
 
+# jemalloc when installed (make JEMALLOC= to build without): the batched store
+# updates allocate many small per-vertex lists from all threads at once, and
+# glibc malloc's locking roughly halves their throughput.
+JEMALLOC ?= $(firstword $(wildcard /lib/x86_64-linux-gnu/libjemalloc.so.2 /usr/lib/x86_64-linux-gnu/libjemalloc.so.2))
+LDLIBS = $(JEMALLOC)
 
-# Object files
-OBJS = $(SRCS:.cpp=.o)
+all: gir bench_gir gir_selftest el_to_csr
 
-TARGET = gir
-
-all: $(TARGET)
-
-# Compile rule
-%.o: %.cpp
+%.o: %.cpp gir.h gir_iter.h graph.h graph_undirected.h block_cut_tree.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Link
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET)
+# gir_test.cpp is #included by the drivers, not compiled on its own.
+gir: main.o $(CORE)
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDLIBS)
+
+bench_gir: bench_main.o $(CORE)
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDLIBS)
+
+gir_selftest: gir_selftest.o $(CORE)
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDLIBS)
+
+main.o bench_main.o gir_selftest.o: gir_test.cpp graph_tests.h dynamic_repair.h
+
+# Differential correctness tests on generated graphs + data/example_graph.
+check: gir_selftest
+	./gir_selftest /tmp/gir_selftest_graphs ../data/example_graph
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f *.o gir bench_gir gir_selftest
 
-.PHONY: all clean
+.PHONY: all check clean
+
+# SNAP edge list -> binary CSR (data/<name>/fw_*.bin, bw_*.bin)
+el_to_csr: el_to_csr.cpp
+	$(CXX) -std=c++17 -O3 -fopenmp $< -o $@

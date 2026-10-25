@@ -1,8 +1,11 @@
+#include <queue>
+#include <cmath>
 #include "gir.h"
 #include "graph.h"
 #include "graph_undirected.h"
 #include "dynamic_repair.h"
 #include <iostream>
+#include <random>
 #include <vector>
 #include <limits>
 #include <chrono>
@@ -444,11 +447,16 @@ namespace EdgeUpdateTest {
     }
 
     std::vector<std::vector<int>> groundTruthBiccForScc(GIR& gir, const std::vector<int>& verts) {
+        // The undirected view is derived here from the *directed* edges
+        // (out- plus in-neighbors, deduplicated), never from GIR's own
+        // undirected overlay -- otherwise a bug in how GIR maintains that
+        // overlay would be invisible to this check.
         std::unordered_set<int> vert_set(verts.begin(), verts.end());
         auto neighbor_fn = [&](int x) {
-            std::vector<int> filtered;
-            for (int w : gir.getUndirectedNeighborsPublic(x)) if (vert_set.count(w)) filtered.push_back(w);
-            return filtered;
+            std::set<int> nb;
+            for (int w : gir.getDirectedOutNeighbors(x)) if (w != x && vert_set.count(w)) nb.insert(w);
+            for (int w : gir.getDirectedInNeighbors(x)) if (w != x && vert_set.count(w)) nb.insert(w);
+            return std::vector<int>(nb.begin(), nb.end());
         };
         auto result = dynamic_repair::find_bicc_scoped(verts, neighbor_fn);
         std::unordered_set<int> covered;
@@ -460,7 +468,29 @@ namespace EdgeUpdateTest {
     // Returns true (and prints nothing) if GIR's maintained state matches a
     // from-scratch rebuild; otherwise prints a diagnostic and returns false.
     bool checkConsistency(GIR& gir, int vert_count, const std::string& label) {
+        gir.ensureBlocks();  // (blocks on demand: bring them up to date first)
         bool ok = true;
+
+        // Undirected view must be exactly the symmetrization of the directed one.
+        for (int a = 0; a < vert_count; ++a) {
+            std::set<int> want, got;
+            for (int w : gir.getDirectedOutNeighbors(a)) if (w != a) want.insert(w);
+            for (int w : gir.getDirectedInNeighbors(a)) if (w != a) want.insert(w);
+            for (int w : gir.getUndirectedNeighborsPublic(a)) got.insert(w);
+            if (want != got) {
+                std::cerr << "[MISMATCH][" << label << "] undirected view of vertex " << a
+                          << " is not the symmetrized directed adjacency" << std::endl;
+                ok = false;
+                break;
+            }
+        }
+        {
+            std::string why;
+            if (!gir.checkBlockForestInvariants(&why)) {
+                std::cerr << "[MISMATCH][" << label << "] internal invariant: " << why << std::endl;
+                ok = false;
+            }
+        }
 
         auto gt_wcc = normalizePartition(groundTruthWcc(gir, vert_count));
         auto gir_wcc = normalizePartition(gir.getWCCs());
@@ -537,9 +567,9 @@ namespace EdgeUpdateTest {
     // every single update. Reports how many updates landed in each of the
     // five SPU cases (inferred from what actually changed) so a small test
     // run can confirm every case got exercised at least once.
-    void runDifferentialTest(GIR& gir, int num_updates, unsigned seed) {
+    int runDifferentialTest(GIR& gir, int num_updates, unsigned seed) {
         int V = gir.vertexCount();
-        if (V <= 1) { std::cout << "EdgeUpdateTest: graph too small, skipping." << std::endl; return; }
+        if (V <= 1) { std::cout << "EdgeUpdateTest: graph too small, skipping." << std::endl; return 0; }
         std::srand(seed);
 
         std::cout << "\n=== EdgeUpdateTest: " << num_updates << " random updates on " << V << " vertices ===" << std::endl;
@@ -551,7 +581,7 @@ namespace EdgeUpdateTest {
             std::cerr << "EdgeUpdateTest: initial state already inconsistent with a from-scratch rebuild "
                          "-- aborting (see docs/code-review.md for known base-data caveats, e.g. "
                          "data/livejournal vs data/soc-LiveJournal)." << std::endl;
-            return;
+            return 1;
         }
 
         // Independent ledger of every edge that should currently exist, kept
@@ -570,9 +600,16 @@ namespace EdgeUpdateTest {
         for (int iter = 0; iter < num_updates; ++iter) {
             int u = std::rand() % V;
             int v = std::rand() % V;
+            // Half of the time, target an edge that exists (sampling random
+            // pairs alone almost never hits one, so deletions -- and every
+            // split case -- would go untested).
+            if (std::rand() % 2) {
+                auto out = gir.getDirectedOutNeighbors(u);
+                if (!out.empty()) v = out[std::rand() % out.size()];
+            }
             if (u == v) continue;
 
-            bool present = gir.hasDirectedEdge(u, v) || gir.hasUndirectedEdge(u, v);
+            bool present = gir.hasDirectedEdge(u, v);
             std::map<int, int> wcc_before = gir.getNodeToWcc();
             std::map<int, int> scc_before = gir.getNodeToScc();
             int wcc_groups_before = (int)gir.getWCCs().size();
@@ -588,7 +625,8 @@ namespace EdgeUpdateTest {
                 gir.deleteEdge(u, v);
                 op = "delete";
                 ledger_directed.erase({u, v});
-                ledger_undirected.erase({std::min(u,v), std::max(u,v)});
+                if (!ledger_directed.count({v, u}))
+                    ledger_undirected.erase({std::min(u,v), std::max(u,v)});
             }
 
             int wcc_groups_after = (int)gir.getWCCs().size();
@@ -653,6 +691,7 @@ namespace EdgeUpdateTest {
                   << " WCC-split=" << case_wcc_split
                   << " SCC-split=" << case_scc_split
                   << " | mismatches=" << mismatches << "/" << num_updates << std::endl;
+        return mismatches;
     }
 
     // Deterministic, hand-verifiable check of Cases 5b/5c specifically
@@ -711,6 +750,105 @@ namespace EdgeUpdateTest {
         all_ok &= case5b_ok;
 
         std::cout << "Targeted split test: " << (all_ok ? "ALL OK" : "SOME FAILED") << std::endl;
+    }
+
+    // Filter-Merge-Update: random batches (with deliberate duplicates and
+    // cancelling insert/delete pairs), full consistency check after every
+    // batch. Returns the number of inconsistent batches.
+    int runBatchDifferentialTest(GIR& gir, int num_batches, int batch_size, unsigned seed) {
+        int V = gir.vertexCount();
+        std::srand(seed);
+        int bad = 0;
+        for (int it = 0; it < num_batches; ++it) {
+            std::vector<GIR::Update> batch;
+            for (int k = 0; k < batch_size; ++k) {
+                int u = std::rand() % V, v = std::rand() % V;
+                int r = std::rand() % 4;
+                if (r <= 1) {
+                    auto out = gir.getDirectedOutNeighbors(u);
+                    if (!out.empty()) { v = out[std::rand() % out.size()]; batch.push_back({u, v, false}); }
+                } else if (r == 2) {
+                    batch.push_back({u, v, true});
+                } else if (!batch.empty()) {
+                    GIR::Update prev = batch[std::rand() % batch.size()];
+                    batch.push_back({prev.u, prev.v, !prev.insert});  // cancel / re-apply
+                }
+            }
+            gir.applyBatch(batch);
+            if (!checkConsistency(gir, V, "batch " + std::to_string(it))) ++bad;
+        }
+        std::cout << "Batch differential test: " << (num_batches - bad) << "/" << num_batches
+                  << " batches consistent." << std::endl;
+        return bad;
+    }
+
+    // Deferred maintenance: random batches go through ingestBatch; BFS (store
+    // only) is checked while changes are pending, the layers after each sync.
+    // Some rounds use applyBatch / single-edge updates instead, which must
+    // sync on their own first.
+    int runLazyDifferentialTest(GIR& gir, int num_batches, int batch_size, unsigned seed) {
+        int V = gir.vertexCount();
+        std::srand(seed);
+        int bad = 0, checks = 0;
+        auto plain_bfs = [&](int s) {
+            std::vector<int> lv(V, -1);
+            std::queue<int> q;
+            lv[s] = 0; q.push(s);
+            while (!q.empty()) {
+                int u = q.front(); q.pop();
+                for (int w : gir.getDirectedOutNeighbors(u)) if (lv[w] < 0) { lv[w] = lv[u] + 1; q.push(w); }
+            }
+            return lv;
+        };
+        for (int it = 0; it < num_batches; ++it) {
+            std::vector<GIR::Update> batch;
+            for (int k = 0; k < batch_size; ++k) {
+                int u = std::rand() % V, v = std::rand() % V;
+                int r = std::rand() % 4;
+                if (r <= 1) {
+                    auto out = gir.getDirectedOutNeighbors(u);
+                    if (!out.empty()) { v = out[std::rand() % out.size()]; batch.push_back({u, v, false}); }
+                } else if (r == 2) {
+                    batch.push_back({u, v, true});
+                } else if (!batch.empty()) {
+                    GIR::Update prev = batch[std::rand() % batch.size()];
+                    batch.push_back({prev.u, prev.v, !prev.insert});
+                }
+            }
+            int mode = std::rand() % 8;
+            if (mode == 0) gir.applyBatch(batch);
+            else if (mode == 1 && !batch.empty()) {
+                gir.ingestBatch(std::vector<GIR::Update>(batch.begin(), batch.begin() + batch.size() / 2));
+                auto& op = batch.back();
+                op.insert ? gir.insertEdge(op.u, op.v) : gir.deleteEdge(op.u, op.v);
+            } else gir.ingestBatch(batch);
+            if (!gir.synced()) {
+                int s = std::rand() % V;
+                ++checks;
+                if (gir.bfs(s) != plain_bfs(s)) {
+                    std::cout << "[MISMATCH][lazy batch " << it << "] BFS on unsynced graph" << std::endl;
+                    ++bad;
+                }
+            }
+            // Reachability from the index (syncs) vs. a search on the store.
+            for (int k = 0; k < 20; ++k) {
+                int a = std::rand() % V, b = std::rand() % V;
+                bool x = gir.reachableNoIndex(a, b), y = gir.reachable(a, b);
+                ++checks;
+                if (x != y) {
+                    std::cout << "[MISMATCH][lazy batch " << it << "] reachable(" << a << "," << b << ") index " << y
+                              << " store " << x << std::endl;
+                    ++bad;
+                }
+            }
+            if (it % 3 == 2 || it == num_batches - 1) {
+                gir.sync();
+                ++checks;
+                if (!checkConsistency(gir, V, "lazy batch " + std::to_string(it))) ++bad;
+            }
+        }
+        std::cout << "Lazy differential test: " << checks - bad << "/" << checks << " checks passed." << std::endl;
+        return bad;
     }
 
 } // namespace EdgeUpdateTest
@@ -811,3 +949,137 @@ namespace GirBfsTest {
     }
 
 } // namespace GirBfsTest
+// ============================================================================
+// QueryTest -- BFS / SSSP / BC engines against plain sequential references.
+// ============================================================================
+namespace QueryTest {
+
+    std::vector<uint64_t> dijkstra(GIR& gir, int s) {
+        int V = gir.vertexCount();
+        std::vector<uint64_t> d(V, UINT64_MAX);
+        using P = std::pair<uint64_t, int>;
+        std::priority_queue<P, std::vector<P>, std::greater<P>> pq;
+        d[s] = 0; pq.push({0, s});
+        while (!pq.empty()) {
+            auto [du, u] = pq.top(); pq.pop();
+            if (du != d[u]) continue;
+            for (int w : gir.getDirectedOutNeighbors(u)) {
+                uint64_t nd = du + GIR::edgeWeight(u, w);
+                if (nd < d[w]) { d[w] = nd; pq.push({nd, w}); }
+            }
+        }
+        return d;
+    }
+
+    std::vector<double> brandes(GIR& gir, const std::vector<int>& sources) {
+        int V = gir.vertexCount();
+        std::vector<double> bc(V, 0.0);
+        for (int s : sources) {
+            std::vector<int> dist(V, -1), order;
+            std::vector<double> sigma(V, 0), delta(V, 0);
+            std::vector<std::vector<int>> pred(V);
+            dist[s] = 0; sigma[s] = 1; order.push_back(s);
+            for (size_t i = 0; i < order.size(); ++i) {
+                int u = order[i];
+                for (int w : gir.getDirectedOutNeighbors(u)) {
+                    if (dist[w] < 0) { dist[w] = dist[u] + 1; order.push_back(w); }
+                    if (dist[w] == dist[u] + 1) { sigma[w] += sigma[u]; pred[w].push_back(u); }
+                }
+            }
+            for (size_t i = order.size(); i-- > 0;) {
+                int w = order[i];
+                for (int u : pred[w]) delta[u] += sigma[u] / sigma[w] * (1 + delta[w]);
+                if (w != s) bc[w] += delta[w];
+            }
+        }
+        return bc;
+    }
+
+    // Returns the number of mismatching checks.
+    int run(GIR& gir, int num_sources, unsigned seed) {
+        int V = gir.vertexCount(), bad = 0;
+        std::srand(seed);
+        std::vector<int> srcs;
+        for (int i = 0; i < num_sources; ++i) srcs.push_back(std::rand() % V);
+        for (int s : srcs) {
+            auto want = GirBfsTest::sequentialBfs(gir, s, V);
+            if (gir.bfs(s) != want) { ++bad; std::cerr << "[QUERY] bfs mismatch from " << s << std::endl; }
+            if (gir.bfsTwoLevel(s) != want) { ++bad; std::cerr << "[QUERY] bfsTwoLevel mismatch from " << s << std::endl; }
+            auto dw = dijkstra(gir, s);
+            if (gir.sssp(s, 16) != dw) { ++bad; std::cerr << "[QUERY] sssp mismatch from " << s << std::endl; }
+            if (gir.ssspTwoLevel(s, 16) != dw) { ++bad; std::cerr << "[QUERY] ssspTwoLevel mismatch from " << s << std::endl; }
+        }
+        auto got = gir.bc(srcs);
+        auto want = brandes(gir, srcs);
+        for (int v = 0; v < V; ++v)
+            if (std::abs(got[v] - want[v]) > 1e-6 * (1 + std::abs(want[v]))) {
+                ++bad; std::cerr << "[QUERY] bc mismatch at " << v << ": " << got[v] << " vs " << want[v] << std::endl; break;
+            }
+        return bad;
+    }
+    // Updates interleaved with queries from fixed sources: catches stale
+    // query caches (the reachability cache must be invalidated by updates).
+    int interleaved(GIR& gir, int rounds, unsigned seed) {
+        int V = gir.vertexCount(), bad = 0;
+        std::srand(seed);
+        int s1 = std::rand() % V, s2 = std::rand() % V;
+        for (int r = 0; r < rounds; ++r) {
+            int u = std::rand() % V, v = std::rand() % V;
+            if (std::rand() % 2) { auto o = gir.getDirectedOutNeighbors(u); if (!o.empty()) v = o[std::rand() % o.size()]; }
+            if (u != v) { if (gir.hasDirectedEdge(u, v)) gir.deleteEdge(u, v); else gir.insertEdge(u, v); }
+            for (int s : {s1, s2}) {
+                auto want = GirBfsTest::sequentialBfs(gir, s, V);
+                if (gir.bfs(s) != want) { ++bad; std::cerr << "[QUERY] stale bfs round " << r << std::endl; }
+                if (gir.bfsTwoLevel(s) != want) { ++bad; std::cerr << "[QUERY] stale bfsTwoLevel round " << r << std::endl; }
+                if (gir.ssspTwoLevel(s, 8) != dijkstra(gir, s)) { ++bad; std::cerr << "[QUERY] stale sssp round " << r << std::endl; }
+            }
+        }
+        return bad;
+    }
+}  // namespace QueryTest
+
+// Incremental BFS / SSSP against from-scratch results, under batches
+// (applyBatch and ingestBatch) and single-edge updates.
+namespace IncTest {
+inline int run(GIR& gir, int rounds, unsigned seed) {
+    const int V = gir.vertexCount();
+    std::mt19937 rng(seed);
+    int src = (int)(rng() % V), bad = 0;
+    gir.trackIncremental(src, false);
+    gir.trackIncremental(src, true);
+    for (int r = 0; r < rounds && !bad; ++r) {
+        std::vector<GIR::Update> batch;
+        const int n = 1 + (int)(rng() % 40);
+        for (int i = 0; i < n; ++i) {
+            int u = (int)(rng() % V), v = (int)(rng() % V);
+            if (u == v) continue;
+            // Mostly deletions of existing edges (they exercise invalidation).
+            if (rng() % 3) {
+                auto out = gir.getDirectedOutNeighbors(u);
+                if (!out.empty()) { batch.push_back({u, out[rng() % out.size()], false}); continue; }
+            }
+            batch.push_back({u, v, true});
+        }
+        const int how = (int)(rng() % 3);
+        if (how == 0) gir.applyBatch(batch);
+        else if (how == 1) gir.ingestBatch(batch);
+        else for (auto& op : batch) op.insert ? gir.insertEdge(op.u, op.v) : gir.deleteEdge(op.u, op.v);
+        gir.updateIncremental(false);
+        gir.updateIncremental(true);
+        auto lv = gir.bfs(src);
+        auto d = gir.sssp(src);
+        for (int v = 0; v < V; ++v) {
+            uint64_t want_b = lv[v] < 0 ? UINT64_MAX : (uint64_t)lv[v];
+            if (gir.incDist(false, v) != want_b || gir.incDist(true, v) != d[v]) {
+                std::cerr << "[INC] round " << r << " (mode " << how << ") vertex " << v << ": bfs " << gir.incDist(false, v) << " vs " << want_b
+                          << ", sssp " << gir.incDist(true, v) << " vs " << d[v] << std::endl;
+                ++bad;
+                break;
+            }
+        }
+    }
+    gir.sync();
+    std::cout << "IncTest: " << (bad ? "MISMATCH" : "incremental BFS/SSSP match from-scratch") << std::endl;
+    return bad;
+}
+}  // namespace IncTest

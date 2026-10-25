@@ -6,6 +6,8 @@
 #include <assert.h>
 #include <string.h>
 #include "wtime.h"
+#include <vector>
+#include <utility>
 class graph
 {
 	public:
@@ -20,8 +22,14 @@ class graph
 		index_t src_count;
 
 	public:
-		graph(){};
-		~graph(){};
+		graph() : fw_beg_pos(nullptr), fw_csr(nullptr), bw_beg_pos(nullptr), bw_csr(nullptr),
+		          weight(nullptr), vert_count(0), edge_count(0), src_list(nullptr), src_count(0) {};
+		~graph() { delete[] fw_beg_pos; delete[] fw_csr; delete[] bw_beg_pos; delete[] bw_csr; }
+		// Builds forward and backward CSR from an in-memory edge list (used
+		// by the benchmark's hold-out protocol). Caller owns the result.
+		static graph* fromEdges(index_t V, const std::vector<std::pair<int, int>>& edges);
+		graph(const graph&) = delete;
+		graph& operator=(const graph&) = delete;
 		graph(const char *fw_beg_file, 
 				const char *fw_csr_file,
                 const char *bw_beg_file,
